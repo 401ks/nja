@@ -1,617 +1,2031 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Contact El Variente - Branding, Marketing, Content Creation, Web Development and AI Solutions."/>
-  <title>Contact - El Variente</title>
-  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-  <style>
-    /* Base Styles */
-    body {
-      margin: 0;
-      font-family: Garamond, serif;
-      background-color: #F7E7D0;
-      color: #0B0B0B;
-      line-height: 1.6;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaijaAssets - Premium Online Tutoring</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Original Brand Colors */
+            --surface-bright: #f8f9ff;
+            --surface-container-high: #dce9ff;
+            --surface-dim: #ccdbf3;
+            --secondary-fixed: #b1f0ce;
+            --on-surface-variant: #43474d;
+            --on-primary: #ffffff;
+            --on-secondary: #ffffff;
+            --primary-fixed: #d2e4ff;
+            --outline: #74777e;
+            --surface-container-highest: #d5e3fc;
+            --surface-container: #e6eeff;
+            --secondary-fixed-dim: #95d4b3;
+            --on-background: #0d1c2e;
+            --surface-container-low: #eff4ff;
+            --error: #ba1a1a;
+            --on-surface: #0d1c2e;
+            --primary-fixed-dim: #b0c8eb;
+            --outline-variant: #c4c6ce;
+            --on-primary-container: #768dad;
+            --surface: #f8f9ff;
+            --primary-container: #0a2540;
+            --secondary-container: #aeeecb;
+            --on-secondary-fixed: #002114;
+            --on-tertiary-fixed: #191c1e;
+            --secondary: #2c694e;
+            --primary: #000f22;
+            --surface-container-lowest: #ffffff;
+            --on-secondary-container: #316e52;
+            --on-primary-fixed: #001c37;
+            
+            /* Spacing & Layout */
+            --margin-desktop: 40px;
+            --margin-mobile: 16px;
+            --gutter: 24px;
+            --stack-lg: 48px;
+            --stack-md: 24px;
+            --stack-sm: 12px;
+            --container-max: 1280px;
+            
+            /* Border Radius */
+            --radius-default: 2px;
+            --radius-lg: 4px;
+            --radius-xl: 8px;
+            --radius-full: 12px;
+            
+            /* Typography */
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--surface-bright);
+            color: var(--on-surface);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 600; color: var(--primary); }
+        a { text-decoration: none; color: inherit; }
 
-    /* Glassmorphism */
-    .glass-header,
-    .glass-footer,
-    .glass-card {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    }
+        /* HEADER */
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            background-color: var(--surface-bright);
+            border-bottom: 1px solid var(--outline-variant);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+        .header-container {
+            max-width: var(--container-max); margin: 0 auto; height: 100%;
+            padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-family: var(--font-display); font-size: 24px; font-weight: 700;
+            color: var(--primary); letter-spacing: -0.02em;
+        }
+        .nav-center {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 32px;
+        }
+        .nav-link {
+            font-family: var(--font-body); font-size: 13px; font-weight: 600;
+            letter-spacing: 0.05em; color: var(--on-surface-variant); transition: color 0.2s; text-transform: uppercase;
+        }
+        .nav-link:hover { color: var(--secondary); }
+        .cta-button {
+            background-color: var(--primary); color: var(--on-primary); padding: 10px 20px;
+            border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600;
+            letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
+        .mobile-menu-toggle {
+            display: none; background: none; border: none; color: var(--on-surface-variant);
+            font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001;
+        }
 
-    /* Header/Navbar */
-    header {
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #800020;
-      margin: 0;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
-      margin: 0;
-      padding: 0;
-    }
-    nav a {
-      text-decoration: none;
-      color: #800020;
-      font-weight: 500;
-      font-size: 1rem;
-    }
+        /* MOBILE MENU OVERLAY */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 28, 46, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--surface-bright);
+            z-index: 1000;
+            padding: 80px 24px 24px;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+        .mobile-menu.active {
+            right: 0;
+        }
+        .mobile-menu-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--on-surface-variant);
+            cursor: pointer;
+            padding: 8px;
+        }
+        .mobile-nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        .mobile-nav-link {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--on-surface);
+            padding: 12px 16px;
+            border-radius: var(--radius-xl);
+            transition: all 0.2s ease;
+            display: block;
+        }
+        .mobile-nav-link:hover {
+            background: var(--surface-container);
+            color: var(--secondary);
+        }
+        .mobile-menu-cta {
+            background: var(--primary);
+            color: var(--on-primary);
+            padding: 14px 24px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            display: block;
+            margin-top: 16px;
+        }
+        .mobile-socials {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--outline-variant);
+        }
+        .mobile-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+        .mobile-socials a:hover {
+            background: var(--secondary-container);
+            transform: translateY(-2px);
+        }
 
-    /* Hamburger Menu */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: #800020;
-      margin: 3px 0;
-      transition: 0.3s;
-    }
+        /* HERO */
+        .hero {
+            margin-top: 64px; padding: var(--stack-lg) var(--margin-desktop);
+            background-color: var(--surface-container-low); position: relative;
+            overflow: hidden; min-height: 700px; display: flex; align-items: center;
+        }
+        .hero-background {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://data.naijaassets.com/coverim.jpeg');
+            background-size: cover; background-position: center;
+            z-index: 0;
+        }
+        .hero-background::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 300px;
+            background: linear-gradient(
+                to top, 
+                var(--surface-container-low) 0%, 
+                rgba(239, 244, 255, 0.95) 25%, 
+                rgba(239, 244, 255, 0.6) 50%, 
+                transparent 75%, 
+                transparent 100%
+            );
+        }
+        .hero-container {
+            max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em;
+            color: var(--secondary); margin-bottom: var(--stack-md); text-transform: uppercase;
+        }
+        .hero-title {
+            font-family: var(--font-display); font-size: 48px; font-weight: 700; color: var(--primary);
+            line-height: 1.15; letter-spacing: -0.02em; margin-bottom: var(--stack-md);
+        }
+        .hero-subtitle {
+            font-family: var(--font-body); font-size: 24px; font-weight: 400; color: var(--on-surface);
+            line-height: 1.33; margin-bottom: var(--stack-md);
+        }
+        .hero-description {
+            font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--on-surface-variant);
+            max-width: 640px; margin: 0 auto var(--stack-lg);
+        }
+        .hero-buttons { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px; }
+        .btn-primary {
+            background-color: var(--primary); color: var(--on-primary); padding: 16px 32px;
+            border-radius: var(--radius-full); font-family: var(--font-display); font-size: 16px; font-weight: 600;
+            border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary:hover { background-color: var(--primary-container); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,15,34,0.15); }
+        .btn-secondary {
+            background-color: transparent; color: var(--on-surface); padding: 16px 32px;
+            border-radius: var(--radius-full); font-family: var(--font-display); font-size: 16px; font-weight: 600;
+            border: 2px solid var(--outline-variant); cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-secondary:hover { border-color: var(--secondary); color: var(--secondary); transform: translateY(-2px); }
+        .hero-link {
+            display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-body);
+            font-size: 14px; font-weight: 500; color: var(--on-surface-variant); border-bottom: 1px dotted var(--outline);
+            padding-bottom: 2px; transition: all 0.2s;
+        }
+        .hero-link:hover { color: var(--secondary); border-bottom-color: var(--secondary); }
+        .hero-link i { font-size: 14px; transition: transform 0.2s; }
+        .hero-link:hover i { transform: translateX(4px); }
 
-    /* Page Header */
-    .page-header {
-      padding: 40px 0 20px;
-      text-align: center;
-    }
-    .page-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      color: #800020;
-      font-weight: normal;
-    }
+        /* HOW IT WORKS */
+        .how-it-works { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-bright); }
+        .how-it-works-container { max-width: var(--container-max); margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: var(--stack-lg); }
+        .section-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); }
+        .section-subtitle { font-family: var(--font-body); font-size: 18px; color: var(--on-surface-variant); max-width: 600px; margin: 0 auto; }
+        .steps-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); position: relative; }
+        .steps-container::before {
+            content: ''; position: absolute; top: 40px; left: 10%; right: 10%; height: 2px;
+            background: linear-gradient(90deg, var(--primary-fixed) 0%, var(--secondary-fixed) 50%, var(--primary-fixed) 100%);
+            z-index: 0; display: none;
+        }
+        @media (min-width: 1025px) { .steps-container::before { display: block; } }
+        .step-card {
+            background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl);
+            padding: var(--stack-md); position: relative; z-index: 1; transition: all 0.3s ease;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .step-card:hover { border-color: var(--secondary); box-shadow: 0 8px 24px rgba(44, 105, 78, 0.1); transform: translateY(-4px); }
+        .step-indicators { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: var(--stack-sm); }
+        .step-number {
+            width: 36px; height: 36px; border-radius: 50%; background: var(--primary-fixed); color: var(--primary);
+            display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 16px; font-weight: 700; flex-shrink: 0;
+        }
+        .step-icon {
+            width: 48px; height: 48px; border-radius: var(--radius-lg); background: var(--secondary-container); color: var(--secondary);
+            display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+        }
+        .step-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: var(--stack-sm); line-height: 1.33; }
+        .step-description { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; }
 
-    /* Contact Content */
-    .contact-content {
-      padding: 30px 0 50px;
-    }
-    .contact-content h2 {
-      color: #800020;
-      font-size: 1.8rem;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      font-weight: normal;
-    }
-    .contact-content p {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-    }
-    .contact-content ul {
-      padding-left: 20px;
-      margin-bottom: 20px;
-    }
-    .contact-content li {
-      margin-bottom: 10px;
-    }
-    .contact-link {
-      display: inline-block;
-      padding: 10px 20px;
-      background: transparent;
-      color: #800020;
-      border: 2px solid #800020;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-      margin-top: 10px;
-    }
-    .contact-link:hover {
-      background: #6AA76D;
-      border-color: #6AA76D;
-      color: white;
-      box-shadow: 0 0 8px rgba(106, 167, 109, 0.5);
-    }
+        /* SUBJECTS */
+        .subjects { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-container-low); }
+        .subjects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); max-width: var(--container-max); margin: 0 auto; align-items: stretch; }
+        .subject-card {
+            background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl);
+            padding: var(--stack-md); display: flex; flex-direction: column; transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .subject-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .subject-card.highlighted {
+            background: linear-gradient(145deg, var(--primary) 0%, var(--primary-container) 100%);
+            color: var(--on-primary); border-color: transparent; box-shadow: 0 12px 32px rgba(0,15,34,0.25);
+        }
+        .subject-card.highlighted .subject-icon { background: rgba(255,255,255,0.15); color: var(--on-primary); }
+        .subject-card.highlighted .subject-title { color: var(--on-primary); }
+        .subject-card.highlighted .subject-desc { color: var(--primary-fixed); }
+        .subject-card.highlighted .badge { background: var(--secondary-container); color: var(--on-secondary-container); }
+        .subject-card.highlighted .subject-cta { color: var(--secondary-fixed); border-bottom-color: var(--secondary-fixed); }
+        .subject-card.highlighted .subject-cta:hover { color: var(--secondary-container); border-bottom-style: solid; }
+        .subject-icon {
+            width: 44px; height: 44px; border-radius: var(--radius-lg); background: var(--surface-container); color: var(--secondary);
+            display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: var(--stack-sm);
+        }
+        .badge {
+            display: inline-block; padding: 4px 10px; border-radius: var(--radius-full); font-size: 11px;
+            font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: var(--primary-fixed);
+            color: var(--primary); margin-bottom: var(--stack-sm); width: fit-content;
+        }
+        .subject-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .subject-desc { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); flex-grow: 1; }
+        .subject-cta {
+            font-family: var(--font-body); font-size: 14px; font-weight: 600; color: var(--secondary);
+            display: inline-flex; align-items: center; gap: 6px; border-bottom: 1px dotted var(--secondary);
+            padding-bottom: 2px; transition: all 0.2s; width: fit-content;
+        }
+        .subject-cta:hover { gap: 10px; border-bottom-style: solid; }
+        .subject-cta i { font-size: 12px; transition: transform 0.2s; }
+        .subject-cta:hover i { transform: translateX(4px); }
 
-    /* Form Styles */
-    .contact-form-container {
-      margin: 40px 0;
-      padding: 30px;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      color: #800020;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-family: Garamond, serif;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-    .form-group textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-    .submit-btn {
-      background: #800020;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .submit-btn:hover {
-      background: #6AA76D;
-    }
-    .hidden {
-      display: none;
-    }
-    .success-message {
-      background: rgba(106, 167, 109, 0.2);
-      border: 1px solid #6AA76D;
-      padding: 20px;
-      border-radius: 4px;
-      text-align: center;
-      margin-top: 20px;
-      display: none;
-    }
+        /* WHY PARENTS */
+        .why-parents { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-bright); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); max-width: var(--container-max); margin: 0 auto; }
+        .feature-card {
+            background: rgba(248, 249, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(196, 198, 206, 0.6);
+            border-radius: var(--radius-xl);
+            padding: var(--stack-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--stack-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary-fixed), var(--secondary-fixed));
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px); border-color: var(--secondary);
+            box-shadow: 0 12px 40px rgba(44, 105, 78, 0.08);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon {
+            width: 40px; height: 40px; border-radius: var(--radius-lg);
+            background: var(--surface-container); color: var(--secondary);
+            display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover .feature-icon {
+            background: var(--secondary-container); color: var(--on-secondary); transform: scale(1.05);
+        }
+        .feature-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--primary); margin: 0; line-height: 1.4; }
+        .feature-desc { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin: 0; }
 
-    /* Footer */
-    footer {
-      background-color: #3e4551;
-      color: #0B0B0B;
-      padding: 40px 0 0;
-      margin-top: 50px;
-    }
-    .footer-content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      margin-bottom: 30px;
-    }
-    .footer-column {
-      flex: 1;
-      min-width: 200px;
-    }
-    .footer-column h5 {
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      color: #fff;
-    }
-    .footer-column ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .footer-column ul li {
-      margin-bottom: 10px;
-    }
-    .footer-column ul li a {
-      color: #0B0B0B;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .footer-column ul li a:hover {
-      color: #6AA76D;
-    }
-    .footer-column p {
-      color: #0B0B0B;
-    }
-    .social-icons {
-      display: flex;
-      gap: 15px;
-      margin: 20px 0;
-    }
-    .social-icons a {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-    }
-    .social-icons a:hover {
-      background: #6AA76D;
-    }
-    .social-icons img {
-      filter: brightness(0);
-    }
-    .copyright {
-      text-align: center;
-      padding: 20px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 20px;
-      color: #0B0B0B;
-    }
+        /* WHAT CLASSES LOOK LIKE - Mobile Fixed */
+        .classes-preview {
+            padding: var(--stack-lg) var(--margin-desktop);
+            background: linear-gradient(180deg, var(--surface-container-low) 0%, var(--surface-dim) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .classes-preview::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -20%;
+            width: 140%; height: 200%;
+            background: radial-gradient(ellipse at center, rgba(44, 105, 78, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .classes-container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--stack-lg);
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+        .classes-content { padding-right: var(--stack-md); }
+        .classes-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); }
+        .classes-subtitle { font-family: var(--font-body); font-size: 18px; color: var(--on-surface-variant); margin-bottom: var(--stack-lg); max-width: 500px; }
+        
+        .class-points { display: flex; flex-direction: column; gap: var(--stack-md); }
+        .class-point { display: flex; gap: 16px; align-items: flex-start; }
+        .class-point-icon {
+            width: 36px; height: 36px; border-radius: var(--radius-lg);
+            background: var(--secondary-container); color: var(--secondary);
+            display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; margin-top: 2px;
+        }
+        .class-point-text h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+        .class-point-text p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin: 0; }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .glass-header,
-      .glass-footer {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-      }
-      
-      .hamburger {
-        display: flex;
-      }
-      
-      nav ul {
-        position: fixed;
-        top: 60px;
-        left: -100%;
-        flex-direction: column;
-        background-color: rgba(247, 231, 208, 0.95);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        padding: 20px 0;
-        gap: 15px;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-      }
-      
-      nav ul.active {
-        left: 0;
-      }
-      
-      .page-header h1 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+        /* Visual Stack - Desktop Only */
+        .visual-stack { position: relative; height: 420px; display: flex; align-items: center; justify-content: center; }
+        .mockup-card {
+            position: absolute; background: var(--surface); border: 1px solid var(--outline-variant);
+            border-radius: var(--radius-xl); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mockup-meet {
+            width: 280px; height: 180px; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1;
+            background: var(--surface); display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+        }
+        .mockup-meet:hover {
+            transform: translateX(-50%) scale(2);
+            z-index: 20 !important;
+            box-shadow: 0 24px 64px rgba(0, 15, 34, 0.25);
+            border-color: var(--secondary);
+        }
+        .mockup-meet img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mockup-meet::after {
+            content: 'Live Class Preview';
+            position: absolute; bottom: 12px; left: 16px;
+            font-family: var(--font-body); font-size: 11px; font-weight: 600;
+            color: var(--on-primary); background: rgba(0,15,34,0.7);
+            padding: 4px 10px; border-radius: var(--radius-full);
+            z-index: 2; pointer-events: none;
+        }
+        .mockup-meet:hover::after { opacity: 0; }
+
+        .mockup-timetable {
+            width: 220px; height: 140px; top: 140px; left: 20px; z-index: 2; padding: 12px;
+        }
+        .mockup-timetable-header {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+            padding-bottom: 8px; border-bottom: 1px solid var(--outline-variant);
+        }
+        .mockup-timetable-header i { color: var(--secondary); font-size: 14px; }
+        .mockup-timetable-header span { font-family: var(--font-display); font-size: 12px; font-weight: 600; color: var(--primary); }
+        .mockup-timetable-row {
+            display: flex; justify-content: space-between; font-size: 10px; color: var(--on-surface-variant);
+            padding: 4px 0; border-bottom: 1px dashed var(--outline-variant);
+        }
+        .mockup-timetable-row:last-child { border-bottom: none; }
+        .mockup-timetable-row.active { color: var(--secondary); font-weight: 600; }
+
+        .mockup-assignment {
+            width: 200px; height: 120px; top: 160px; right: 30px; z-index: 3; padding: 12px;
+            background: linear-gradient(145deg, var(--surface), var(--surface-container-low));
+        }
+        .mockup-assignment-title {
+            font-family: var(--font-display); font-size: 11px; font-weight: 600; color: var(--primary);
+            margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+        }
+        .mockup-assignment-title i { color: var(--secondary); font-size: 12px; }
+        .mockup-assignment-item {
+            display: flex; align-items: center; gap: 6px; font-size: 9px; color: var(--on-surface-variant);
+            margin-bottom: 4px;
+        }
+        .mockup-assignment-item i { color: var(--outline); font-size: 10px; }
+        .mockup-assignment-item.completed { color: var(--secondary); }
+        .mockup-assignment-item.completed i { color: var(--secondary); }
+
+        .mockup-whatsapp {
+            width: 180px; height: 90px; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 4;
+            padding: 10px; background: var(--surface); border-left: 3px solid var(--secondary);
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .mockup-whatsapp-header { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+        .mockup-whatsapp-header i { color: #25D366; font-size: 14px; }
+        .mockup-whatsapp-header span { font-family: var(--font-body); font-size: 10px; font-weight: 600; color: var(--on-surface); }
+        .mockup-whatsapp-text { font-size: 9px; color: var(--on-surface-variant); line-height: 1.4; }
+
+        .floating-badge {
+            position: absolute;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            white-space: nowrap;
+            z-index: 5;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        
+        .badge-1 { top: 10px; right: 20px; background: var(--primary); color: var(--on-primary); border: 2px solid var(--primary-fixed-dim); animation-delay: 0s; }
+        .badge-1 i { color: var(--secondary-fixed); }
+        .badge-2 { top: 120px; left: -10px; background: transparent; color: var(--secondary); border: 2px dashed var(--secondary-container); animation-delay: 0.8s; }
+        .badge-2 i { color: var(--secondary); }
+        .badge-3 { bottom: 40px; left: 30px; background: linear-gradient(135deg, var(--secondary-container), var(--secondary-fixed)); color: var(--on-secondary); border: none; animation-delay: 1.2s; }
+        .badge-3 i { color: var(--on-secondary); }
+        .badge-4 { bottom: 10px; right: 40px; background: var(--surface-container); color: var(--on-surface); border: 1px solid var(--outline-variant); animation-delay: 0.4s; }
+        .badge-4 i { color: var(--secondary); }
+
+        /* EARLY FEEDBACK SECTION */
+        .early-feedback { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-bright); }
+        .feedback-container { max-width: var(--container-max); margin: 0 auto; }
+        .feedback-header { text-align: center; margin-bottom: var(--stack-lg); }
+        .feedback-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); }
+        .feedback-subtitle { font-family: var(--font-body); font-size: 18px; color: var(--on-surface-variant); max-width: 600px; margin: 0 auto; }
+        
+        .feedback-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-bottom: var(--stack-lg); }
+        .feedback-card {
+            background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl);
+            padding: var(--stack-md); display: flex; flex-direction: column; gap: var(--stack-sm); transition: all 0.3s ease;
+        }
+        .feedback-card:hover { border-color: var(--secondary); box-shadow: 0 8px 24px rgba(44, 105, 78, 0.08); transform: translateY(-4px); }
+        
+        .tutor-avatar {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-fixed), var(--secondary-fixed));
+            display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 20px; margin-bottom: var(--stack-sm);
+        }
+        .feedback-quote { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; font-style: italic; margin-bottom: var(--stack-sm); }
+        .feedback-author { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--primary); }
+        .feedback-role { font-family: var(--font-body); font-size: 12px; color: var(--on-surface-variant); }
+        .growth-card { background: linear-gradient(145deg, var(--surface-container-low), var(--surface)); border-left: 4px solid var(--secondary); }
+        .growth-card .feedback-quote { font-style: normal; font-weight: 500; color: var(--on-surface); }
+        
+        .students-receive { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: var(--stack-md); }
+        .receive-item {
+            display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+            background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-full);
+            font-family: var(--font-body); font-size: 13px; color: var(--on-surface); transition: all 0.2s ease;
+        }
+        .receive-item:hover { border-color: var(--secondary); background: var(--surface-container); }
+        .receive-item i { color: var(--secondary); font-size: 14px; }
+
+        /* PRICING SECTION */
+        .pricing-section {
+            padding: var(--stack-lg) var(--margin-desktop);
+            background-color: var(--surface-container-low);
+        }
+        .pricing-container { max-width: var(--container-max); margin: 0 auto; }
+        .pricing-header { text-align: center; margin-bottom: var(--stack-lg); }
+        .pricing-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); }
+        .pricing-subtitle { font-family: var(--font-body); font-size: 18px; color: var(--on-surface-variant); max-width: 600px; margin: 0 auto; }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gutter);
+        }
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            border-radius: var(--radius-xl);
+            padding: var(--stack-md);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .pricing-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 12px 32px rgba(44, 105, 78, 0.1);
+            transform: translateY(-4px);
+        }
+        .pricing-card.featured {
+            border: 2px solid var(--secondary);
+            background: linear-gradient(145deg, var(--surface), var(--surface-container));
+        }
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            color: var(--on-secondary);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 16px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .pricing-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            background: var(--surface-container);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: var(--stack-sm);
+        }
+        .pricing-card.featured .pricing-icon {
+            background: var(--secondary-container);
+            color: var(--on-secondary);
+        }
+        
+        .pricing-title-card {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .pricing-subtitle-card {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--on-surface-variant);
+            margin-bottom: var(--stack-md);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: var(--stack-md);
+            flex-grow: 1;
+        }
+        .pricing-features li {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pricing-features li i {
+            color: var(--secondary);
+            font-size: 12px;
+        }
+        
+        .pricing-btn {
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s ease;
+            border: 2px solid var(--outline-variant);
+            background: transparent;
+            color: var(--on-surface);
+            cursor: pointer;
+        }
+        .pricing-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background: var(--surface-container);
+        }
+        .pricing-card.featured .pricing-btn {
+            background: var(--secondary);
+            color: var(--on-secondary);
+            border-color: var(--secondary);
+        }
+        .pricing-card.featured .pricing-btn:hover {
+            background: var(--on-secondary-fixed-variant);
+            color: var(--on-secondary);
+        }
+
+        /* FAQ SECTION - 2 Column Layout */
+        .faq-section {
+            padding: var(--stack-lg) var(--margin-desktop);
+            background-color: var(--surface-bright);
+        }
+        .faq-container { max-width: var(--container-max); margin: 0 auto; }
+        .faq-header { text-align: center; margin-bottom: var(--stack-lg); }
+        .faq-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); }
+        .faq-subtitle { font-family: var(--font-body); font-size: 18px; color: var(--on-surface-variant); max-width: 600px; margin: 0 auto; }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gutter);
+        }
+        .faq-list { display: flex; flex-direction: column; gap: 12px; }
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        .faq-item:hover { border-color: var(--secondary); }
+        
+        .faq-question {
+            width: 100%;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.2s ease;
+        }
+        .faq-question:hover { color: var(--secondary); }
+        .faq-question:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: -2px;
+        }
+        
+        .faq-toggle {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: var(--surface-container);
+            color: var(--secondary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease, background 0.2s ease;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            background: var(--secondary-container);
+            color: var(--on-secondary);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 180px;
+            padding: 0 18px 16px 18px;
+        }
+        .faq-answer p {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* FINAL CTA SECTION */
+        .final-cta {
+            padding: var(--stack-lg) var(--margin-desktop);
+            background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-container) 100%);
+        }
+        .cta-container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--stack-lg);
+            align-items: start;
+        }
+        .cta-content h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--stack-sm);
+            line-height: 1.2;
+        }
+        .cta-content p {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--on-surface-variant);
+            margin-bottom: var(--stack-md);
+            line-height: 1.6;
+        }
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            background: #128C7E;
+        }
+        .btn-admin {
+            background: var(--primary);
+            color: var(--on-primary);
+            padding: 16px 32px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-admin:hover {
+            background: var(--primary-container);
+            transform: translateY(-2px);
+        }
+        .cta-note {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--on-surface-variant);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cta-note i { color: var(--secondary); font-size: 14px; }
+
+        /* Form Styles */
+        .cta-form {
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            border-radius: var(--radius-xl);
+            padding: var(--stack-md);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+        .form-group { margin-bottom: 16px; }
+        .form-label {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--on-surface);
+            margin-bottom: 6px;
+            letter-spacing: 0.02em;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--outline-variant);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--on-surface);
+            background: var(--surface-bright);
+            transition: all 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(44, 105, 78, 0.1);
+        }
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--secondary);
+            cursor: pointer;
+        }
+        .form-checkbox label {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--on-surface-variant);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+        .form-checkbox a {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .btn-submit {
+            width: 100%;
+            background: var(--secondary);
+            color: var(--on-secondary);
+            padding: 16px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-submit:hover {
+            background: var(--primary-fixed-dim);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(44, 105, 78, 0.2);
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Modal/Popup Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(13, 28, 46, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--margin-mobile);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--stack-md);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--stack-sm);
+            font-size: 28px;
+        }
+        .modal-success .modal-icon {
+            background: var(--secondary-container);
+            color: var(--secondary);
+        }
+        .modal-error .modal-icon {
+            background: var(--error-container);
+            color: var(--error);
+        }
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .modal-text {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            margin-bottom: var(--stack-md);
+            line-height: 1.6;
+        }
+        .btn-modal-close {
+            background: var(--primary);
+            color: var(--on-primary);
+            padding: 12px 32px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-modal-close:hover {
+            background: var(--primary-container);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--surface-dim);
+            border-top: 1px solid var(--outline-variant);
+            padding: var(--stack-lg) var(--margin-desktop) var(--stack-md);
+        }
+        .footer-container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--stack-lg);
+            margin-bottom: var(--stack-lg);
+        }
+        .footer-brand .logo {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--stack-sm);
+            display: block;
+        }
+        .footer-brand p {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            line-height: 1.6;
+            margin-bottom: var(--stack-md);
+            max-width: 280px;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        .footer-socials a:hover {
+            background: var(--secondary-container);
+            color: var(--on-secondary);
+            transform: translateY(-2px);
+        }
+        .footer-column h4 {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--stack-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-links a {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            transition: all 0.2s ease;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 4px;
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--stack-md);
+            border-top: 1px solid var(--outline-variant);
+        }
+        .footer-copyright {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--on-surface-variant);
+        }
+        .footer-socials-bottom {
+            display: flex;
+            gap: 16px;
+        }
+        .footer-socials-bottom a {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--on-surface-variant);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s ease;
+        }
+        .footer-socials-bottom a:hover {
+            color: var(--secondary);
+        }
+
+        /* RESPONSIVE - Critical Fixes */
+        @media (max-width: 1024px) {
+            .nav-center { display: none; }
+            .mobile-menu-toggle { display: block; }
+            .steps-container { grid-template-columns: 1fr; gap: var(--stack-md); }
+            .steps-container::before { display: none; }
+            .subjects-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            /* Classes Preview Mobile: Hide visual stack, show only text */
+            .classes-container { grid-template-columns: 1fr; gap: var(--stack-lg); }
+            .classes-content { padding-right: 0; text-align: left !important; }
+            .classes-subtitle { margin-left: 0; margin-right: 0; }
+            .class-points { align-items: flex-start; }
+            .class-point { text-align: left; max-width: 100%; margin: 0; }
+            .visual-stack { display: none; }
+            
+            .mockup-meet { width: 240px; height: 150px; }
+            .mockup-meet:hover { transform: translateX(-50%) scale(1.8); }
+            .mockup-timetable { width: 190px; height: 120px; left: 10px; }
+            .mockup-assignment { width: 170px; height: 100px; right: 20px; }
+            .mockup-whatsapp { width: 160px; height: 80px; }
+            .floating-badge { position: relative; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important; margin: 4px; animation: none; }
+            .feedback-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .faq-grid { grid-template-columns: 1fr; }
+            .cta-container { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-container { padding: 0 var(--margin-mobile); }
+            .hero, .how-it-works, .subjects, .why-parents, .classes-preview, .early-feedback, .pricing-section, .faq-section, .final-cta, .footer { padding: var(--stack-md) var(--margin-mobile); min-height: auto; }
+            .hero-title { font-size: 32px; }
+            .hero-subtitle { font-size: 18px; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .section-title, .faq-title, .feedback-title, .pricing-title, .cta-content h2 { font-size: 28px; }
+            .section-subtitle, .faq-subtitle, .feedback-subtitle, .pricing-subtitle { font-size: 16px; }
+            
+            .step-card { flex-direction: row; text-align: left; align-items: flex-start; padding: 14px; gap: 12px; }
+            .step-indicators { flex-direction: row; margin-bottom: 0; align-items: center; }
+            .step-number { width: 26px; height: 26px; font-size: 13px; }
+            .step-icon { width: 32px; height: 32px; font-size: 14px; }
+            .step-content { flex: 1; }
+            .step-title { font-size: 15px; margin-bottom: 4px; }
+            .step-description { font-size: 13px; }
+            
+            .subjects-grid, .features-grid { grid-template-columns: 1fr; }
+            .feature-card { flex-direction: row; align-items: flex-start; padding: 16px; }
+            .feature-icon { margin-right: 12px; }
+            .feature-content { flex: 1; }
+            
+            .feedback-grid { grid-template-columns: 1fr; }
+            .students-receive { flex-direction: column; align-items: center; }
+            .receive-item { width: 100%; justify-content: center; }
+            
+            .pricing-grid { grid-template-columns: 1fr; }
+            
+            .faq-question { font-size: 15px; padding: 16px 18px; }
+            .faq-toggle { width: 24px; height: 24px; font-size: 12px; }
+            .faq-answer p { font-size: 13px; }
+            
+            .cta-buttons { width: 100%; }
+            .btn-whatsapp, .btn-admin { width: 100%; }
+            
+            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .footer-brand p { max-width: 100%; }
+        }
+        
+        /* Accessibility */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
+        }
+        
+        /* Image loading states */
+        img { transition: opacity 0.3s ease; }
+        img[loading="lazy"] { opacity: 0; }
+        img.loaded { opacity: 1; }
+    </style>
 </head>
 <body>
-
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Elvariente",
-    "alternateName": ["El Variente", "Elvarienti", "Elvarienté", "Elvarient", "Elveriente", "elvariente", "ELVARIENTE", "El Variente", "el variente", "EL VARIENTE", "Elvarienti", "elvarienti", "ELVARIENTI", "Elvarienté", "elvarienté", "ELVARIENTÉ", "Elvariante", "elvariante", "ELVARIANTE", "Elvarient", "elvarient", "ELVARIENT", "Elveriente", "elveriente", "ELVERIENTE", "Elverienti", "elverienti", "ELVERIENTI", "Elvarienta", "elvarienta", "ELVARIENTA", "Elvarente", "elvarente", "ELVARENTE", "Elvariete", "elvariete", "ELVARIETE", "Elvarienty", "elvarienty", "ELVARIENTY", "Elvarinty", "elvarinty", "ELVARINTY", "Elvarieente", "elvarieente", "ELVARIEENTE", "Elvarienthe", "elvarienthe", "ELVARIENTHE", "El-Variente", "el-variente", "EL-VARIENTE", "El.Variente", "el.variente", "EL.VARIENTE", "ElVariente", "elVariente", "ELVariente"],
-    "url": "https://elvariente.com",
-    "email": "hello@elvariente.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "Sri Lanka"
-    }
-  }
-  </script>
-
-  <!-- Header/Navbar -->
-  <header class="glass-header">
-    <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-        <h1 class="logo">El Variente</h1>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">NaijaAssets</a>
+            <nav class="nav-center">
+                <a href="/#home" class="nav-link">Home</a>
+                <a href="/#about" class="nav-link">About</a>
+                <a href="/#subjects" class="nav-link">Subjects</a>
+                <a href="/#pricing" class="nav-link">Pricing</a>
+                <a href="/#faq" class="nav-link">FAQ</a>
+                <a href="/#contact" class="nav-link">Contact</a>
+            </nav>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <a href="#enroll" class="cta-button">Get Started</a>
+                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
-        <nav>
-          <ul id="nav-menu">
-            <li><a href="/">Home</a></li>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/blog">Blog</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Page Header -->
-  <section class="page-header">
-    <div class="container">
-      <h1>Contact El Variente</h1>
-    </div>
-  </section>
-
-  <!-- Contact Content -->
-  <section class="contact-content">
-    <div class="container">
-      <p>Whether you're launching a brand, scaling your marketing, or optimizing your digital systems—El Variente is ready to help you build with clarity and precision.</p>
-      
-      <p>We work with startups, solo founders, and growing businesses that need strategic execution across branding, content, funnels, and advertising. If you're serious about visibility, performance, and long-term growth, let's talk.</p>
-      
-      <h2>How to Reach Us</h2>
-      <p>Email: 📩 hello@elvariente.com</p>
-      <p>Business Hours: 🕒 Monday–Friday, 9:00 AM – 6:00 PM IST</p>
-      <p>Location: 🌍 Based in Sri Lanka, working globally</p>
-      
-      <h2>Project Inquiries</h2>
-      <p>Use the form below to tell us about your project. The more detail you provide, the faster we can respond with clarity and direction.</p>
-      <p>We typically respond within 24–48 hours.</p>
-      <a href="#contact-form" class="contact-link">Open the project form</a>
-      
-      <h2>Collaborations & Partnerships</h2>
-      <p>If you're a designer, developer, strategist, or creator interested in collaborating with El Variente, we'd love to hear from you. We're always open to expanding our network with people who value precision, performance, and creative clarity.</p>
-      <a href="#contact-form" class="contact-link">Reach out for collaboration</a>
-      
-      <h2>Media & Press</h2>
-      <p>For interviews, features, or press inquiries related to El Variente, please include your publication name, topic, and deadline in your message.</p>
-      <a href="#contact-form" class="contact-link">Submit a press inquiry</a>
-      
-      <!-- Contact Form -->
-      <div id="contact-form" class="glass-card contact-form-container">
-        <form id="elvariente-contact-form" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="hidden_iframe">
-          <!-- Visible Fields -->
-          <div class="form-group">
-            <label for="full-name">Full Name *</label>
-            <input type="text" id="full-name" name="entry.123456789" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="entry.987654321" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="business-name">Business or Brand Name</label>
-            <input type="text" id="business-name" name="entry.456789123">
-          </div>
-          
-          <div class="form-group">
-            <label for="services">Services Interested In</label>
-            <input type="text" id="services" name="entry.321654987">
-          </div>
-          
-          <div class="form-group">
-            <label for="project-description">Project Description *</label>
-            <textarea id="project-description" name="entry.654987321" required></textarea>
-          </div>
-          
-          <div class="form-group">
-            <label for="budget">Budget Range</label>
-            <input type="text" id="budget" name="entry.789123456">
-          </div>
-          
-          <div class="form-group">
-            <label for="timeline">Timeline or Urgency</label>
-            <input type="text" id="timeline" name="entry.147258369">
-          </div>
-          
-          <div class="form-group">
-            <label for="links">Relevant Links or References</label>
-            <textarea id="links" name="entry.258369147"></textarea>
-          </div>
-          
-          <div class="form-group">
-            <label for="how-hear">How Did You Hear About Us</label>
-            <input type="text" id="how-hear" name="entry.369258147">
-          </div>
-          
-          <div class="form-group">
-            <label for="notes">Additional Notes</label>
-            <textarea id="notes" name="entry.147852369"></textarea>
-          </div>
-          
-          <!-- Hidden Tracking Fields -->
-          <input type="hidden" id="page-source" name="entry.963852741">
-          <input type="hidden" id="utm-source" name="entry.741852963">
-          <input type="hidden" id="utm-medium" name="entry.852963741">
-          <input type="hidden" id="utm-campaign" name="entry.951753852">
-          <input type="hidden" id="timestamp" name="entry.753951852">
-          <input type="hidden" id="device-type" name="entry.159357486">
-          <input type="hidden" id="browser-info" name="entry.357159486">
-          <input type="hidden" id="location-info" name="entry.951357486">
-          
-          <button type="submit" class="submit-btn">Submit Inquiry</button>
-        </form>
-        
-        <div id="success-message" class="success-message">
-          <h3>Thank You!</h3>
-          <p>Your message has been sent successfully. We'll get back to you within 24-48 hours.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="glass-footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h5>El Variente</h5>
-          <p>Sri Lanka's most prestigious multidisciplinary firm specializing in branding, marketing, content creation, and strategic business solutions.</p>
-          <div class="social-icons">
-            <a href="https://www.linkedin.com/in/elvariente" target="_blank" rel="noopener">
-             <img src="/logos/linkedin.svg" alt="LinkedIn" width="20">
-            </a>
-             <a href="https://www.instagram.com/elvariente" target="_blank" rel="noopener">
-             <img src="/logos/instagram.svg" alt="Instagram" width="20">
-            </a>
-            <a href="https://www.facebook.com/elvariente" target="_blank" rel="noopener">
-              <img src="/logos/facebook.svg" alt="Facebook" width="20">
-            </a>
-            <a href="https://twitter.com/elvariente" target="_blank" rel="noopener">
-             <img src="/logos/twitter.svg" alt="Twitter" width="20">
-           </a>
-          </div>
-        </div>
-        <div class="footer-column">
-          <h5>Services</h5>
-          <ul>
-            <li><a href="/services/branding">Branding</a></li>
-            <li><a href="/services/marketing">Marketing</a></li>
-            <li><a href="/services/content">Content Creation</a></li>
-            <li><a href="/services/smma">Social Media</a></li>
-            <li><a href="/services/sales">Sales</a></li>
-            <li><a href="/services/ads">Advertisement</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h5>Solutions</h5>
-          <ul>
-            <li><a href="/services/web">Web Development</a></li>
-            <li><a href="/services/ai">AI Solutions</a></li>
-            <li><a href="/services/strategy">Strategic Problem Solving</a></li>
-            <li><a href="/services/seo">SEO & LLMO</a></li>
-            <li><a href="/services/gmb">Google My Business</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h5>Company</h5>
-          <ul>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/portfolio">Portfolio</a></li>
-            <li><a href="/pricing">Pricing</a></li>
-            <li><a href="/careers">Careers</a></li>
-            <li><a href="/blog">Blog</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h5>Legal</h5>
-          <ul>
-            <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/terms">Terms of Service</a></li>
-            <li><a href="/cookies">Cookie Policy</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="copyright">
-        <p>&copy; 2025 El Variente. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Hidden iframe to prevent redirect -->
-  <iframe name="hidden_iframe" class="hidden"></iframe>
-
-  <!-- Mobile Menu Script -->
-  <script>
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('#nav-menu');
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
     
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-    
-    // Close menu when clicking on a link
-    document.querySelectorAll('#nav-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-      });
-    });
-  </script>
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
+        <button class="mobile-menu-close" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mobile-nav-list">
+            <a href="/#home" class="mobile-nav-link">Home</a>
+            <a href="/#about" class="mobile-nav-link">About</a>
+            <a href="/#subjects" class="mobile-nav-link">Subjects</a>
+            <a href="/#pricing" class="mobile-nav-link">Pricing</a>
+            <a href="/#faq" class="mobile-nav-link">FAQ</a>
+            <a href="/#contact" class="mobile-nav-link">Contact</a>
+        </div>
+        <a href="https://wa.me/2349034110894" class="mobile-menu-cta">
+            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+        <div class="mobile-socials">
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </nav>
 
-  <!-- Form Handling Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Get form elements
-      const form = document.getElementById('elvariente-contact-form');
-      const successMessage = document.getElementById('success-message');
-      
-      // Populate hidden fields
-      document.getElementById('page-source').value = window.location.pathname;
-      document.getElementById('timestamp').value = new Date().toISOString();
-      
-      // Get UTM parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      document.getElementById('utm-source').value = urlParams.get('utm_source') || '';
-      document.getElementById('utm-medium').value = urlParams.get('utm_medium') || '';
-      document.getElementById('utm-campaign').value = urlParams.get('utm_campaign') || '';
-      
-      // Device type detection
-      const userAgent = navigator.userAgent;
-      let deviceType = 'Desktop';
-      if (/mobile/i.test(userAgent)) deviceType = 'Mobile';
-      else if (/tablet/i.test(userAgent)) deviceType = 'Tablet';
-      document.getElementById('device-type').value = deviceType;
-      
-      // Browser and OS info
-      document.getElementById('browser-info').value = userAgent;
-      
-      // Location info (approximate)
-      document.getElementById('location-info').value = navigator.language || '';
-      
-      // Form submission handling
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Submit form via fetch to avoid redirect
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors' // This prevents CORS errors but also prevents reading the response
-        })
-        .then(() => {
-          // Show success message
-          form.style.display = 'none';
-          successMessage.style.display = 'block';
-          
-          // Scroll to success message
-          successMessage.scrollIntoView({ behavior: 'smooth' });
-        })
-        .catch(error => {
-          // Even with errors, show success message since we can't read the response
-          // due to no-cors mode
-          form.style.display = 'none';
-          successMessage.style.display = 'block';
-          successMessage.scrollIntoView({ behavior: 'smooth' });
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <img src="https://data.naijaassets.com/coverim.jpeg" alt="Students learning in a modern environment" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:0.95;">
+        </div>
+        <div class="hero-container">
+            <div class="hero-badge"><i class="fas fa-shield-check"></i><span>Real Tutors • Live Classes • Structured Learning</span></div>
+            <h1 class="hero-title">
+                <span class="hero-title-line-1">Structured Online Tutoring That</span>
+                <span class="hero-title-line-2">Helps Students Improve</span>
+            </h1>
+            <p class="hero-subtitle">
+                <span class="hero-subtitle-line-1">Accessible monthly pricing designed for</span>
+                <span class="hero-subtitle-line-2">families that value quality education.</span>
+            </p>
+            <p class="hero-description">Live Mathematics and Science classes taught through Google Meet in structured small-group sessions with direct tutor interaction and WhatsApp support.</p>
+            <div class="hero-buttons">
+                <a href="#enroll" class="btn-primary"><i class="fas fa-comments"></i>Contact Us</a>
+                <a href="/#about" class="btn-secondary">About Us</a>
+            </div>
+            <a href="/#pricing" class="hero-link">See Pricing <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="about">
+        <div class="how-it-works-container">
+            <div class="section-header">
+                <h2 class="section-title">How NaijaAssets Works</h2>
+                <p class="section-subtitle">A simple and structured process designed for students and parents.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-indicators">
+                        <span class="step-number">1</span>
+                        <span class="step-icon"><i class="fab fa-whatsapp"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Chat With an Admin</h3>
+                        <p class="step-description">Contact us on WhatsApp to discuss your child's grade level, subjects, and preferred schedule.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-indicators">
+                        <span class="step-number">2</span>
+                        <span class="step-icon"><i class="fas fa-calendar-check"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Choose Subjects & Schedule</h3>
+                        <p class="step-description">We help place students into the right classes based on subject needs and availability.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-indicators">
+                        <span class="step-number">3</span>
+                        <span class="step-icon"><i class="fas fa-video"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Join Live Online Classes</h3>
+                        <p class="step-description">Students attend structured live lessons through Google Meet with direct tutor interaction.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-indicators">
+                        <span class="step-number">4</span>
+                        <span class="step-icon"><i class="fas fa-chart-line"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Learn Consistently</h3>
+                        <p class="step-description">Regular classes, assignments, and guided learning help students stay consistent and improve over time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects -->
+    <section class="subjects" id="subjects">
+        <div class="how-it-works-container">
+            <div class="section-header">
+                <h2 class="section-title">Subjects We Currently Offer</h2>
+                <p class="section-subtitle">Focused academic support for core secondary school subjects.</p>
+            </div>
+            <div class="subjects-grid">
+                <div class="subject-card highlighted">
+                    <div class="subject-icon"><i class="fas fa-calculator"></i></div>
+                    <span class="badge">JSS 1–3 & SSS 1–3</span>
+                    <h3 class="subject-title">Mathematics</h3>
+                    <p class="subject-desc">Structured lessons covering core JSS and SSS mathematics topics with guided problem solving and exam preparation.</p>
+                    <a href="/subjects/mathematics" class="subject-cta">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="subject-card">
+                    <span class="badge" style="align-self: flex-end;">Small Groups</span>
+                    <div class="subject-icon"><i class="fas fa-flask"></i></div>
+                    <h3 class="subject-title">Basic / Integrated Science</h3>
+                    <p class="subject-desc">Science tutoring designed to improve understanding, consistency, and classroom performance through hands-on examples.</p>
+                    <a href="/subjects/science" class="subject-cta">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="subject-card" style="border-top: 4px solid var(--secondary);">
+                    <div class="subject-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3 class="subject-title">WAEC Preparation</h3>
+                    <span class="badge" style="margin-top: -16px; margin-bottom: 16px;">Live Classes</span>
+                    <p class="subject-desc">Focused revision sessions and guided preparation for important secondary school examinations with past question drills.</p>
+                    <a href="/subjects/waec" class="subject-cta">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Parents Choose -->
+    <section class="why-parents">
+        <div class="how-it-works-container">
+            <div class="section-header">
+                <h2 class="section-title">Why Parents Choose NaijaAssets</h2>
+                <p class="section-subtitle">Structured online learning designed to be accessible, consistent, and easy to follow.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Small Group Learning</h3>
+                        <p class="feature-desc">Students receive more interaction and guidance than overcrowded classroom environments.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-naira-sign"></i></div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Accessible Monthly Pricing</h3>
+                        <p class="feature-desc">Quality tutoring designed to remain affordable for more Nigerian families.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Live Tutor Interaction</h3>
+                        <p class="feature-desc">Students can ask questions, participate actively, and learn in real time.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">WhatsApp Parent Support</h3>
+                        <p class="feature-desc">Parents can easily reach admins for schedules, updates, and assistance.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Structured Online Classes</h3>
+                        <p class="feature-desc">Organized class schedules help students build consistency and better study habits.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-laptop-house"></i></div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Learn From Anywhere</h3>
+                        <p class="feature-desc">Students can attend classes from home using a phone, tablet, or computer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Online Classes Look Like - Mobile Fixed -->
+    <section class="classes-preview">
+        <div class="classes-container">
+            <!-- Visual Stack - Desktop Only (hidden on mobile) -->
+            <div class="visual-stack">
+                <div class="floating-badge badge-1"><i class="fas fa-check-circle"></i> Live Google Meet Classes</div>
+                <div class="floating-badge badge-2"><i class="fab fa-whatsapp"></i> WhatsApp Reminders</div>
+                <div class="floating-badge badge-3"><i class="fas fa-bell"></i> Offline Reminders</div>
+                <div class="floating-badge badge-4"><i class="fas fa-calendar-alt"></i> Structured Weekly Schedule</div>
+
+                <div class="mockup-card mockup-meet">
+                    <img src="https://data.naijaassets.com/gscreen.jpeg" alt="Live class interface preview" loading="lazy">
+                </div>
+
+                <div class="mockup-card mockup-timetable">
+                    <div class="mockup-timetable-header">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Weekly Schedule</span>
+                    </div>
+                    <div class="mockup-timetable-row active">Mon • 4:00 PM • Math</div>
+                    <div class="mockup-timetable-row">Wed • 4:00 PM • Science</div>
+                    <div class="mockup-timetable-row">Fri • 4:00 PM • Review</div>
+                </div>
+
+                <div class="mockup-card mockup-assignment">
+                    <div class="mockup-assignment-title">
+                        <i class="fas fa-clipboard-list"></i> This Week
+                    </div>
+                    <div class="mockup-assignment-item completed"><i class="fas fa-check"></i> Algebra Practice</div>
+                    <div class="mockup-assignment-item completed"><i class="fas fa-check"></i> Science Quiz</div>
+                    <div class="mockup-assignment-item"><i class="far fa-circle"></i> Past Questions</div>
+                </div>
+
+                <div class="mockup-card mockup-whatsapp">
+                    <div class="mockup-whatsapp-header">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>NaijaAssets Admin</span>
+                    </div>
+                    <div class="mockup-whatsapp-text">Reminder: Math class starts in 15 mins. Join via the link sent earlier. 📚</div>
+                </div>
+            </div>
+
+            <!-- Content - Always Visible, Left-Aligned on Mobile -->
+            <div class="classes-content">
+                <h2 class="classes-title">What Online Classes Look Like</h2>
+                <p class="classes-subtitle">Structured live learning sessions designed to keep students engaged and focused.</p>
+                
+                <div class="class-points">
+                    <div class="class-point">
+                        <div class="class-point-icon"><i class="fas fa-video"></i></div>
+                        <div class="class-point-text">
+                            <h4>Live Interactive Lessons</h4>
+                            <p>Students join scheduled Google Meet sessions and learn directly from tutors in real time.</p>
+                        </div>
+                    </div>
+                    <div class="class-point">
+                        <div class="class-point-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="class-point-text">
+                            <h4>Organized Class Schedules</h4>
+                            <p>Timetables and reminders help students stay consistent and prepared.</p>
+                        </div>
+                    </div>
+                    <div class="class-point">
+                        <div class="class-point-icon"><i class="fas fa-laptop"></i></div>
+                        <div class="class-point-text">
+                            <h4>Simple Access</h4>
+                            <p>Classes can be joined from a phone, tablet, or computer without complicated setup.</p>
+                        </div>
+                    </div>
+                    <div class="class-point">
+                        <div class="class-point-icon"><i class="fas fa-users"></i></div>
+                        <div class="class-point-text">
+                            <h4>Focused Learning Environment</h4>
+                            <p>Small-group sessions encourage participation and direct interaction.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Early Feedback & Community Response -->
+    <section class="early-feedback">
+        <div class="feedback-container">
+            <div class="feedback-header">
+                <h2 class="feedback-title">Early Feedback & Community Response</h2>
+                <p class="feedback-subtitle">Building a structured online learning platform focused on consistency, accessibility, and real academic support.</p>
+            </div>
+            
+            <div class="feedback-grid">
+                <div class="feedback-card">
+                    <div class="tutor-avatar"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <p class="feedback-quote">"Our goal is to make online learning more interactive and easier for students to stay consistent with."</p>
+                    <div class="feedback-author">Mathematics Tutor</div>
+                    <div class="feedback-role">NaijaAssets Educator</div>
+                </div>
+
+                <div class="feedback-card">
+                    <div class="tutor-avatar" style="background: linear-gradient(135deg, var(--secondary-fixed), var(--primary-fixed));"><i class="fas fa-user"></i></div>
+                    <p class="feedback-quote">"Small-group online classes can help students ask more questions and stay more focused."</p>
+                    <div class="feedback-author">Parent Feedback</div>
+                    <div class="feedback-role">Early Access Participant</div>
+                </div>
+
+                <div class="feedback-card growth-card">
+                    <div class="tutor-avatar" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;"><i class="fas fa-rocket"></i></div>
+                    <p class="feedback-quote">Launching structured online Math & Science classes for Nigerian secondary school students. Early access enrollment opening soon.</p>
+                    <div class="feedback-author">NaijaAssets Team</div>
+                    <div class="feedback-role">Building in Public</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: var(--stack-md);">
+                <p style="font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); margin-bottom: var(--stack-sm);">What Students Receive</p>
+                <div class="students-receive">
+                    <div class="receive-item"><i class="fas fa-check"></i> Live Classes</div>
+                    <div class="receive-item"><i class="fas fa-check"></i> Tutor Interaction</div>
+                    <div class="receive-item"><i class="fas fa-check"></i> Structured Schedules</div>
+                    <div class="receive-item"><i class="fas fa-check"></i> WhatsApp Support</div>
+                    <div class="receive-item"><i class="fas fa-check"></i> Flexible Learning Access</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="pricing-container">
+            <div class="pricing-header">
+                <h2 class="pricing-title">Simple & Accessible Pricing</h2>
+                <p class="pricing-subtitle">Structured online learning designed to remain accessible for more families.</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Small Group Classes -->
+                <div class="pricing-card">
+                    <div class="pricing-icon"><i class="fas fa-users"></i></div>
+                    <h3 class="pricing-title-card">Small Group Classes</h3>
+                    <p class="pricing-subtitle-card">Best starter option.</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Live online sessions</li>
+                        <li><i class="fas fa-check"></i> Small group interaction</li>
+                        <li><i class="fas fa-check"></i> Core subject support</li>
+                    </ul>
+                    <button class="pricing-btn">View Details</button>
+                </div>
+
+                <!-- Extended Learning (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="pricing-icon"><i class="fas fa-book-open"></i></div>
+                    <h3 class="pricing-title-card">Extended Learning</h3>
+                    <p class="pricing-subtitle-card">More comprehensive support.</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> More subjects</li>
+                        <li><i class="fas fa-check"></i> Additional support</li>
+                        <li><i class="fas fa-check"></i> Extended access/resources</li>
+                    </ul>
+                    <button class="pricing-btn">View Pricing</button>
+                </div>
+
+                <!-- Private Tutoring -->
+                <div class="pricing-card">
+                    <div class="pricing-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <h3 class="pricing-title-card">Private Tutoring</h3>
+                    <p class="pricing-subtitle-card">1-on-1 personalized learning.</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 1-on-1 support</li>
+                        <li><i class="fas fa-check"></i> Flexible scheduling</li>
+                        <li><i class="fas fa-check"></i> Personalized learning</li>
+                    </ul>
+                    <button class="pricing-btn">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section - 2 Column Layout -->
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <div class="faq-header">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <p class="faq-subtitle">Everything parents and students need to know before getting started.</p>
+            </div>
+            
+            <div class="faq-grid">
+                <!-- Left Column -->
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do the classes work?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Students join scheduled live online classes through Google Meet and learn directly from tutors in structured sessions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Are the classes live or pre-recorded?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Classes are conducted live to allow students to ask questions, participate actively, and interact with tutors in real time.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What subjects are currently available?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We currently focus on Mathematics and Science for JSS and SSS students, with more subjects planned later.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What device is needed to attend classes?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Students can join classes using a smartphone, tablet, or computer with an internet connection.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What if the internet connection is slow?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Students can still participate with cameras turned off to reduce data usage and improve connection stability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can students ask questions during class?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. Classes are interactive and students are encouraged to ask questions and participate during lessons.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How are class links shared?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Class schedules and Google Meet links are shared through WhatsApp before sessions begin.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do payments work?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Payment instructions are provided during enrollment and confirmed directly through our support process.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Do parents receive support or updates?</span>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Parents can contact admins through WhatsApp for schedules, support, and general class-related assistance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section with FIXED Form -->
+    <section class="final-cta" id="enroll">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2>Ready to Support Your Child's Learning?</h2>
+                <p>Speak with an admin to discuss subjects, schedules, and enrollment options.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://wa.me/2349034110894" class="btn-whatsapp" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i> Enroll via WhatsApp
+                    </a>
+                    <a href="tel:+2349034110894" class="btn-admin">
+                        <i class="fas fa-phone"></i> Speak to an Admin
+                    </a>
+                </div>
+                
+                <p class="cta-note">
+                    <i class="fas fa-clock"></i>
+                    Responses are usually provided within a few hours.
+                </p>
+            </div>
+
+            <!-- FormSubmit.co Form - Regular POST (No CORS Issues) -->
+            <form class="cta-form" id="enrollmentForm" action="https://formsubmit.co/forms@naijaassets.com" method="POST">
+                <!-- Honeypot field to reduce spam -->
+                <input type="text" name="_honey" style="display:none">
+                
+                <!-- Disable Captcha -->
+                <input type="hidden" name="_captcha" value="false">
+                
+                <!-- Redirect back to same page with hash for status -->
+                <input type="hidden" name="_next" value="https://naijaassets.com/#submitted">
+                
+                <!-- Email subject -->
+                <input type="hidden" name="_subject" value="New Enrollment Inquiry - NaijaAssets">
+                
+                <div class="form-group">
+                    <label class="form-label" for="parentName">Parent Name *</label>
+                    <input type="text" id="parentName" name="Parent Name" class="form-input" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="studentGrade">Student Grade *</label>
+                    <!-- Changed to text input for manual entry -->
+                    <input type="text" id="studentGrade" name="Student Grade" class="form-input" required placeholder="e.g., JSS 2, SSS 1, or custom">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="subjectInterest">Subject Interest *</label>
+                    <input type="text" id="subjectInterest" name="Subject Interest" class="form-input" required placeholder="e.g., Mathematics, Science, WAEC">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="phoneNumber">Phone / WhatsApp Number *</label>
+                    <input type="tel" id="phoneNumber" name="Phone Number" class="form-input" required placeholder="e.g., 08012345678" pattern="^(\+234|0)[0-9]{10}$">
+                </div>
+
+                <div class="form-checkbox">
+                    <input type="checkbox" id="privacyAgree" name="Privacy Agreement" required>
+                    <label for="privacyAgree">I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and consent to being contacted about enrollment *</label>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Inquiry
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Success/Error Modal Popup -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-icon" id="modalIcon">
+                <i class="fas fa-check" id="modalIconSymbol"></i>
+            </div>
+            <h3 class="modal-title" id="modalTitle">Success!</h3>
+            <p class="modal-text" id="modalText">Your inquiry has been submitted successfully. We'll get back to you soon.</p>
+            <button class="btn-modal-close" id="modalClose">Got it</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-brand">
+                    <span class="logo">NaijaAssets</span>
+                    <p>Structured online tutoring for Nigerian secondary school students.</p>
+                    <div class="footer-socials">
+                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Navigation -->
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <nav class="footer-links">
+                        <a href="/#home">Home</a>
+                        <a href="/#about">About</a>
+                        <a href="/#subjects">Subjects</a>
+                        <a href="/#pricing">Pricing</a>
+                        <a href="/#faq">FAQ</a>
+                        <a href="/#contact">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Column 3: Subjects -->
+                <div class="footer-column">
+                    <h4>Subjects</h4>
+                    <nav class="footer-links">
+                        <a href="/subjects/mathematics">Mathematics</a>
+                        <a href="/subjects/science">Science</a>
+                        <a href="/subjects/waec">WAEC Prep</a>
+                    </nav>
+                </div>
+
+                <!-- Column 4: Legal -->
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <nav class="footer-links">
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="/support">Support</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
+                <div class="footer-socials-bottom">
+                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
+                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> X</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Lazy load images
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.classList.add('loaded');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                lazyImages.forEach(img => { img.classList.add('loaded'); img.loading = 'eager'; });
+            }
+            
+            // Check URL hash for form status and show modal
+            checkFormStatus();
         });
-      });
-    });
-  </script>
 
-  <!-- Analytics Placeholders -->
-  <!-- Google Analytics -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script> -->
-  <!-- <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'GA_TRACKING_ID');
-  </script> -->
+        // Check URL hash for form submission status
+        function checkFormStatus() {
+            const hash = window.location.hash;
+            if (hash === '#submitted') {
+                showModal(true, 'Inquiry Submitted!', 'Thank you! We will contact you via WhatsApp within a few hours.');
+                // Clean URL without hash
+                history.replaceState(null, null, window.location.pathname + window.location.search);
+            } else if (hash === '#error') {
+                showModal(false, 'Submission Failed', 'There was an error submitting your form. Please try again or contact us directly via WhatsApp.');
+                history.replaceState(null, null, window.location.pathname + window.location.search);
+            }
+        }
 
-  <!-- Meta Pixel -->
-  <!-- <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_PIXEL_ID');
-    fbq('track', 'PageView');
-  </script> -->
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('active');
+                const icon = button.querySelector('.faq-toggle i');
+                
+                // Close all in same column
+                const column = item.closest('.faq-list');
+                column.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                    i.querySelector('.faq-toggle i').classList.remove('fa-minus');
+                    i.querySelector('.faq-toggle i').classList.add('fa-plus');
+                });
+                
+                // Toggle current
+                if (!isActive) {
+                    item.classList.add('active');
+                    button.setAttribute('aria-expanded', 'true');
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuToggle.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMobileMenu();
+        });
+
+        // Modal Functions
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('modal');
+        const modalIconSymbol = document.getElementById('modalIconSymbol');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const modalClose = document.getElementById('modalClose');
+
+        function showModal(isSuccess, title, message) {
+            modalOverlay.classList.add('active');
+            if (isSuccess) {
+                modal.className = 'modal modal-success';
+                modalIconSymbol.className = 'fas fa-check';
+            } else {
+                modal.className = 'modal modal-error';
+                modalIconSymbol.className = 'fas fa-exclamation-triangle';
+            }
+            modalTitle.textContent = title;
+            modalText.textContent = message;
+        }
+
+        function hideModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalClose.addEventListener('click', hideModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) hideModal();
+        });
+
+        // Form Validation & Submit Handling
+        const enrollmentForm = document.getElementById('enrollmentForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        enrollmentForm.addEventListener('submit', function(e) {
+            // Client-side validation
+            const privacyCheckbox = document.getElementById('privacyAgree');
+            if (!privacyCheckbox.checked) {
+                e.preventDefault();
+                showModal(false, 'Permission Required', 'Please agree to the Privacy Policy to continue.');
+                return;
+            }
+            
+            // Show "sending" state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Form will submit normally to FormSubmit.co
+            // The _next parameter will redirect back with #submitted hash
+            // The DOMContentLoaded listener will detect the hash and show the modal
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) { 
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // Pricing card buttons
+        document.querySelectorAll('.pricing-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const text = this.textContent;
+                if (text === 'Contact Us' || text === 'View Pricing') {
+                    document.querySelector('#enroll').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    showModal(true, 'Coming Soon', 'Detailed pricing information will be available soon. Contact us for current rates.');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
