@@ -1714,7 +1714,7 @@
         </div>
     </section>
 
-    <!-- Final CTA Section with FIXED Form -->
+    <!-- Final CTA Section with DUAL-BACKEND Form -->
     <section class="final-cta" id="enroll">
         <div class="cta-container">
             <div class="cta-content">
@@ -1736,18 +1736,18 @@
                 </p>
             </div>
 
-            <!-- FormSubmit.co Form - Regular POST (No CORS Issues) -->
+            <!-- Form with Dual Backend: FormSubmit (POST) + Formspree (AJAX) -->
             <form class="cta-form" id="enrollmentForm" action="https://formsubmit.co/forms@naijaassets.com" method="POST">
                 <!-- Honeypot field to reduce spam -->
                 <input type="text" name="_honey" style="display:none">
                 
-                <!-- Disable Captcha -->
+                <!-- FormSubmit: Disable Captcha -->
                 <input type="hidden" name="_captcha" value="false">
                 
-                <!-- Redirect back to same page with hash for status -->
+                <!-- FormSubmit: Redirect back to same page with hash for status -->
                 <input type="hidden" name="_next" value="https://naijaassets.com/#submitted">
                 
-                <!-- Email subject -->
+                <!-- FormSubmit: Email subject -->
                 <input type="hidden" name="_subject" value="New Enrollment Inquiry - NaijaAssets">
                 
                 <div class="form-group">
@@ -1979,11 +1979,12 @@
             if (e.target === modalOverlay) hideModal();
         });
 
-        // Form Validation & Submit Handling
+        // Form Handling: Dual Backend (FormSubmit + Formspree)
         const enrollmentForm = document.getElementById('enrollmentForm');
         const submitBtn = document.getElementById('submitBtn');
+        const formspreeEndpoint = 'https://formspree.io/f/xeenyjkd';
 
-        enrollmentForm.addEventListener('submit', function(e) {
+        enrollmentForm.addEventListener('submit', async function(e) {
             // Client-side validation
             const privacyCheckbox = document.getElementById('privacyAgree');
             if (!privacyCheckbox.checked) {
@@ -1996,14 +1997,48 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             
-            // Form will submit normally to FormSubmit.co
-            // The _next parameter will redirect back with #submitted hash
-            // The DOMContentLoaded listener will detect the hash and show the modal
+            // Collect form data
+            const formData = new FormData(enrollmentForm);
+            const data = {
+                'Parent Name': formData.get('Parent Name'),
+                'Student Grade': formData.get('Student Grade'),
+                'Subject Interest': formData.get('Subject Interest'),
+                'Phone Number': formData.get('Phone Number'),
+                'Privacy Agreement': formData.get('Privacy Agreement') ? 'Yes' : 'No'
+            };
+
+            try {
+                // Submit to Formspree via AJAX (parallel to FormSubmit POST)
+                const formspreeResponse = await fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const formspreeResult = await formspreeResponse.json();
+                
+                // If Formspree fails, log but don't block - FormSubmit is primary
+                if (!formspreeResponse.ok) {
+                    console.warn('Formspree submission failed:', formspreeResult);
+                }
+                
+                // Form will submit natively to FormSubmit.co via the form's action attribute
+                // The _next parameter will redirect back with #submitted hash
+                // The DOMContentLoaded listener will detect the hash and show the modal
+                
+            } catch (error) {
+                console.error('Formspree AJAX error:', error);
+                // Continue with FormSubmit submission even if Formspree fails
+            }
+            // Form submits normally to FormSubmit.co after this handler completes
         });
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) { 
+            anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (href !== '#' && href.startsWith('#')) {
                     e.preventDefault();
