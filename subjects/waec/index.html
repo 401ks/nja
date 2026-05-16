@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAEC Exam Preparation - NaijaAssets</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Brand Colors */
+            --surface-bright: #f8f9ff;
+            --surface-container-high: #dce9ff;
+            --surface-dim: #ccdbf3;
+            --secondary-fixed: #b1f0ce;
+            --on-surface-variant: #43474d;
+            --on-primary: #ffffff;
+            --on-secondary: #ffffff;
+            --primary-fixed: #d2e4ff;
+            --outline: #74777e;
+            --surface-container-highest: #d5e3fc;
+            --surface-container: #e6eeff;
+            --secondary-fixed-dim: #95d4b3;
+            --on-background: #0d1c2e;
+            --surface-container-low: #eff4ff;
+            --error: #ba1a1a;
+            --on-surface: #0d1c2e;
+            --primary-fixed-dim: #b0c8eb;
+            --outline-variant: #c4c6ce;
+            --on-primary-container: #768dad;
+            --surface: #f8f9ff;
+            --primary-container: #0a2540;
+            --secondary-container: #aeeecb;
+            --secondary: #2c694e;
+            --primary: #000f22;
+            
+            /* Spacing & Layout */
+            --margin-desktop: 40px;
+            --margin-mobile: 16px;
+            --gutter: 24px;
+            --stack-lg: 64px;
+            --stack-md: 32px;
+            --stack-sm: 16px;
+            --container-max: 1280px;
+            --container-narrow: 850px;
+            
+            /* Border Radius */
+            --radius-lg: 8px;
+            --radius-xl: 12px;
+            --radius-full: 16px;
+            
+            /* Typography */
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--surface-bright);
+            color: var(--on-surface);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; color: var(--primary); line-height: 1.25; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        ul { list-style: none; }
+
+        /* HEADER - Restored Original */
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background-color: var(--surface-bright); border-bottom: 1px solid var(--outline-variant); box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 1000; }
+        .header-container { max-width: var(--container-max); margin: 0 auto; height: 100%; padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
+        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--on-surface-variant); text-transform: uppercase; }
+        .nav-link:hover, .nav-link.active { color: var(--secondary); }
+        .cta-button { background: var(--primary); color: var(--on-primary); padding: 10px 20px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
+        .mobile-menu-toggle { display: none; background: none; border: none; color: var(--on-surface-variant); font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001; }
+
+        /* MOBILE MENU - Restored Original */
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--surface-bright); z-index: 1000; padding: 80px 24px 24px; box-shadow: -4px 0 24px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--on-surface-variant); cursor: pointer; padding: 8px; }
+        .mobile-nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+        .mobile-nav-link { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--on-surface); padding: 12px 16px; border-radius: var(--radius-xl); transition: all 0.2s ease; display: block; }
+        .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--surface-container); color: var(--secondary); }
+        .mobile-menu-cta { background: var(--primary); color: var(--on-primary); padding: 14px 24px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 15px; font-weight: 600; text-align: center; display: block; margin-top: 16px; }
+        .mobile-socials { display: flex; gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
+        .mobile-socials a { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 18px; transition: all 0.2s ease; }
+        .mobile-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
+
+        /* PAGE SPECIFIC LAYOUT */
+        .subject-page { padding-top: 64px; }
+        .section { padding: var(--stack-lg) var(--margin-desktop); }
+        .section.alt-bg { background-color: var(--surface-container-low); }
+        .inner { max-width: var(--container-max); margin: 0 auto; }
+        .narrow { max-width: var(--container-narrow); margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: var(--stack-md); }
+        .section-header h2 { font-size: 28px; margin-bottom: 10px; }
+        .section-header p { font-size: 16px; color: var(--on-surface-variant); margin: 0; }
+
+        /* Hero */
+        .subject-hero { padding: var(--stack-lg) var(--margin-desktop); background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-bright) 100%); text-align: center; position: relative; }
+        .subject-hero::before { content: ''; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: var(--error-container); color: var(--error); padding: 6px 16px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+        .exam-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--error-container); color: var(--error); padding: 6px 16px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: var(--stack-sm); }
+        .subject-hero h1 { font-size: 36px; margin-bottom: 12px; }
+        .subject-hero .subtitle { font-size: 18px; color: var(--on-surface-variant); max-width: 700px; margin: 0 auto var(--stack-sm); line-height: 1.5; }
+        .hero-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+        .btn-whatsapp { background: #25D366; color: white; padding: 14px 28px; border-radius: var(--radius-full); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; border: none; cursor: pointer; }
+        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: var(--on-surface); padding: 14px 28px; border-radius: var(--radius-full); font-weight: 600; border: 2px solid var(--outline-variant); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+        .btn-outline:hover { border-color: var(--secondary); color: var(--secondary); }
+        .trust-line { font-size: 13px; color: var(--secondary); font-weight: 600; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .trust-line span { display: flex; align-items: center; gap: 6px; }
+
+        /* Content Blocks */
+        .content-block p { font-size: 15px; color: var(--on-surface-variant); margin-bottom: 14px; }
+        .content-block ul { padding-left: 18px; margin: var(--stack-sm) 0; }
+        .content-block ul li { font-size: 15px; color: var(--on-surface-variant); margin-bottom: 8px; padding-left: 4px; position: relative; }
+        .content-block ul li::before { content: "•"; color: var(--secondary); font-weight: 700; position: absolute; left: -4px; }
+
+        .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: var(--stack-md); }
+        .check-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--outline-variant); }
+        .check-item i { color: var(--secondary); font-size: 16px; flex-shrink: 0; }
+        .check-item span { font-size: 14px; font-weight: 500; }
+
+        /* Process Steps */
+        .process-list { display: grid; gap: 16px; margin-top: var(--stack-md); }
+        .process-item { display: flex; gap: 14px; padding: 16px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--outline-variant); }
+        .process-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--primary-fixed); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+        .process-text { font-size: 14px; color: var(--on-surface-variant); margin: 0; line-height: 1.5; }
+
+        /* Structure Cards */
+        .structure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: var(--stack-md); }
+        .structure-card { padding: 20px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--outline-variant); }
+        .structure-card h3 { font-size: 16px; margin-bottom: 8px; }
+        .structure-card p { font-size: 14px; color: var(--on-surface-variant); margin: 0; line-height: 1.5; }
+
+        /* Who This Is For */
+        .split-lists { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gutter); margin-top: var(--stack-md); }
+        .list-card { padding: 20px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--outline-variant); }
+        .list-card h3 { font-size: 16px; margin-bottom: 12px; color: var(--primary); }
+        .list-card ul { padding-left: 16px; margin: 0; }
+        .list-card li { font-size: 14px; color: var(--on-surface-variant); margin-bottom: 8px; padding-left: 4px; position: relative; }
+        .list-card li::before { content: "•"; color: var(--secondary); font-weight: 700; position: absolute; left: -4px; }
+
+        /* Expected Outcome */
+        .outcome-box { max-width: var(--container-narrow); margin: var(--stack-md) auto 0; padding: 24px; background: var(--surface-container-low); border-left: 4px solid var(--secondary); border-radius: var(--radius-lg); text-align: center; }
+        .outcome-box p { font-size: 15px; color: var(--on-surface); margin: 0 0 12px; font-weight: 600; }
+        .outcome-box ul { padding: 0; list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+        .outcome-box li { font-size: 14px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 8px; }
+
+        /* Pricing Teaser */
+        .pricing-teaser { text-align: center; padding: var(--stack-md) var(--margin-desktop); background: var(--surface-container-low); border-radius: var(--radius-xl); border: 1px solid var(--outline-variant); max-width: 700px; margin: var(--stack-md) auto; }
+        .pricing-teaser p { font-size: 16px; color: var(--on-surface-variant); margin-bottom: 16px; }
+        .btn-link { color: var(--secondary); font-weight: 600; font-size: 15px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: none; background: none; }
+        .btn-link:hover { text-decoration: underline; }
+
+        /* Final CTA */
+        .final-cta { padding: var(--stack-lg) var(--margin-desktop); text-align: center; background: var(--surface-bright); border-top: 1px solid var(--outline-variant); }
+        .final-cta h2 { font-size: 28px; margin-bottom: 10px; }
+        .final-cta p { font-size: 16px; color: var(--on-surface-variant); margin-bottom: var(--stack-sm); }
+
+        /* FOOTER - Restored Original */
+        .footer { background: var(--surface-dim); border-top: 1px solid var(--outline-variant); padding: var(--stack-lg) var(--margin-desktop) var(--stack-md); }
+        .footer-container { max-width: var(--container-max); margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--stack-lg); margin-bottom: var(--stack-lg); }
+        .footer-brand .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); display: block; }
+        .footer-brand p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); max-width: 280px; }
+        .footer-socials { display: flex; gap: 12px; }
+        .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 16px; transition: all 0.2s ease; }
+        .footer-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
+        .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); text-transform: uppercase; letter-spacing: 0.05em; }
+        .footer-links { display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); transition: all 0.2s ease; }
+        .footer-links a:hover { color: var(--secondary); padding-left: 4px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--stack-md); border-top: 1px solid var(--outline-variant); }
+        .footer-copyright { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); }
+        .footer-socials-bottom { display: flex; gap: 16px; }
+        .footer-socials-bottom a { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 6px; transition: color 0.2s ease; }
+        .footer-socials-bottom a:hover { color: var(--secondary); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-center { display: none; }
+            .mobile-menu-toggle { display: block; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-container { padding: 0 var(--margin-mobile); }
+            .section { padding: var(--stack-md) var(--margin-mobile); }
+            .subject-hero { padding: var(--stack-md) var(--margin-mobile); }
+            .subject-hero h1 { font-size: 28px; }
+            .split-lists { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; align-items: stretch; }
+            .btn-whatsapp, .btn-outline { justify-content: center; width: 100%; }
+            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">NaijaAssets</a>
+            <nav class="nav-center">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/subjects" class="nav-link">Subjects</a>
+                <a href="/pricing" class="nav-link">Pricing</a>
+                <a href="/faq" class="nav-link">FAQ</a>
+                <a href="/contact" class="nav-link">Contact</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:16px;">
+                <a href="/contact" class="cta-button">Get Started</a>
+                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
+        <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <div class="mobile-nav-list">
+            <a href="/" class="mobile-nav-link">Home</a>
+            <a href="/about" class="mobile-nav-link">About</a>
+            <a href="/subjects" class="mobile-nav-link">Subjects</a>
+            <a href="/pricing" class="mobile-nav-link">Pricing</a>
+            <a href="/faq" class="mobile-nav-link">FAQ</a>
+            <a href="/contact" class="mobile-nav-link">Contact</a>
+        </div>
+        <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+        <div class="mobile-socials">
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </nav>
+
+    <main class="subject-page">
+        <!-- 1. Hero -->
+        <section class="subject-hero">
+            <div class="exam-badge"><i class="fas fa-graduation-cap"></i> Exam Focused</div>
+            <h1>WAEC Exam Preparation Classes</h1>
+            <p class="subtitle">Structured live revision classes designed to help students prepare effectively for WAEC through guided practice and exam-focused learning.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/2349034110894" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Join WAEC Prep via WhatsApp</a>
+                <a href="/pricing" class="btn-outline"><i class="fas fa-tag"></i> View Pricing</a>
+            </div>
+            <div class="trust-line">
+                <span><i class="fas fa-bullseye"></i> Exam-focused revision</span>
+                <span><i class="fas fa-file-alt"></i> Past questions</span>
+                <span><i class="fas fa-chalkboard-teacher"></i> Guided practice</span>
+            </div>
+        </section>
+
+        <!-- 2. Why WAEC Preparation Matters -->
+        <section class="section">
+            <div class="narrow content-block">
+                <h2 style="font-size: 24px; margin-bottom: 16px;">Why WAEC Preparation Matters</h2>
+                <p>WAEC is one of the most important exams in a student's academic journey. Many students struggle not because they don't study, but because they lack structured revision, don't practice enough past questions, or don't understand exam patterns.</p>
+                <p>NaijaAssets focuses on structured preparation and guided revision so students walk into the exam room with clarity, not confusion.</p>
+            </div>
+        </section>
+
+        <!-- 3. What This Program Includes -->
+        <section class="section alt-bg">
+            <div class="inner">
+                <div class="section-header">
+                    <h2>What This Program Includes</h2>
+                    <p>Everything needed for focused, exam-ready preparation.</p>
+                </div>
+                <div class="checklist-grid">
+                    <div class="check-item"><i class="fas fa-history"></i> <span>Past question practice sessions</span></div>
+                    <div class="check-item"><i class="fas fa-lightbulb"></i> <span>Step-by-step solution breakdowns</span></div>
+                    <div class="check-item"><i class="fas fa-chart-line"></i> <span>Topic revision by exam importance</span></div>
+                    <div class="check-item"><i class="fas fa-clock"></i> <span>Time management techniques</span></div>
+                    <div class="check-item"><i class="fas fa-search"></i> <span>Common WAEC question patterns</span></div>
+                    <div class="check-item"><i class="fas fa-chalkboard-user"></i> <span>Live tutor explanation and correction</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. How WAEC Classes Work -->
+        <section class="section">
+            <div class="narrow">
+                <div class="section-header">
+                    <h2>How WAEC Classes Work</h2>
+                    <p>Practice + explanation + repetition.</p>
+                </div>
+                <div class="process-list">
+                    <div class="process-item">
+                        <div class="process-num">1</div>
+                        <p class="process-text">Students join scheduled revision sessions via Google Meet.</p>
+                    </div>
+                    <div class="process-item">
+                        <div class="process-num">2</div>
+                        <p class="process-text">Tutors explain key topics and high-probability exam areas.</p>
+                    </div>
+                    <div class="process-item">
+                        <div class="process-num">3</div>
+                        <p class="process-text">Students solve past questions live with tutor guidance.</p>
+                    </div>
+                    <div class="process-item">
+                        <div class="process-num">4</div>
+                        <p class="process-text">Mistakes are corrected immediately with clear reasoning.</p>
+                    </div>
+                    <div class="process-item">
+                        <div class="process-num">5</div>
+                        <p class="process-text">Focus is placed on exam strategy and time allocation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Class Structure -->
+        <section class="section alt-bg">
+            <div class="inner">
+                <div class="section-header">
+                    <h2>Class Structure</h2>
+                    <p>Designed for intensive, focused exam readiness.</p>
+                </div>
+                <div class="structure-grid">
+                    <div class="structure-card">
+                        <h3>Format</h3>
+                        <p>Small group live sessions for targeted feedback</p>
+                    </div>
+                    <div class="structure-card">
+                        <h3>Content Blocks</h3>
+                        <p>Subject-focused revision aligned with WAEC syllabus</p>
+                    </div>
+                    <div class="structure-card">
+                        <h3>Schedule</h3>
+                        <p>Weekly structured exam prep timetable</p>
+                    </div>
+                    <div class="structure-card">
+                        <h3>Duration</h3>
+                        <p>45–60 minute intensive sessions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Who This Is For -->
+        <section class="section">
+            <div class="narrow">
+                <h2 style="font-size: 24px; margin-bottom: 20px; text-align: center;">Who This Is For</h2>
+                <div class="split-lists">
+                    <div class="list-card">
+                        <h3><i class="fas fa-check-circle" style="color:var(--secondary);margin-right:8px;"></i> Suitable For</h3>
+                        <ul>
+                            <li>SSS students preparing for WAEC exams</li>
+                            <li>Students who want structured revision support</li>
+                            <li>Students who struggle with exam timing</li>
+                            <li>Students who need guided past-question practice</li>
+                        </ul>
+                    </div>
+                    <div class="list-card">
+                        <h3><i class="fas fa-info-circle" style="color:var(--outline);margin-right:8px;"></i> Best Results With</h3>
+                        <ul>
+                            <li>Consistent weekly attendance</li>
+                            <li>Active participation during problem-solving</li>
+                            <li>Completion of assigned revision tasks</li>
+                            <li>Regular communication with tutors</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Common Problems We Fix -->
+        <section class="section alt-bg">
+            <div class="inner">
+                <div class="section-header">
+                    <h2>Common Problems We Fix</h2>
+                    <p>Addressing the real gaps in traditional exam preparation.</p>
+                </div>
+                <div class="checklist-grid">
+                    <div class="check-item"><i class="fas fa-comment-dots"></i> <span>"I don't know how WAEC questions are set"</span></div>
+                    <div class="check-item"><i class="fas fa-brain"></i> <span>"I study but still fail exams"</span></div>
+                    <div class="check-item"><i class="fas fa-stopwatch"></i> <span>"I run out of time during exams"</span></div>
+                    <div class="check-item"><i class="fas fa-map"></i> <span>"I don't know what to revise first"</span></div>
+                    <div class="check-item"><i class="fas fa-calendar-check"></i> <span>"I need structured revision, not random studying"</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Expected Outcome -->
+        <section class="section">
+            <div class="narrow">
+                <div class="section-header">
+                    <h2>Expected Outcome</h2>
+                    <p>We focus on preparation, not promises.</p>
+                </div>
+                <div class="outcome-box">
+                    <p>With consistent participation, students typically gain:</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Better exam familiarity</li>
+                        <li><i class="fas fa-check"></i> Improved speed in answering questions</li>
+                        <li><i class="fas fa-check"></i> Stronger revision structure</li>
+                        <li><i class="fas fa-check"></i> Increased confidence in exam environment</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Requirements -->
+        <section class="section alt-bg">
+            <div class="inner">
+                <div class="section-header">
+                    <h2>Requirements</h2>
+                    <p>Simple setup to join revision classes.</p>
+                </div>
+                <div class="checklist-grid" style="max-width: 800px; margin: var(--stack-md) auto 0;">
+                    <div class="check-item"><i class="fas fa-mobile-alt"></i> <span>Smartphone / tablet / laptop</span></div>
+                    <div class="check-item"><i class="fas fa-wifi"></i> <span>Stable internet connection</span></div>
+                    <div class="check-item"><i class="fas fa-video"></i> <span>Google Meet access</span></div>
+                    <div class="check-item"><i class="fab fa-whatsapp"></i> <span>WhatsApp for updates and support</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Pricing Teaser -->
+        <section class="section">
+            <div class="pricing-teaser">
+                <p>WAEC preparation is included in structured learning plans based on subject selection and class level.</p>
+                <button class="btn-link" onclick="window.location.href='/pricing'">View Pricing <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <!-- 11. Final CTA -->
+        <section class="final-cta">
+            <h2>Start Preparing for WAEC the Right Way</h2>
+            <p>Join structured revision classes and practice with guided support from tutors.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/2349034110894" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Join via WhatsApp</a>
+                <a href="/contact" class="btn-outline"><i class="fas fa-envelope"></i> Talk to an Admin</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Restored Original -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo">NaijaAssets</span>
+                    <p>Structured online tutoring for Nigerian secondary school students.</p>
+                    <div class="footer-socials">
+                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <nav class="footer-links">
+                        <a href="/">Home</a>
+                        <a href="/about">About</a>
+                        <a href="/subjects">Subjects</a>
+                        <a href="/pricing">Pricing</a>
+                        <a href="/faq">FAQ</a>
+                        <a href="/contact">Contact</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Subjects</h4>
+                    <nav class="footer-links">
+                        <a href="/subjects/mathematics">Mathematics</a>
+                        <a href="/subjects/science">Science</a>
+                        <a href="/subjects/waec">WAEC Prep</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <nav class="footer-links">
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="/support">Support</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
+                <div class="footer-socials-bottom">
+                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
+                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const drawer = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('mobileMenuOverlay');
+        const closeBtn = document.querySelector('.mobile-menu-close');
+        
+        function openMenu() { drawer.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+        function closeMenu() { drawer.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+        
+        toggle.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
+    </script>
+</body>
+</html>
