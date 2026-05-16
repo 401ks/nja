@@ -46,7 +46,7 @@
             --on-secondary-container: #316e52;
             --on-primary-fixed: #001c37;
             
-            /* Spacing & Layout */
+            /* Original Spacing & Layout - Restored */
             --margin-desktop: 40px;
             --margin-mobile: 16px;
             --gutter: 24px;
@@ -55,13 +55,13 @@
             --stack-sm: 12px;
             --container-max: 1280px;
             
-            /* Border Radius */
+            /* Original Border Radius - Restored */
             --radius-default: 2px;
             --radius-lg: 4px;
             --radius-xl: 8px;
             --radius-full: 12px;
             
-            /* Typography */
+            /* Original Typography - Restored */
             --font-display: 'Montserrat', sans-serif;
             --font-body: 'Inter', sans-serif;
         }
@@ -73,11 +73,12 @@
             color: var(--on-surface);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            /* Removed global scale transform - back to original sizing */
         }
         h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 600; color: var(--primary); }
         a { text-decoration: none; color: inherit; }
 
-        /* HEADER */
+        /* HEADER - Original sizing restored */
         .header {
             position: fixed; top: 0; left: 0; right: 0; height: 64px;
             background-color: var(--surface-bright);
@@ -217,7 +218,7 @@
             transform: translateY(-2px);
         }
 
-        /* HERO */
+        /* HERO - Original sizing restored */
         .hero {
             margin-top: 64px; padding: var(--stack-lg) var(--margin-desktop);
             background-color: var(--surface-container-low); position: relative;
@@ -282,7 +283,7 @@
         .hero-link i { font-size: 14px; transition: transform 0.2s; }
         .hero-link:hover i { transform: translateX(4px); }
 
-        /* HOW IT WORKS */
+        /* HOW IT WORKS - Original sizing restored */
         .how-it-works { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-bright); }
         .how-it-works-container { max-width: var(--container-max); margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: var(--stack-lg); }
@@ -313,7 +314,7 @@
         .step-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: var(--stack-sm); line-height: 1.33; }
         .step-description { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; }
 
-        /* SUBJECTS */
+        /* SUBJECTS - Original sizing restored */
         .subjects { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-container-low); }
         .subjects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); max-width: var(--container-max); margin: 0 auto; align-items: stretch; }
         .subject-card {
@@ -351,7 +352,7 @@
         .subject-cta i { font-size: 12px; transition: transform 0.2s; }
         .subject-cta:hover i { transform: translateX(4px); }
 
-        /* WHY PARENTS */
+        /* WHY PARENTS - Original sizing restored */
         .why-parents { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-bright); }
         .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); max-width: var(--container-max); margin: 0 auto; }
         .feature-card {
@@ -391,7 +392,7 @@
         .feature-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--primary); margin: 0; line-height: 1.4; }
         .feature-desc { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin: 0; }
 
-        /* WHAT CLASSES LOOK LIKE - Mobile Fixed */
+        /* WHAT CLASSES LOOK LIKE - Mobile Fixed, Original sizing */
         .classes-preview {
             padding: var(--stack-lg) var(--margin-desktop);
             background: linear-gradient(180deg, var(--surface-container-low) 0%, var(--surface-dim) 100%);
@@ -532,7 +533,7 @@
         .badge-4 { bottom: 10px; right: 40px; background: var(--surface-container); color: var(--on-surface); border: 1px solid var(--outline-variant); animation-delay: 0.4s; }
         .badge-4 i { color: var(--secondary); }
 
-        /* EARLY FEEDBACK SECTION */
+        /* EARLY FEEDBACK SECTION - Original sizing */
         .early-feedback { padding: var(--stack-lg) var(--margin-desktop); background-color: var(--surface-bright); }
         .feedback-container { max-width: var(--container-max); margin: 0 auto; }
         .feedback-header { text-align: center; margin-bottom: var(--stack-lg); }
@@ -566,7 +567,7 @@
         .receive-item:hover { border-color: var(--secondary); background: var(--surface-container); }
         .receive-item i { color: var(--secondary); font-size: 14px; }
 
-        /* PRICING SECTION */
+        /* PRICING SECTION - Original sizing */
         .pricing-section {
             padding: var(--stack-lg) var(--margin-desktop);
             background-color: var(--surface-container-low);
@@ -696,7 +697,7 @@
             color: var(--on-secondary);
         }
 
-        /* FAQ SECTION - 2 Column Layout */
+        /* FAQ SECTION - 2 Column Layout, Original sizing */
         .faq-section {
             padding: var(--stack-lg) var(--margin-desktop);
             background-color: var(--surface-bright);
@@ -723,17 +724,17 @@
         
         .faq-question {
             width: 100%;
-            padding: 16px 18px;
+            padding: 18px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 16px;
             background: none;
             border: none;
             cursor: pointer;
             text-align: left;
             font-family: var(--font-display);
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--primary);
             transition: all 0.2s ease;
@@ -745,12 +746,12 @@
         }
         
         .faq-toggle {
-            width: 26px; height: 26px;
+            width: 28px; height: 28px;
             border-radius: 50%;
             background: var(--surface-container);
             color: var(--secondary);
             display: flex; align-items: center; justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
             flex-shrink: 0;
             transition: transform 0.3s ease, background 0.2s ease;
         }
@@ -766,8 +767,8 @@
             transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
         }
         .faq-item.active .faq-answer {
-            max-height: 180px;
-            padding: 0 18px 16px 18px;
+            max-height: 200px;
+            padding: 0 20px 18px 20px;
         }
         .faq-answer p {
             font-family: var(--font-body);
@@ -777,7 +778,7 @@
             margin: 0;
         }
 
-        /* FINAL CTA SECTION */
+        /* FINAL CTA SECTION - Original sizing */
         .final-cta {
             padding: var(--stack-lg) var(--margin-desktop);
             background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-container) 100%);
@@ -862,7 +863,7 @@
         }
         .cta-note i { color: var(--secondary); font-size: 14px; }
 
-        /* Form Styles */
+        /* Form Styles - Original sizing */
         .cta-form {
             background: var(--surface);
             border: 1px solid var(--outline-variant);
@@ -949,7 +950,7 @@
             transform: none;
         }
 
-        /* Modal/Popup Styles */
+        /* Modal/Popup Styles - Original sizing */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -1030,7 +1031,7 @@
             background: var(--primary-container);
         }
 
-        /* FOOTER */
+        /* FOOTER - Original sizing */
         .footer {
             background: var(--surface-dim);
             border-top: 1px solid var(--outline-variant);
@@ -1136,7 +1137,7 @@
             color: var(--secondary);
         }
 
-        /* RESPONSIVE - Critical Fixes */
+        /* RESPONSIVE - Original breakpoints */
         @media (max-width: 1024px) {
             .nav-center { display: none; }
             .mobile-menu-toggle { display: block; }
@@ -1714,7 +1715,7 @@
         </div>
     </section>
 
-    <!-- Final CTA Section with DUAL-BACKEND Form -->
+    <!-- Final CTA Section with DUAL-BACKEND Form (No Redirects) -->
     <section class="final-cta" id="enroll">
         <div class="cta-container">
             <div class="cta-content">
@@ -1736,43 +1737,30 @@
                 </p>
             </div>
 
-            <!-- Form with Dual Backend: FormSubmit (POST) + Formspree (AJAX) -->
-            <form class="cta-form" id="enrollmentForm" action="https://formsubmit.co/forms@naijaassets.com" method="POST">
-                <!-- Honeypot field to reduce spam -->
-                <input type="text" name="_honey" style="display:none">
-                
-                <!-- FormSubmit: Disable Captcha -->
-                <input type="hidden" name="_captcha" value="false">
-                
-                <!-- FormSubmit: Redirect back to same page with hash for status -->
-                <input type="hidden" name="_next" value="https://naijaassets.com/#submitted">
-                
-                <!-- FormSubmit: Email subject -->
-                <input type="hidden" name="_subject" value="New Enrollment Inquiry - NaijaAssets">
-                
+            <!-- Form with Dual Backend: FormSubmit + Formspree (AJAX only, no redirects) -->
+            <form class="cta-form" id="enrollmentForm">
                 <div class="form-group">
                     <label class="form-label" for="parentName">Parent Name *</label>
-                    <input type="text" id="parentName" name="Parent Name" class="form-input" required placeholder="Enter your full name">
+                    <input type="text" id="parentName" name="parentName" class="form-input" required placeholder="Enter your full name">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="studentGrade">Student Grade *</label>
-                    <!-- Changed to text input for manual entry -->
-                    <input type="text" id="studentGrade" name="Student Grade" class="form-input" required placeholder="e.g., JSS 2, SSS 1, or custom">
+                    <input type="text" id="studentGrade" name="studentGrade" class="form-input" required placeholder="e.g., JSS 2, SSS 1, or custom">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="subjectInterest">Subject Interest *</label>
-                    <input type="text" id="subjectInterest" name="Subject Interest" class="form-input" required placeholder="e.g., Mathematics, Science, WAEC">
+                    <input type="text" id="subjectInterest" name="subjectInterest" class="form-input" required placeholder="e.g., Mathematics, Science, WAEC">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="phoneNumber">Phone / WhatsApp Number *</label>
-                    <input type="tel" id="phoneNumber" name="Phone Number" class="form-input" required placeholder="e.g., 08012345678" pattern="^(\+234|0)[0-9]{10}$">
+                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" required placeholder="e.g., 08012345678" pattern="^(\+234|0)[0-9]{10}$">
                 </div>
 
                 <div class="form-checkbox">
-                    <input type="checkbox" id="privacyAgree" name="Privacy Agreement" required>
+                    <input type="checkbox" id="privacyAgree" name="privacyAgree" required>
                     <label for="privacyAgree">I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and consent to being contacted about enrollment *</label>
                 </div>
 
@@ -1876,23 +1864,7 @@
             } else {
                 lazyImages.forEach(img => { img.classList.add('loaded'); img.loading = 'eager'; });
             }
-            
-            // Check URL hash for form status and show modal
-            checkFormStatus();
         });
-
-        // Check URL hash for form submission status
-        function checkFormStatus() {
-            const hash = window.location.hash;
-            if (hash === '#submitted') {
-                showModal(true, 'Inquiry Submitted!', 'Thank you! We will contact you via WhatsApp within a few hours.');
-                // Clean URL without hash
-                history.replaceState(null, null, window.location.pathname + window.location.search);
-            } else if (hash === '#error') {
-                showModal(false, 'Submission Failed', 'There was an error submitting your form. Please try again or contact us directly via WhatsApp.');
-                history.replaceState(null, null, window.location.pathname + window.location.search);
-            }
-        }
 
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(button => {
@@ -1979,16 +1951,18 @@
             if (e.target === modalOverlay) hideModal();
         });
 
-        // Form Handling: Dual Backend (FormSubmit + Formspree)
+        // Form Handling: Dual Backend via AJAX (NO REDIRECTS)
         const enrollmentForm = document.getElementById('enrollmentForm');
         const submitBtn = document.getElementById('submitBtn');
+        const formsubmitEndpoint = 'https://formsubmit.co/ajax/forms@naijaassets.com';
         const formspreeEndpoint = 'https://formspree.io/f/xeenyjkd';
 
         enrollmentForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Stop default form submission & redirects
+            
             // Client-side validation
             const privacyCheckbox = document.getElementById('privacyAgree');
             if (!privacyCheckbox.checked) {
-                e.preventDefault();
                 showModal(false, 'Permission Required', 'Please agree to the Privacy Policy to continue.');
                 return;
             }
@@ -1998,42 +1972,56 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             
             // Collect form data
-            const formData = new FormData(enrollmentForm);
             const data = {
-                'Parent Name': formData.get('Parent Name'),
-                'Student Grade': formData.get('Student Grade'),
-                'Subject Interest': formData.get('Subject Interest'),
-                'Phone Number': formData.get('Phone Number'),
-                'Privacy Agreement': formData.get('Privacy Agreement') ? 'Yes' : 'No'
+                'Parent Name': document.getElementById('parentName').value,
+                'Student Grade': document.getElementById('studentGrade').value,
+                'Subject Interest': document.getElementById('subjectInterest').value,
+                'Phone Number': document.getElementById('phoneNumber').value,
+                'Privacy Agreement': privacyCheckbox.checked ? 'Yes' : 'No',
+                '_subject': 'New Enrollment Inquiry - NaijaAssets',
+                '_captcha': 'false'
             };
 
+            let successCount = 0;
+            let errorCount = 0;
+
             try {
-                // Submit to Formspree via AJAX (parallel to FormSubmit POST)
-                const formspreeResponse = await fetch(formspreeEndpoint, {
+                // Submit to FormSubmit.co via AJAX
+                const fsResponse = await fetch(formsubmitEndpoint, {
                     method: 'POST',
                     body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
                 });
-
-                const formspreeResult = await formspreeResponse.json();
-                
-                // If Formspree fails, log but don't block - FormSubmit is primary
-                if (!formspreeResponse.ok) {
-                    console.warn('Formspree submission failed:', formspreeResult);
-                }
-                
-                // Form will submit natively to FormSubmit.co via the form's action attribute
-                // The _next parameter will redirect back with #submitted hash
-                // The DOMContentLoaded listener will detect the hash and show the modal
-                
-            } catch (error) {
-                console.error('Formspree AJAX error:', error);
-                // Continue with FormSubmit submission even if Formspree fails
+                if (fsResponse.ok) successCount++; else errorCount++;
+            } catch (err) {
+                console.error('FormSubmit error:', err);
+                errorCount++;
             }
-            // Form submits normally to FormSubmit.co after this handler completes
+
+            try {
+                // Submit to Formspree via AJAX
+                const fsprResponse = await fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+                });
+                if (fsprResponse.ok) successCount++; else errorCount++;
+            } catch (err) {
+                console.error('Formspree error:', err);
+                errorCount++;
+            }
+
+            // Show appropriate modal based on results
+            if (successCount > 0) {
+                showModal(true, 'Inquiry Submitted!', 'Thank you! We will contact you via WhatsApp within a few hours.');
+                enrollmentForm.reset();
+            } else {
+                showModal(false, 'Submission Failed', 'There was an error submitting your form. Please try again or contact us directly via WhatsApp.');
+            }
+
+            // Reset button state
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Inquiry';
         });
 
         // Smooth scroll for anchor links
