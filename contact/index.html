@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - NaijaAssets</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Brand Colors */
+            --surface-bright: #f8f9ff;
+            --surface-container-high: #dce9ff;
+            --surface-dim: #ccdbf3;
+            --secondary-fixed: #b1f0ce;
+            --on-surface-variant: #43474d;
+            --on-primary: #ffffff;
+            --on-secondary: #ffffff;
+            --primary-fixed: #d2e4ff;
+            --outline: #74777e;
+            --surface-container-highest: #d5e3fc;
+            --surface-container: #e6eeff;
+            --secondary-fixed-dim: #95d4b3;
+            --on-background: #0d1c2e;
+            --surface-container-low: #eff4ff;
+            --error: #ba1a1a;
+            --on-surface: #0d1c2e;
+            --primary-fixed-dim: #b0c8eb;
+            --outline-variant: #c4c6ce;
+            --on-primary-container: #768dad;
+            --surface: #f8f9ff;
+            --primary-container: #0a2540;
+            --secondary-container: #aeeecb;
+            --secondary: #2c694e;
+            --primary: #000f22;
+            
+            /* Spacing & Layout */
+            --margin-desktop: 40px;
+            --margin-mobile: 16px;
+            --gutter: 24px;
+            --stack-lg: 64px;
+            --stack-md: 32px;
+            --stack-sm: 16px;
+            --container-max: 1280px;
+            --container-narrow: 900px;
+            
+            /* Border Radius */
+            --radius-lg: 8px;
+            --radius-xl: 12px;
+            --radius-full: 16px;
+            
+            /* Typography */
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--surface-bright);
+            color: var(--on-surface);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; color: var(--primary); line-height: 1.25; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        ul { list-style: none; }
+
+        /* HEADER - Restored Original Styles */
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background-color: var(--surface-bright); border-bottom: 1px solid var(--outline-variant); box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 1000; }
+        .header-container { max-width: var(--container-max); margin: 0 auto; height: 100%; padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
+        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--on-surface-variant); text-transform: uppercase; }
+        .nav-link:hover, .nav-link.active { color: var(--secondary); }
+        .cta-button { background: var(--primary); color: var(--on-primary); padding: 10px 20px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
+        .mobile-menu-toggle { display: none; background: none; border: none; color: var(--on-surface-variant); font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001; }
+
+        /* MOBILE MENU - Restored Original Styles */
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--surface-bright); z-index: 1000; padding: 80px 24px 24px; box-shadow: -4px 0 24px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--on-surface-variant); cursor: pointer; padding: 8px; }
+        .mobile-nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+        .mobile-nav-link { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--on-surface); padding: 12px 16px; border-radius: var(--radius-xl); transition: all 0.2s ease; display: block; }
+        .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--surface-container); color: var(--secondary); }
+        .mobile-menu-cta { background: var(--primary); color: var(--on-primary); padding: 14px 24px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 15px; font-weight: 600; text-align: center; display: block; margin-top: 16px; }
+        .mobile-socials { display: flex; gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
+        .mobile-socials a { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 18px; transition: all 0.2s ease; }
+        .mobile-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
+
+        /* PAGE SPECIFIC LAYOUT */
+        .contact-page { padding-top: 64px; }
+        .contact-hero {
+            padding: var(--stack-lg) var(--margin-desktop); text-align: center;
+            background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-bright) 100%);
+        }
+        .contact-hero h1 { font-size: 42px; margin-bottom: 12px; }
+        .contact-hero p { font-size: 18px; color: var(--on-surface-variant); max-width: 600px; margin: 0 auto; }
+        .response-note { font-size: 13px; color: var(--secondary); margin-top: 16px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+
+        /* Contact Section */
+        .contact-section { padding: var(--stack-lg) var(--margin-desktop); }
+        .contact-inner { max-width: var(--container-max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--stack-lg); align-items: start; }
+        
+        /* Contact Info Column */
+        .contact-info { background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl); padding: var(--stack-md); }
+        .contact-info h2 { font-size: 24px; margin-bottom: 20px; }
+        .contact-card { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
+        .contact-icon { width: 40px; height: 40px; border-radius: var(--radius-lg); background: var(--secondary-container); color: var(--on-secondary); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .contact-details h3 { font-size: 16px; margin-bottom: 4px; }
+        .contact-details a { color: var(--secondary); font-weight: 500; text-decoration: underline; text-decoration-color: transparent; transition: 0.2s; }
+        .contact-details a:hover { text-decoration-color: var(--secondary); }
+        .contact-details p { font-size: 14px; color: var(--on-surface-variant); }
+        .contact-hours { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--outline-variant); }
+        .contact-hours h3 { font-size: 16px; margin-bottom: 8px; }
+        .contact-hours p { font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; }
+
+        /* Form Column */
+        .contact-form-wrapper { background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl); padding: var(--stack-md); box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--on-surface); margin-bottom: 6px; letter-spacing: 0.02em; }
+        .form-input, .form-textarea, .form-select {
+            width: 100%; padding: 12px 16px; border: 1px solid var(--outline-variant); border-radius: var(--radius-lg);
+            font-family: var(--font-body); font-size: 14px; color: var(--on-surface); background: var(--surface-bright);
+            transition: all 0.2s ease; resize: vertical;
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(44, 105, 78, 0.1); }
+        .btn-submit {
+            width: 100%; background: var(--secondary); color: var(--on-secondary); padding: 14px; border-radius: var(--radius-full);
+            font-family: var(--font-display); font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;
+        }
+        .btn-submit:hover { background: var(--primary-fixed-dim); color: var(--primary); transform: translateY(-2px); }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.7); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: var(--margin-mobile); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: var(--surface); border-radius: var(--radius-xl); padding: var(--stack-md); max-width: 420px; width: 100%; text-align: center; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-icon { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--stack-sm); font-size: 28px; }
+        .modal-success .modal-icon { background: var(--secondary-container); color: var(--secondary); }
+        .modal-error .modal-icon { background: var(--error-container); color: var(--error); }
+        .modal-title { font-size: 20px; margin-bottom: 8px; }
+        .modal-text { font-size: 14px; color: var(--on-surface-variant); margin-bottom: var(--stack-md); line-height: 1.6; }
+        .btn-modal-close { background: var(--primary); color: var(--on-primary); padding: 12px 32px; border-radius: var(--radius-full); font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-modal-close:hover { background: var(--primary-container); }
+
+        /* Footer - Restored Original */
+        .footer { background: var(--surface-dim); border-top: 1px solid var(--outline-variant); padding: var(--stack-lg) var(--margin-desktop) var(--stack-md); }
+        .footer-container { max-width: var(--container-max); margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--stack-lg); margin-bottom: var(--stack-lg); }
+        .footer-brand .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); display: block; }
+        .footer-brand p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); max-width: 280px; }
+        .footer-socials { display: flex; gap: 12px; }
+        .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 16px; transition: all 0.2s ease; }
+        .footer-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
+        .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); text-transform: uppercase; letter-spacing: 0.05em; }
+        .footer-links { display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); transition: all 0.2s ease; }
+        .footer-links a:hover { color: var(--secondary); padding-left: 4px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--stack-md); border-top: 1px solid var(--outline-variant); }
+        .footer-copyright { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); }
+        .footer-socials-bottom { display: flex; gap: 16px; }
+        .footer-socials-bottom a { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 6px; transition: color 0.2s ease; }
+        .footer-socials-bottom a:hover { color: var(--secondary); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-center { display: none; }
+            .mobile-menu-toggle { display: block; }
+            .contact-inner { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-container { padding: 0 var(--margin-mobile); }
+            .contact-hero { padding: var(--stack-md) var(--margin-mobile); }
+            .contact-hero h1 { font-size: 32px; }
+            .contact-section { padding: var(--stack-md) var(--margin-mobile); }
+            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .footer-brand p { max-width: 100%; }
+        }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">NaijaAssets</a>
+            <nav class="nav-center">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/subjects" class="nav-link">Subjects</a>
+                <a href="/pricing" class="nav-link">Pricing</a>
+                <a href="/faq" class="nav-link">FAQ</a>
+                <a href="/contact" class="nav-link active">Contact</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:16px;">
+                <a href="/contact" class="cta-button">Get Started</a>
+                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
+        <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <div class="mobile-nav-list">
+            <a href="/" class="mobile-nav-link">Home</a>
+            <a href="/about" class="mobile-nav-link">About</a>
+            <a href="/subjects" class="mobile-nav-link">Subjects</a>
+            <a href="/pricing" class="mobile-nav-link">Pricing</a>
+            <a href="/faq" class="mobile-nav-link">FAQ</a>
+            <a href="/contact" class="mobile-nav-link active">Contact</a>
+        </div>
+        <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+        <div class="mobile-socials">
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </nav>
+
+    <main class="contact-page">
+        <!-- Hero -->
+        <section class="contact-hero">
+            <h1>Contact Us</h1>
+            <p>Get in touch with our team for enrollment inquiries, subject information, or general support.</p>
+            <p class="response-note"><i class="fas fa-clock"></i> Typical response time: Within a few hours</p>
+        </section>
+
+        <!-- Contact Grid -->
+        <section class="contact-section">
+            <div class="contact-inner">
+                <!-- Left Column: Info -->
+                <div class="contact-info">
+                    <h2>How to Reach Us</h2>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-details">
+                            <h3>WhatsApp Support</h3>
+                            <p><a href="https://wa.me/2349034110894" target="_blank" rel="noopener">+234 903 411 0894</a></p>
+                            <p>Best for quick questions, enrollment, and schedule updates.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p><a href="mailto:forms@naijaassets.com">forms@naijaassets.com</a></p>
+                            <p>Use email for detailed inquiries or formal documentation.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-details">
+                            <h3>Phone</h3>
+                            <p><a href="tel:+2349034110894">+234 903 411 0894</a></p>
+                            <p>Speak directly to an admin during business hours.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-hours">
+                        <h3>Support Hours</h3>
+                        <p>Monday - Saturday: 9:00 AM - 6:00 PM (WAT)<br>Sunday: Closed (Messages will be responded to on Monday)</p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Form -->
+                <div class="contact-form-wrapper">
+                    <h2 style="margin-bottom: 20px; font-size: 24px;">Send a Message</h2>
+                    <form class="cta-form" id="contactForm">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" required placeholder="Enter your name">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="For follow-up correspondence">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone / WhatsApp Number *</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required placeholder="e.g., 08012345678">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="subject">Subject</label>
+                            <select id="subject" name="subject" class="form-select">
+                                <option value="General Inquiry">General Inquiry</option>
+                                <option value="Enrollment">Enrollment</option>
+                                <option value="Subject Information">Subject Information</option>
+                                <option value="Pricing Question">Pricing Question</option>
+                                <option value="Support">Support</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="message">Message *</label>
+                            <textarea id="message" name="message" class="form-textarea" rows="5" required placeholder="Tell us how we can help you..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Restored Original -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo">NaijaAssets</span>
+                    <p>Structured online tutoring for Nigerian secondary school students.</p>
+                    <div class="footer-socials">
+                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <nav class="footer-links">
+                        <a href="/">Home</a>
+                        <a href="/about">About</a>
+                        <a href="/subjects">Subjects</a>
+                        <a href="/pricing">Pricing</a>
+                        <a href="/faq">FAQ</a>
+                        <a href="/contact">Contact</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Subjects</h4>
+                    <nav class="footer-links">
+                        <a href="/subjects/mathematics">Mathematics</a>
+                        <a href="/subjects/science">Science</a>
+                        <a href="/subjects/waec">WAEC Prep</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <nav class="footer-links">
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="/support">Support</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
+                <div class="footer-socials-bottom">
+                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
+                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success/Error Modal Popup -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-icon" id="modalIcon">
+                <i class="fas fa-check" id="modalIconSymbol"></i>
+            </div>
+            <h3 class="modal-title" id="modalTitle">Message Sent!</h3>
+            <p class="modal-text" id="modalText">Thank you for reaching out. We will get back to you shortly.</p>
+            <button class="btn-modal-close" id="modalClose">Got it</button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Logic
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const drawer = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('mobileMenuOverlay');
+        const closeBtn = document.querySelector('.mobile-menu-close');
+        
+        function openMenu() { drawer.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+        function closeMenu() { drawer.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+        
+        toggle.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
+
+        // Modal Functions
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('modal');
+        const modalIconSymbol = document.getElementById('modalIconSymbol');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const modalClose = document.getElementById('modalClose');
+
+        function showModal(isSuccess, title, message) {
+            modalOverlay.classList.add('active');
+            if (isSuccess) {
+                modal.className = 'modal modal-success';
+                modalIconSymbol.className = 'fas fa-check';
+            } else {
+                modal.className = 'modal modal-error';
+                modalIconSymbol.className = 'fas fa-exclamation-triangle';
+            }
+            modalTitle.textContent = title;
+            modalText.textContent = message;
+        }
+
+        function hideModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalClose.addEventListener('click', hideModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) hideModal();
+        });
+
+        // Contact Form Handling (Dual Backend via AJAX)
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formsubmitEndpoint = 'https://formsubmit.co/ajax/forms@naijaassets.com';
+        const formspreeEndpoint = 'https://formspree.io/f/xeenyjkd';
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show "sending" state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Collect form data
+            const data = {
+                'Name': document.getElementById('name').value,
+                'Email': document.getElementById('email').value || 'Not provided',
+                'Phone': document.getElementById('phone').value,
+                'Subject': document.getElementById('subject').value,
+                'Message': document.getElementById('message').value,
+                '_subject': 'New Contact Form Inquiry - NaijaAssets',
+                '_captcha': 'false'
+            };
+
+            let successCount = 0;
+            let errorCount = 0;
+
+            try {
+                // Submit to FormSubmit.co via AJAX
+                const fsResponse = await fetch(formsubmitEndpoint, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+                });
+                if (fsResponse.ok) successCount++; else errorCount++;
+            } catch (err) {
+                console.error('FormSubmit error:', err);
+                errorCount++;
+            }
+
+            try {
+                // Submit to Formspree via AJAX
+                const fsprResponse = await fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+                });
+                if (fsprResponse.ok) successCount++; else errorCount++;
+            } catch (err) {
+                console.error('Formspree error:', err);
+                errorCount++;
+            }
+
+            // Show appropriate modal based on results
+            if (successCount > 0) {
+                showModal(true, 'Message Sent!', 'Thank you for reaching out. We will respond to your inquiry shortly via WhatsApp or email.');
+                contactForm.reset();
+            } else {
+                showModal(false, 'Submission Failed', 'There was an error sending your message. Please try again or contact us directly via WhatsApp.');
+            }
+
+            // Reset button state
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+        });
+    </script>
+</body>
+</html>
