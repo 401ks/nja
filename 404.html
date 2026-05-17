@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - NaijaAssets</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Brand Colors */
+            --surface-bright: #f8f9ff;
+            --surface-container-high: #dce9ff;
+            --surface-dim: #ccdbf3;
+            --secondary-fixed: #b1f0ce;
+            --on-surface-variant: #43474d;
+            --on-primary: #ffffff;
+            --on-secondary: #ffffff;
+            --primary-fixed: #d2e4ff;
+            --outline: #74777e;
+            --surface-container-highest: #d5e3fc;
+            --surface-container: #e6eeff;
+            --secondary-fixed-dim: #95d4b3;
+            --on-background: #0d1c2e;
+            --surface-container-low: #eff4ff;
+            --error: #ba1a1a;
+            --on-surface: #0d1c2e;
+            --primary-fixed-dim: #b0c8eb;
+            --outline-variant: #c4c6ce;
+            --on-primary-container: #768dad;
+            --surface: #f8f9ff;
+            --primary-container: #0a2540;
+            --secondary-container: #aeeecb;
+            --secondary: #2c694e;
+            --primary: #000f22;
+            
+            /* Spacing & Layout */
+            --margin-desktop: 40px;
+            --margin-mobile: 16px;
+            --gutter: 24px;
+            --stack-lg: 64px;
+            --stack-md: 32px;
+            --stack-sm: 16px;
+            --container-max: 1280px;
+            
+            /* Border Radius */
+            --radius-lg: 8px;
+            --radius-xl: 12px;
+            --radius-full: 16px;
+            
+            /* Typography */
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--surface-bright);
+            color: var(--on-surface);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; color: var(--primary); line-height: 1.25; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        ul { list-style: none; }
+
+        /* HEADER - Restored Original */
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background-color: var(--surface-bright); border-bottom: 1px solid var(--outline-variant); box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 1000; }
+        .header-container { max-width: var(--container-max); margin: 0 auto; height: 100%; padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
+        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 32px; align-items: center; }
+        .nav-link { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--on-surface-variant); text-transform: uppercase; }
+        .nav-link:hover, .nav-link.active { color: var(--secondary); }
+        .cta-button { background: var(--primary); color: var(--on-primary); padding: 10px 20px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
+        .mobile-menu-toggle { display: none; background: none; border: none; color: var(--on-surface-variant); font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001; }
+
+        /* MOBILE MENU - Restored Original */
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--surface-bright); z-index: 1000; padding: 80px 24px 24px; box-shadow: -4px 0 24px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--on-surface-variant); cursor: pointer; padding: 8px; }
+        .mobile-nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+        .mobile-nav-link { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--on-surface); padding: 12px 16px; border-radius: var(--radius-xl); transition: all 0.2s ease; display: block; }
+        .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--surface-container); color: var(--secondary); }
+        .mobile-menu-cta { background: var(--primary); color: var(--on-primary); padding: 14px 24px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 15px; font-weight: 600; text-align: center; display: block; margin-top: 16px; }
+        .mobile-socials { display: flex; gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
+        .mobile-socials a { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 18px; transition: all 0.2s ease; }
+        .mobile-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
+
+        /* 404 SPECIFIC */
+        .error-page { padding-top: 64px; flex: 1; display: flex; flex-direction: column; }
+        .error-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: var(--stack-lg) var(--margin-desktop); text-align: center; }
+        .error-inner { max-width: 600px; }
+        .error-code { font-size: 120px; font-weight: 800; color: var(--surface-container); line-height: 1; margin-bottom: var(--stack-md); letter-spacing: -0.04em; }
+        .error-title { font-size: 28px; margin-bottom: 12px; }
+        .error-subtitle { font-size: 16px; color: var(--on-surface-variant); margin-bottom: var(--stack-md); max-width: 500px; margin-left: auto; margin-right: auto; }
+        .error-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .btn-home { background: var(--primary); color: var(--on-primary); padding: 14px 28px; border-radius: var(--radius-full); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; border: none; cursor: pointer; }
+        .btn-home:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: var(--on-surface); padding: 14px 28px; border-radius: var(--radius-full); font-weight: 600; border: 2px solid var(--outline-variant); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+        .btn-outline:hover { border-color: var(--secondary); color: var(--secondary); }
+
+        /* FOOTER - Restored Original */
+        .footer { background: var(--surface-dim); border-top: 1px solid var(--outline-variant); padding: var(--stack-lg) var(--margin-desktop) var(--stack-md); }
+        .footer-container { max-width: var(--container-max); margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--stack-lg); margin-bottom: var(--stack-lg); }
+        .footer-brand .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); display: block; }
+        .footer-brand p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); max-width: 280px; }
+        .footer-socials { display: flex; gap: 12px; }
+        .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 16px; transition: all 0.2s ease; }
+        .footer-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
+        .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); text-transform: uppercase; letter-spacing: 0.05em; }
+        .footer-links { display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); transition: all 0.2s ease; }
+        .footer-links a:hover { color: var(--secondary); padding-left: 4px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--stack-md); border-top: 1px solid var(--outline-variant); }
+        .footer-copyright { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); }
+        .footer-socials-bottom { display: flex; gap: 16px; }
+        .footer-socials-bottom a { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 6px; transition: color 0.2s ease; }
+        .footer-socials-bottom a:hover { color: var(--secondary); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-center { display: none; }
+            .mobile-menu-toggle { display: block; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-container { padding: 0 var(--margin-mobile); }
+            .error-content { padding: var(--stack-md) var(--margin-mobile); }
+            .error-code { font-size: 80px; }
+            .error-title { font-size: 24px; }
+            .error-links { flex-direction: column; align-items: stretch; }
+            .btn-home, .btn-outline { justify-content: center; width: 100%; }
+            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">NaijaAssets</a>
+            <nav class="nav-center">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/subjects" class="nav-link">Subjects</a>
+                <a href="/pricing" class="nav-link">Pricing</a>
+                <a href="/faq" class="nav-link">FAQ</a>
+                <a href="/contact" class="nav-link">Contact</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:16px;">
+                <a href="/contact" class="cta-button">Get Started</a>
+                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
+        <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <div class="mobile-nav-list">
+            <a href="/" class="mobile-nav-link">Home</a>
+            <a href="/about" class="mobile-nav-link">About</a>
+            <a href="/subjects" class="mobile-nav-link">Subjects</a>
+            <a href="/pricing" class="mobile-nav-link">Pricing</a>
+            <a href="/faq" class="mobile-nav-link">FAQ</a>
+            <a href="/contact" class="mobile-nav-link">Contact</a>
+        </div>
+        <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+        <div class="mobile-socials">
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </nav>
+
+    <!-- 404 Content -->
+    <main class="error-page">
+        <section class="error-content">
+            <div class="error-inner">
+                <div class="error-code">404</div>
+                <h1 class="error-title">Page Not Found</h1>
+                <p class="error-subtitle">The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+                <div class="error-links">
+                    <a href="/" class="btn-home"><i class="fas fa-home"></i> Return Home</a>
+                    <a href="/subjects" class="btn-outline"><i class="fas fa-book"></i> Browse Subjects</a>
+                    <a href="https://wa.me/2349034110894" class="btn-outline" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Contact Admin</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Restored Original -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo">NaijaAssets</span>
+                    <p>Structured online tutoring for Nigerian secondary school students.</p>
+                    <div class="footer-socials">
+                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <nav class="footer-links">
+                        <a href="/">Home</a>
+                        <a href="/about">About</a>
+                        <a href="/subjects">Subjects</a>
+                        <a href="/pricing">Pricing</a>
+                        <a href="/faq">FAQ</a>
+                        <a href="/contact">Contact</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Subjects</h4>
+                    <nav class="footer-links">
+                        <a href="/subjects/mathematics">Mathematics</a>
+                        <a href="/subjects/science">Science</a>
+                        <a href="/subjects/waec">WAEC Prep</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <nav class="footer-links">
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="/support">Support</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
+                <div class="footer-socials-bottom">
+                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
+                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> X</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const drawer = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('mobileMenuOverlay');
+        const closeBtn = document.querySelector('.mobile-menu-close');
+        
+        function openMenu() { drawer.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+        function closeMenu() { drawer.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+        
+        toggle.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
+    </script>
+</body>
+</html>
