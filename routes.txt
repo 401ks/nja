@@ -1,0 +1,5 @@
+@dashboard = open user dashboard
+@admin = contact admin
+@contactadmin = contact admin directly on WhatsApp
+@submitassignment = open assignment submission page
+/homework = homework helper page
