@@ -1,0 +1,51 @@
+NaijaAssets is a digital real estate and asset listing platform.
+
+It is designed to help users buy, sell, rent, and manage property-style assets through a centralized online marketplace.
+
+CORE PURPOSE:
+NaijaAssets connects users with available properties and listings in a structured and searchable system.
+
+The platform focuses on making asset discovery simple, transparent, and accessible.
+
+MAIN FEATURES:
+
+1. Property Listings
+- Users can browse available assets and listings
+- Listings include residential, commercial, and rental properties
+- Each listing contains details such as location, price, and availability
+- NaijaAssets charge 500$ per listing when a house is listed on the platform
+
+2. Buy / Rent / Sell System
+- Users can list properties for sale or rent
+- Buyers and renters can search and filter listings
+- The system supports multiple property types including shortlets and long-term rentals
+
+3. Search & Discovery
+- Users can search properties by location, price range, and category
+- Popular locations include major cities such as Lagos, Abuja, and other high-demand areas
+- The platform supports both simple search and AI-assisted search queries
+
+4. User Accounts
+- Users can create accounts and manage their listings
+- Registered users can track saved properties and inquiries
+- Dashboard functionality allows listing management
+
+5. Listing Management
+- Property owners can upload and manage listings
+- Listings can be updated or removed at any time
+- Featured listings may be highlighted on the platform
+
+6. Platform Mission
+NaijaAssets aims to improve transparency in the real estate market by making property data easier to access and understand.
+
+It focuses on reducing friction between buyers, sellers, and renters through a simple digital system.
+
+7. Market Focus
+The platform is modeled after modern real estate marketplaces, similar to major property listing websites.
+
+It is optimized for scalability, searchability, and user-friendly browsing of assets.
+
+CONTACT / SUPPORT:
+Users can contact support via platform messaging or listed support email channels.
+
+Registration Number of NaijaAssets: 7596PROPERTY32UID
