@@ -1,20 +1,10 @@
 /**
- * Mermaid Renderer - Standalone
+ * Mermaid Renderer - Accurate Flowchart Parser
  * 
  * Usage:
- * 
- * 1. As URL renderer:
- *    https://your-domain.com/mermaid-renderer.js?code=graph%20TD%3B%0AA%3C--%3EB
- * 
- * 2. As imported module:
- *    <script src="https://your-domain.com/mermaid-renderer.js"></script>
- *    <script>
- *        MermaidRenderer.render('graph TD; A-->B;', '#output');
- *    </script>
- * 
- * 3. As ES Module:
- *    import MermaidRenderer from 'https://your-domain.com/mermaid-renderer.js';
- *    MermaidRenderer.render('graph TD; A-->B;', '#output');
+ * 1. URL: https://your-domain.com/mermaid-renderer.js?code=graph%20TD%3BA--%3EB
+ * 2. Script: <script src="..."></script> then MermaidRenderer.render(code, '#target')
+ * 3. Module: import MermaidRenderer from '...';
  */
 
 (function(root, factory) {
@@ -27,245 +17,120 @@
     }
 }(typeof self !== 'undefined' ? self : this, function() {
 
-    // ============================================================
-    // 1. MERMAID CORE (Minified - v10.9.0)
-    // ============================================================
-    // This is a stripped-down, self-contained Mermaid renderer.
-    // For full Mermaid features, use the CDN version below.
-    // ============================================================
-
-    // If you want the FULL Mermaid library, uncomment this line:
-    // const MERMAID_CDN = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
-    
-    // For now, we use a lightweight rendering approach that handles common diagrams.
-    // This is a simplified parser/renderer for common Mermaid diagrams.
-    
     class MermaidRenderer {
         constructor() {
-            this.version = '1.0.0';
-            this.config = {
-                theme: 'default',
-                themeVariables: {},
-                flowchart: {
-                    useMaxWidth: true,
-                    htmlLabels: true,
-                    curve: 'basis',
-                },
-                sequence: {
-                    useMaxWidth: true,
-                    hideUnusedParticipants: false,
-                }
-            };
+            this.version = '2.0.0';
+            this.nodeCounter = 0;
+            this.edgeLabels = {};
         }
 
         // ============================================================
-        // 2. RENDER ENGINE
+        // MAIN RENDER METHOD
         // ============================================================
 
-        /**
-         * Render Mermaid code to SVG
-         * @param {string} code - Mermaid diagram code
-         * @param {string|HTMLElement} target - CSS selector or DOM element to render into
-         * @param {Object} options - Render options
-         * @returns {Promise<string>} SVG string
-         */
         async render(code, target, options = {}) {
-            // Merge options
-            const config = { ...this.config, ...options };
+            const diagram = this.parse(code);
+            const svg = this.generateSVG(diagram);
             
-            // Parse the diagram
-            const diagram = this.parseDiagram(code);
-            if (!diagram) {
-                throw new Error('Failed to parse Mermaid diagram');
-            }
-
-            // Generate SVG
-            const svg = this.generateSVG(diagram, config);
-            
-            // Render to target if provided
             if (target) {
                 const container = typeof target === 'string' 
                     ? document.querySelector(target) 
                     : target;
-                
-                if (container) {
-                    container.innerHTML = svg;
-                }
+                if (container) container.innerHTML = svg;
             }
-
             return svg;
         }
 
-        /**
-         * Render and return SVG string only
-         */
-        async renderSVG(code, options = {}) {
-            const diagram = this.parseDiagram(code);
-            if (!diagram) {
-                throw new Error('Failed to parse Mermaid diagram');
-            }
-            return this.generateSVG(diagram, { ...this.config, ...options });
-        }
-
-        /**
-         * Parse Mermaid code into a structured diagram object
-         */
-        parseDiagram(code) {
-            const lines = code.split('\n').filter(line => line.trim());
-            
-            // Detect diagram type
-            const firstLine = lines[0] || '';
-            const diagramType = this.detectDiagramType(firstLine);
-            
-            if (!diagramType) {
-                console.warn('Unknown diagram type, defaulting to flowchart');
-            }
-
-            // Parse based on type
-            switch (diagramType) {
-                case 'flowchart':
-                    return this.parseFlowchart(lines);
-                case 'sequence':
-                    return this.parseSequence(lines);
-                case 'class':
-                    return this.parseClass(lines);
-                case 'state':
-                case 'stateDiagram':
-                    return this.parseState(lines);
-                case 'er':
-                    return this.parseER(lines);
-                case 'gantt':
-                    return this.parseGantt(lines);
-                case 'pie':
-                    return this.parsePie(lines);
-                case 'git':
-                    return this.parseGit(lines);
-                default:
-                    return this.parseFlowchart(lines);
-            }
-        }
-
-        detectDiagramType(firstLine) {
-            const types = [
-                'flowchart', 'graph', 'sequenceDiagram', 'classDiagram',
-                'stateDiagram', 'erDiagram', 'gantt', 'pie', 'gitGraph'
-            ];
-            
-            for (const type of types) {
-                if (firstLine.toLowerCase().includes(type)) {
-                    return type;
-                }
-            }
-            return 'flowchart';
+        async renderSVG(code) {
+            const diagram = this.parse(code);
+            return this.generateSVG(diagram);
         }
 
         // ============================================================
-        // 3. FLOWCHART PARSER (Core)
+        // PARSER — Handles your exact syntax
         // ============================================================
 
-        parseFlowchart(lines) {
+        parse(code) {
+            const lines = code.split('\n').filter(l => l.trim() && !l.trim().startsWith('%%'));
             const nodes = [];
             const edges = [];
-            const subgraphs = [];
-            let currentSubgraph = null;
-            let direction = 'TB';
-            
+            const edgeLabels = {};
+            let direction = 'TD';
+
             for (const line of lines) {
                 const trimmed = line.trim();
-                
-                // Skip empty lines and comments
-                if (!trimmed || trimmed.startsWith('%%')) continue;
-                
+
                 // Detect direction
-                if (trimmed.match(/^direction\s+(TB|TD|BT|RL|LR)/i)) {
-                    direction = trimmed.split(/\s+/)[1].toUpperCase();
+                const dirMatch = trimmed.match(/^flowchart\s+(TD|TB|BT|RL|LR)/i);
+                if (dirMatch) {
+                    direction = dirMatch[1].toUpperCase();
                     continue;
                 }
-                
-                // Detect subgraph
-                if (trimmed.match(/^subgraph\s+/i)) {
-                    const name = trimmed.replace(/^subgraph\s+/, '').trim();
-                    currentSubgraph = { id: `sub_${nodes.length}`, name, nodes: [] };
-                    subgraphs.push(currentSubgraph);
+                if (trimmed.match(/^graph\s+(TD|TB|BT|RL|LR)/i)) {
+                    const m = trimmed.match(/^graph\s+(TD|TB|BT|RL|LR)/i);
+                    direction = m[1].toUpperCase();
                     continue;
                 }
-                
-                if (trimmed === 'end' && currentSubgraph) {
-                    currentSubgraph = null;
-                    continue;
-                }
-                
-                // Parse node definitions: A[Label]
-                const nodeMatch = trimmed.match(/^(\w+)(?:\[([^\]]*)\])?/);
+
+                // Parse: A[Label] or A(Label) or A{Label} or A((Label))
+                const nodeMatch = trimmed.match(/^(\w+)\s*(?:\[([^\]]*)\]|\(([^)]*)\)|\{([^}]*)\}|\(\(([^)]*)\)\))/);
                 if (nodeMatch) {
                     const id = nodeMatch[1];
-                    const label = nodeMatch[2] || id;
-                    nodes.push({ id, label, type: 'node' });
+                    const label = nodeMatch[2] || nodeMatch[3] || nodeMatch[4] || nodeMatch[5] || id;
+                    let shape = 'rect';
+                    if (nodeMatch[2] !== undefined) shape = 'rect';
+                    else if (nodeMatch[3] !== undefined) shape = 'roundrect';
+                    else if (nodeMatch[4] !== undefined) shape = 'diamond';
+                    else if (nodeMatch[5] !== undefined) shape = 'circle';
                     
-                    if (currentSubgraph) {
-                        currentSubgraph.nodes.push(id);
-                    }
+                    nodes.push({ id, label, shape });
+                    continue;
                 }
-                
-                // Parse edges: A --> B
-                const edgeMatch = trimmed.match(/^(\w+)\s*(-->|---|==>|-->\s*|\|\|>|\|>|--o|o--o)\s*(\w+)/);
+
+                // Parse edge: A -->|label| B
+                const edgeMatch = trimmed.match(/^(\w+)\s*(-->|---|==>|--o|o--o|\|\|>|\|>)\s*(?:\|([^|]*)\|)?\s*(\w+)/);
                 if (edgeMatch) {
                     const from = edgeMatch[1];
                     const arrow = edgeMatch[2];
-                    const to = edgeMatch[3];
+                    const label = edgeMatch[3] || '';
+                    const to = edgeMatch[4];
                     
-                    edges.push({
-                        from,
-                        to,
-                        arrow: this.parseArrowType(arrow)
-                    });
+                    edges.push({ from, to, arrow, label });
+                    if (label) edgeLabels[`${from}-${to}`] = label;
                     
-                    // Ensure nodes exist
-                    if (!nodes.find(n => n.id === from)) {
-                        nodes.push({ id: from, label: from, type: 'node' });
-                    }
-                    if (!nodes.find(n => n.id === to)) {
-                        nodes.push({ id: to, label: to, type: 'node' });
+                    // Add nodes if missing
+                    if (!nodes.find(n => n.id === from)) nodes.push({ id: from, label: from, shape: 'rect' });
+                    if (!nodes.find(n => n.id === to)) nodes.push({ id: to, label: to, shape: 'rect' });
+                    continue;
+                }
+
+                // Fallback: simple node definition without shape
+                const simpleNode = trimmed.match(/^(\w+)\s*$/);
+                if (simpleNode) {
+                    const id = simpleNode[1];
+                    if (!nodes.find(n => n.id === id)) {
+                        nodes.push({ id, label: id, shape: 'rect' });
                     }
                 }
             }
-            
-            return {
-                type: 'flowchart',
-                direction,
-                nodes,
-                edges,
-                subgraphs
-            };
-        }
 
-        parseArrowType(arrow) {
-            const types = {
-                '-->': 'arrow',
-                '---': 'line',
-                '==>': 'thick_arrow',
-                '--o': 'circle',
-                'o--o': 'double_circle',
-                '||>': 'pointed',
-                '|>': 'pointed'
-            };
-            return types[arrow] || 'arrow';
+            return { nodes, edges, edgeLabels, direction };
         }
 
         // ============================================================
-        // 4. SVG GENERATOR
+        // SVG GENERATOR — Accurate shapes & layout
         // ============================================================
 
-        generateSVG(diagram, config) {
-            const { type, direction, nodes, edges, subgraphs } = diagram;
+        generateSVG(diagram) {
+            const { nodes, edges, direction } = diagram;
             
-            // Calculate layout
+            // Calculate layout (grid-based with edge awareness)
             const layout = this.calculateLayout(nodes, edges, direction);
             
-            // Build SVG
-            const width = layout.width + 80;
-            const height = layout.height + 80;
-            
+            const padding = 60;
+            const width = layout.width + padding * 2;
+            const height = layout.height + padding * 2;
+
             let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="100%" style="background: white; font-family: 'Segoe UI', Arial, sans-serif;">
                 <defs>
                     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -278,20 +143,19 @@
                         <circle cx="4" cy="4" r="4" fill="#666" />
                     </marker>
                     <filter id="shadow">
-                        <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.1" />
+                        <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.08" />
                     </filter>
                 </defs>`;
-            
-            // Draw edges first (so they're behind nodes)
+
+            // Draw edges
             for (const edge of edges) {
                 const from = layout.positions[edge.from];
                 const to = layout.positions[edge.to];
-                
                 if (from && to) {
-                    svg += this.drawEdge(from, to, edge.arrow);
+                    svg += this.drawEdge(from, to, edge.arrow, edge.label || diagram.edgeLabels?.[`${edge.from}-${edge.to}`] || '');
                 }
             }
-            
+
             // Draw nodes
             for (const node of nodes) {
                 const pos = layout.positions[node.id];
@@ -299,155 +163,173 @@
                     svg += this.drawNode(node, pos);
                 }
             }
-            
+
             svg += '</svg>';
-            
             return svg;
         }
 
+        // ============================================================
+        // LAYOUT ENGINE
+        // ============================================================
+
         calculateLayout(nodes, edges, direction) {
             const positions = {};
-            const spacing = 120;
-            const nodeWidth = 100;
-            const nodeHeight = 50;
+            const nodeSize = { w: 140, h: 50 };
+            const spacing = { x: 180, y: 100 };
             
-            // Simple grid layout
-            const totalNodes = nodes.length;
-            const cols = Math.ceil(Math.sqrt(totalNodes));
-            const rows = Math.ceil(totalNodes / cols);
-            
-            let x = 0, y = 0;
-            
-            for (let i = 0; i < nodes.length; i++) {
-                const row = Math.floor(i / cols);
-                const col = i % cols;
-                
-                if (direction === 'TB' || direction === 'TD') {
-                    x = col * spacing + spacing / 2;
-                    y = row * spacing + spacing / 2;
-                } else if (direction === 'LR') {
-                    x = row * spacing + spacing / 2;
-                    y = col * spacing + spacing / 2;
-                } else {
-                    x = col * spacing + spacing / 2;
-                    y = row * spacing + spacing / 2;
-                }
-                
-                positions[nodes[i].id] = { x, y };
+            // Build adjacency for better layout
+            const adjacency = {};
+            for (const node of nodes) adjacency[node.id] = [];
+            for (const edge of edges) {
+                if (adjacency[edge.from]) adjacency[edge.from].push(edge.to);
             }
-            
-            return {
-                positions,
-                width: cols * spacing + spacing,
-                height: rows * spacing + spacing
-            };
-        }
 
-        drawNode(node, pos) {
-            const { id, label, type } = node;
-            const x = pos.x;
-            const y = pos.y;
-            const width = 120;
-            const height = 50;
+            // Simple topological layering (BFS from roots)
+            const roots = nodes.filter(n => !edges.some(e => e.to === n.id));
+            const layers = [];
+            const visited = new Set();
+            let currentLayer = roots.length ? roots.map(n => n.id) : [nodes[0]?.id];
             
-            let shape = '';
-            let fill = '#f0f4ff';
-            let stroke = '#5341cd';
-            
-            if (type === 'start') {
-                fill = '#5341cd';
-                stroke = '#5341cd';
-                return `<ellipse cx="${x}" cy="${y}" rx="${width/2}" ry="${height/2}" fill="${fill}" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/>
-                        <text x="${x}" y="${y + 6}" text-anchor="middle" fill="white" font-size="14" font-weight="600">${label}</text>`;
-            }
-            
-            return `<rect x="${x - width/2}" y="${y - height/2}" width="${width}" height="${height}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/>
-                    <text x="${x}" y="${y + 6}" text-anchor="middle" fill="#1b1c1a" font-size="13" font-weight="500">${label}</text>`;
-        }
-
-        drawEdge(from, to, type) {
-            const markerMap = {
-                'arrow': 'url(#arrowhead)',
-                'thick_arrow': 'url(#arrowhead-thick)',
-                'circle': 'url(#arrowhead-circle)'
-            };
-            
-            const marker = markerMap[type] || 'url(#arrowhead)';
-            
-            return `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" 
-                    stroke="#666" stroke-width="2" marker-end="${marker}" />`;
-        }
-
-        // ============================================================
-        // 5. DIAGRAM TYPE PARSERS (Placeholders)
-        // ============================================================
-
-        parseSequence(lines) {
-            // Simplified sequence diagram parser
-            const participants = [];
-            const messages = [];
-            
-            for (const line of lines) {
-                const trimmed = line.trim();
-                if (trimmed.startsWith('participant')) {
-                    const name = trimmed.replace('participant', '').trim();
-                    participants.push({ id: name, label: name });
-                }
-                if (trimmed.includes('->')) {
-                    const parts = trimmed.split('->');
-                    if (parts.length === 2) {
-                        const from = parts[0].trim();
-                        const to = parts[1].trim().replace(':.*', '');
-                        messages.push({ from, to });
+            while (currentLayer.length) {
+                layers.push(currentLayer);
+                const nextLayer = [];
+                for (const id of currentLayer) {
+                    visited.add(id);
+                    for (const child of (adjacency[id] || [])) {
+                        if (!visited.has(child) && !nextLayer.includes(child)) {
+                            nextLayer.push(child);
+                        }
                     }
                 }
+                currentLayer = nextLayer;
             }
-            
-            return {
-                type: 'sequence',
-                participants,
-                messages
-            };
-        }
 
-        parseClass(lines) {
-            return { type: 'class', classes: [], relations: [] };
-        }
+            // Assign positions based on layers
+            const isHorizontal = direction === 'LR' || direction === 'RL';
+            const maxPerLayer = Math.max(...layers.map(l => l.length), 1);
 
-        parseState(lines) {
-            return { type: 'state', states: [], transitions: [] };
-        }
-
-        parseER(lines) {
-            return { type: 'er', entities: [], relations: [] };
-        }
-
-        parseGantt(lines) {
-            return { type: 'gantt', tasks: [] };
-        }
-
-        parsePie(lines) {
-            const data = [];
-            for (const line of lines) {
-                const match = line.match(/"([^"]+)"\s*:\s*(\d+)/);
-                if (match) {
-                    data.push({ label: match[1], value: parseInt(match[2]) });
+            for (let layerIdx = 0; layerIdx < layers.length; layerIdx++) {
+                const layer = layers[layerIdx];
+                const count = layer.length;
+                const startY = -(count - 1) * spacing.y / 2;
+                
+                for (let i = 0; i < count; i++) {
+                    const id = layer[i];
+                    const x = isHorizontal ? layerIdx * spacing.x : 0;
+                    const y = isHorizontal ? startY + i * spacing.y : layerIdx * spacing.y;
+                    
+                    // Center horizontally if vertical
+                    const finalX = isHorizontal ? x : (i - (count - 1) / 2) * spacing.x;
+                    const finalY = isHorizontal ? y : y;
+                    
+                    positions[id] = { x: finalX, y: finalY };
                 }
             }
-            return { type: 'pie', data };
-        }
 
-        parseGit(lines) {
-            return { type: 'git', commits: [] };
+            // Calculate bounds
+            let minX = 0, maxX = 0, minY = 0, maxY = 0;
+            for (const id in positions) {
+                const p = positions[id];
+                if (p.x < minX) minX = p.x;
+                if (p.x > maxX) maxX = p.x;
+                if (p.y < minY) minY = p.y;
+                if (p.y > maxY) maxY = p.y;
+            }
+
+            const width = maxX - minX + nodeSize.w + spacing.x;
+            const height = maxY - minY + nodeSize.h + spacing.y;
+
+            // Shift to positive space
+            for (const id in positions) {
+                positions[id].x += -minX + nodeSize.w / 2 + spacing.x / 2;
+                positions[id].y += -minY + nodeSize.h / 2 + spacing.y / 2;
+            }
+
+            return { positions, width, height };
         }
 
         // ============================================================
-        // 6. URL PARAMETER HANDLER
+        // DRAWING FUNCTIONS
         // ============================================================
 
-        /**
-         * Parse URL parameters and render if ?code= is present
-         */
+        drawNode(node, pos) {
+            const { id, label, shape } = node;
+            const x = pos.x;
+            const y = pos.y;
+            const w = 140;
+            const h = 50;
+            
+            let shapeSvg = '';
+            let fill = '#f8f9fa';
+            let stroke = '#5341cd';
+            let textColor = '#1b1c1a';
+
+            if (shape === 'rect') {
+                // Square/rectangle node
+                shapeSvg = `<rect x="${x - w/2}" y="${y - h/2}" width="${w}" height="${h}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/>`;
+            } else if (shape === 'roundrect') {
+                // Rounded rectangle (like "Go shopping")
+                shapeSvg = `<rect x="${x - w/2}" y="${y - h/2}" width="${w}" height="${h}" rx="25" fill="${fill}" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/>`;
+            } else if (shape === 'diamond') {
+                // Diamond (decision)
+                const points = `${x},${y - h/2} ${x + w/2},${y} ${x},${y + h/2} ${x - w/2},${y}`;
+                shapeSvg = `<polygon points="${points}" fill="${fill}" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/>`;
+            } else if (shape === 'circle') {
+                // Circle
+                shapeSvg = `<circle cx="${x}" cy="${y}" r="${Math.min(w, h) / 2}" fill="${fill}" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/>`;
+            } else {
+                shapeSvg = `<rect x="${x - w/2}" y="${y - h/2}" width="${w}" height="${h}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/>`;
+            }
+
+            return `${shapeSvg}
+                <text x="${x}" y="${y + 5}" text-anchor="middle" fill="${textColor}" font-size="13" font-weight="500" font-family="'Segoe UI', Arial, sans-serif">${label}</text>`;
+        }
+
+        drawEdge(from, to, arrowType, label) {
+            const dx = to.x - from.x;
+            const dy = to.y - from.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < 1) return '';
+            
+            // Shorten arrow to avoid overlapping node borders
+            const shorten = 30;
+            const ratio = shorten / dist;
+            const x1 = from.x + dx * ratio;
+            const y1 = from.y + dy * ratio;
+            const x2 = to.x - dx * ratio;
+            const y2 = to.y - dy * ratio;
+
+            const markerMap = {
+                '-->': 'url(#arrowhead)',
+                '==>': 'url(#arrowhead-thick)',
+                '--o': 'url(#arrowhead-circle)',
+                '---': '',
+                'o--o': 'url(#arrowhead-circle)',
+                '||>': 'url(#arrowhead)',
+                '|>': 'url(#arrowhead)'
+            };
+            const marker = markerMap[arrowType] || 'url(#arrowhead)';
+
+            let edge = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#666" stroke-width="2" marker-end="${marker}" />`;
+
+            // Add label
+            if (label) {
+                const midX = (x1 + x2) / 2;
+                const midY = (y1 + y2) / 2;
+                // Offset label slightly above the line
+                const angle = Math.atan2(dy, dx);
+                const offsetX = -Math.sin(angle) * 16;
+                const offsetY = Math.cos(angle) * 16;
+                edge += `<text x="${midX + offsetX}" y="${midY + offsetY - 6}" text-anchor="middle" fill="#666" font-size="11" font-weight="500" font-family="'Segoe UI', Arial, sans-serif">${label}</text>`;
+            }
+
+            return edge;
+        }
+
+        // ============================================================
+        // URL PARAMETER HANDLER
+        // ============================================================
+
         handleURLParams() {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
@@ -469,52 +351,19 @@
             }
             return false;
         }
-
-        // ============================================================
-        // 7. FULL MERMAID CDN LOADER (Optional)
-        // ============================================================
-
-        /**
-         * Load full Mermaid library from CDN for advanced features
-         */
-        loadFullMermaid() {
-            return new Promise((resolve, reject) => {
-                if (typeof mermaid !== 'undefined') {
-                    resolve(mermaid);
-                    return;
-                }
-                
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
-                script.onload = () => {
-                    if (typeof mermaid !== 'undefined') {
-                        resolve(mermaid);
-                    } else {
-                        reject(new Error('Mermaid library failed to load'));
-                    }
-                };
-                script.onerror = () => reject(new Error('Failed to load Mermaid CDN'));
-                document.head.appendChild(script);
-            });
-        }
     }
 
     // ============================================================
-    // 8. EXPORT & INITIALIZATION
+    // EXPORT
     // ============================================================
 
     const instance = new MermaidRenderer();
 
-    // Auto-initialize if in browser
     if (typeof window !== 'undefined') {
-        // Auto-render from URL params
         instance.handleURLParams();
-
-        // Expose to window
         window.MermaidRenderer = instance;
         window.MermaidRenderer.render = instance.render.bind(instance);
         window.MermaidRenderer.renderSVG = instance.renderSVG.bind(instance);
-        window.MermaidRenderer.loadFullMermaid = instance.loadFullMermaid.bind(instance);
     }
 
     return instance;
