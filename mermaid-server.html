@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Diagram Server</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f3f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #5341cd;
+            margin-top: 0;
+        }
+        .badge {
+            background: #e67e22;
+            color: white;
+            font-size: 12px;
+            padding: 2px 12px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            resize: vertical;
+            min-height: 150px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        button {
+            background: #5341cd;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #4029ba;
+        }
+        .btn-pencil {
+            background: #e67e22;
+        }
+        .btn-pencil:hover {
+            background: #d35400;
+        }
+        .btn-save {
+            background: #27ae60;
+        }
+        .btn-save:hover {
+            background: #1e8449;
+        }
+        .btn-copy {
+            background: #2980b9;
+        }
+        .btn-copy:hover {
+            background: #1f618d;
+        }
+        .output-area {
+            margin-top: 20px;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+        }
+        #output {
+            min-height: 200px;
+            padding: 20px;
+            background: #faf8f5;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        #output svg {
+            width: 100%;
+            height: auto;
+        }
+        .info {
+            font-size: 13px;
+            color: #888;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 6px;
+        }
+        .info code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        .tab {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .tab.active {
+            background: #5341cd;
+            color: white;
+        }
+        .tab:hover:not(.active) {
+            background: #e0e0e0;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .status {
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+        .status.success {
+            background: #d5f5e3;
+            color: #1a7a42;
+        }
+        .status.error {
+            background: #ffdad6;
+            color: #ba1a1a;
+        }
+        .status.info {
+            background: #d6eaf8;
+            color: #1a5276;
+        }
+        #status-bar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📊 Mermaid Diagram Server <span class="badge">v4.2</span></h1>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" data-tab="tab-edit">✏️ Editor</button>
+        <button class="tab" data-tab="tab-url">🔗 URL Builder</button>
+        <button class="tab" data-tab="tab-api">🚀 API Test</button>
+    </div>
+
+    <!-- TAB 1: Editor -->
+    <div id="tab-edit" class="tab-content active">
+        <p>Enter your Mermaid diagram code below:</p>
+        <textarea id="code-input">flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[Car]</textarea>
+        
+        <div class="controls">
+            <button onclick="renderDiagram('clean')">✨ Clean Style</button>
+            <button class="btn-pencil" onclick="renderDiagram('pencil')">✏️ Pencil Sketch</button>
+            <button onclick="renderDiagram('dark')">🌙 Dark Theme</button>
+            <button class="btn-save" onclick="saveAsPNG()">💾 Save PNG</button>
+            <button class="btn-save" onclick="saveAsSVG()">💾 Save SVG</button>
+            <button class="btn-copy" onclick="copySVG()">📋 Copy SVG</button>
+        </div>
+    </div>
+
+    <!-- TAB 2: URL Builder -->
+    <div id="tab-url" class="tab-content">
+        <p>Encode your diagram as a URL parameter:</p>
+        <textarea id="url-code-input" rows="6">flowchart TD
+    A[Start] --> B[Process]
+    B --> C[End]</textarea>
+        <div class="controls">
+            <button onclick="buildURL('clean')">🔗 Build Clean URL</button>
+            <button class="btn-pencil" onclick="buildURL('pencil')">🔗 Build Pencil URL</button>
+        </div>
+        <div id="url-output" style="margin-top:10px; display:none;">
+            <label style="font-weight:600;font-size:13px;">Your URL:</label>
+            <div style="background:#f0f0f0;padding:12px;border-radius:6px;word-break:break-all;font-size:13px;font-family:monospace;" id="url-result"></div>
+            <button onclick="copyURL()" style="margin-top:8px;background:#2980b9;">📋 Copy URL</button>
+            <button onclick="openURL()" style="margin-top:8px;background:#27ae60;">🚀 Open in New Tab</button>
+        </div>
+    </div>
+
+    <!-- TAB 3: API Test -->
+    <div id="tab-api" class="tab-content">
+        <p>Test the API endpoints:</p>
+        
+        <div style="background:#f8f8f8;padding:15px;border-radius:6px;font-size:13px;">
+            <p><strong>GET (URL Parameter):</strong></p>
+            <code style="background:#eee;padding:4px 8px;border-radius:4px;display:block;margin-bottom:10px;">
+                /mermaid-server.html?code=graph%20TD%3BA--%3EB&style=pencil
+            </code>
+            
+            <p><strong>POST (JSON):</strong></p>
+            <code style="background:#eee;padding:4px 8px;border-radius:4px;display:block;margin-bottom:10px;">
+                POST /mermaid-server.html<br>
+                Content-Type: application/json<br>
+                { "code": "graph TD; A-->B;", "style": "pencil" }
+            </code>
+            
+            <p><strong>POST (Form Data):</strong></p>
+            <code style="background:#eee;padding:4px 8px;border-radius:4px;display:block;">
+                POST /mermaid-server.html<br>
+                Content-Type: application/x-www-form-urlencoded<br>
+                code=graph%20TD%3BA--%3EB&style=pencil
+            </code>
+        </div>
+        
+        <div style="margin-top:15px;">
+            <p><strong>Test POST Request:</strong></p>
+            <textarea id="post-code-input" rows="4">graph TD;
+    A[Start] --> B{Decision};
+    B -->|Yes| C[Continue];
+    B -->|No| D[Stop];</textarea>
+            <div class="controls">
+                <button onclick="testPOST('clean')">🚀 POST (Clean)</button>
+                <button class="btn-pencil" onclick="testPOST('pencil')">🚀 POST (Pencil)</button>
+            </div>
+            <div id="post-response" style="margin-top:10px;display:none;">
+                <div style="background:#f0f0f0;padding:12px;border-radius:6px;font-size:13px;font-family:monospace;word-break:break-all;" id="post-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output Area -->
+    <div class="output-area">
+        <h3 style="margin-top:0;font-size:16px;color:#5341cd;">📐 Diagram Output</h3>
+        <div id="status-bar" class="status"></div>
+        <div id="output"></div>
+        <div class="info">
+            💡 <strong>Tip:</strong> Right-click the diagram and select "Save image as..." to save as PNG.
+            <br>
+            🔗 <strong>URL Mode:</strong> Add <code>?code=...&style=pencil</code> to the URL to auto-render.
+        </div>
+    </div>
+</div>
+
+<!-- Load Mermaid Renderer -->
+<script src="mermaid-renderer.js"></script>
+
+<script>
+    let currentSvg = '';
+    let currentStyle = 'clean';
+
+    // ============================================================
+    // TAB SWITCHING
+    // ============================================================
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById(this.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ============================================================
+    // RENDER FUNCTIONS
+    // ============================================================
+
+    function showStatus(message, type = 'info') {
+        const bar = document.getElementById('status-bar');
+        bar.style.display = 'block';
+        bar.className = `status ${type}`;
+        bar.textContent = message;
+    }
+
+    function hideStatus() {
+        document.getElementById('status-bar').style.display = 'none';
+    }
+
+    async function renderDiagram(style) {
+        const code = document.getElementById('code-input').value;
+        const output = document.getElementById('output');
+        currentStyle = style;
+        
+        try {
+            showStatus('⏳ Rendering diagram...', 'info');
+            output.innerHTML = '';
+            
+            const options = { style: style };
+            if (style === 'dark') {
+                options.theme = 'dark';
+                options.themeVariables = {
+                    background: '#1a1a2e',
+                    primaryColor: '#6c5ce7',
+                    primaryTextColor: '#ffffff',
+                    primaryBorderColor: '#6c5ce7',
+                    lineColor: '#a8a8b3',
+                    secondaryColor: '#2d2d44',
+                    tertiaryColor: '#3d3d5c'
+                };
+            }
+            
+            currentSvg = await MermaidRenderer.render(code, '#output', options);
+            showStatus('✅ Rendered successfully!', 'success');
+        } catch (err) {
+            output.innerHTML = `<div style="color:#ba1a1a;padding:20px;">Error: ${err.message}</div>`;
+            showStatus('❌ Error: ' + err.message, 'error');
+            console.error(err);
+        }
+    }
+
+    // ============================================================
+    // URL BUILDER
+    // ============================================================
+
+    function buildURL(style) {
+        const code = document.getElementById('url-code-input').value;
+        const encoded = encodeURIComponent(code);
+        const base = window.location.href.split('?')[0];
+        const url = `${base}?code=${encoded}&style=${style}`;
+        
+        document.getElementById('url-result').textContent = url;
+        document.getElementById('url-output').style.display = 'block';
+        showStatus('🔗 URL generated!', 'success');
+    }
+
+    function copyURL() {
+        const url = document.getElementById('url-result').textContent;
+        navigator.clipboard.writeText(url).then(() => {
+            showStatus('📋 URL copied to clipboard!', 'success');
+        }).catch(() => {
+            // Fallback
+            const range = document.createRange();
+            const el = document.getElementById('url-result');
+            range.selectNode(el);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            showStatus('📋 URL copied to clipboard!', 'success');
+        });
+    }
+
+    function openURL() {
+        const url = document.getElementById('url-result').textContent;
+        window.open(url, '_blank');
+    }
+
+    // ============================================================
+    // POST REQUEST TEST
+    // ============================================================
+
+    async function testPOST(style) {
+        const code = document.getElementById('post-code-input').value;
+        const responseDiv = document.getElementById('post-response');
+        const resultDiv = document.getElementById('post-result');
+        
+        responseDiv.style.display = 'block';
+        resultDiv.textContent = '⏳ Sending POST request...';
+        
+        try {
+            const formData = new FormData();
+            formData.append('code', code);
+            formData.append('style', style);
+            
+            const response = await fetch(window.location.href, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const text = await response.text();
+            
+            if (response.ok) {
+                resultDiv.textContent = '✅ POST successful! Response preview:\n\n' + text.substring(0, 500) + '...';
+                showStatus('✅ POST request successful!', 'success');
+            } else {
+                resultDiv.textContent = '❌ POST failed: ' + text;
+                showStatus('❌ POST failed', 'error');
+            }
+        } catch (err) {
+            resultDiv.textContent = '❌ Error: ' + err.message;
+            showStatus('❌ POST error: ' + err.message, 'error');
+        }
+    }
+
+    // ============================================================
+    // SAVE FUNCTIONS
+    // ============================================================
+
+    function saveAsPNG() {
+        const svgEl = document.querySelector('#output svg');
+        if (!svgEl) {
+            showStatus('⚠️ Please render a diagram first!', 'error');
+            return;
+        }
+
+        const bbox = svgEl.getBBox();
+        const width = bbox.width || 800;
+        const height = bbox.height || 600;
+        const padding = 40;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width + padding * 2;
+        canvas.height = height + padding * 2;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const svgData = new XMLSerializer().serializeToString(svgEl);
+        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+
+        const img = new Image();
+        img.onload = function() {
+            ctx.drawImage(img, padding, padding);
+            URL.revokeObjectURL(url);
+            
+            const link = document.createElement('a');
+            link.download = `mermaid-diagram-${currentStyle}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showStatus('💾 PNG downloaded!', 'success');
+        };
+        img.onerror = function() {
+            showStatus('❌ Failed to convert to PNG', 'error');
+        };
+        img.src = url;
+    }
+
+    function saveAsSVG() {
+        const svgEl = document.querySelector('#output svg');
+        if (!svgEl) {
+            showStatus('⚠️ Please render a diagram first!', 'error');
+            return;
+        }
+
+        const svgData = new XMLSerializer().serializeToString(svgEl);
+        const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.download = `mermaid-diagram-${currentStyle}.svg`;
+        link.href = url;
+        link.click();
+        URL.revokeObjectURL(url);
+        showStatus('💾 SVG downloaded!', 'success');
+    }
+
+    function copySVG() {
+        const svgEl = document.querySelector('#output svg');
+        if (!svgEl) {
+            showStatus('⚠️ Please render a diagram first!', 'error');
+            return;
+        }
+
+        const svgData = new XMLSerializer().serializeToString(svgEl);
+        navigator.clipboard.writeText(svgData).then(() => {
+            showStatus('📋 SVG copied to clipboard!', 'success');
+        }).catch(() => {
+            // Fallback
+            const textarea = document.createElement('textarea');
+            textarea.value = svgData;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showStatus('📋 SVG copied to clipboard!', 'success');
+        });
+    }
+
+    // ============================================================
+    // URL PARAMETER HANDLER (Auto-render from URL)
+    // ============================================================
+
+    function handleURLParams() {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const style = params.get('style') || 'clean';
+        
+        if (code) {
+            const decoded = decodeURIComponent(code);
+            document.getElementById('code-input').value = decoded;
+            
+            // Auto-render after a small delay
+            setTimeout(() => {
+                renderDiagram(style);
+            }, 500);
+            
+            // Update URL tab
+            document.getElementById('url-code-input').value = decoded;
+            return true;
+        }
+        return false;
+    }
+
+    // ============================================================
+    // POST REQUEST HANDLER (Server-side)
+    // ============================================================
+
+    async function handlePOSTRequest() {
+        if (document.readyState === 'loading') return;
+        
+        // Only handle POST requests
+        if (window.location.search.includes('code=')) return;
+        
+        try {
+            const contentType = document.contentType || '';
+            let code = '';
+            let style = 'clean';
+            
+            if (contentType.includes('application/json')) {
+                // Handle JSON POST
+                const text = await fetch(window.location.href).then(r => r.text());
+                // This won't work directly in static HTML, but we parse the body via form data
+            } else if (contentType.includes('application/x-www-form-urlencoded') || contentType.includes('multipart/form-data')) {
+                // Form data is handled by the browser automatically
+                // Check if there's a code parameter in the URL
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('code')) {
+                    code = params.get('code');
+                    style = params.get('style') || 'clean';
+                }
+            }
+            
+            // If we have code from POST, render it
+            if (code) {
+                const decoded = decodeURIComponent(code);
+                document.getElementById('code-input').value = decoded;
+                setTimeout(() => renderDiagram(style), 300);
+            }
+        } catch (err) {
+            console.error('POST handler error:', err);
+        }
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+
+    // Handle URL params on load
+    const hasParams = handleURLParams();
+
+    // Auto-render if no URL params
+    if (!hasParams) {
+        setTimeout(() => {
+            renderDiagram('pencil');
+        }, 300);
+    }
+
+    // Handle POST requests (for form submissions)
+    if (window.location.search) {
+        // Check if we have code in the URL (could be from POST redirect)
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('code') && !hasParams) {
+            // This handles the case where POST redirects to GET with code param
+            handleURLParams();
+        }
+    }
+
+    console.log('📊 Mermaid Diagram Server loaded!');
+    console.log('🔗 Use ?code=...&style=pencil for URL rendering');
+    console.log('📬 POST requests accepted with code and style fields');
+</script>
+
+</body>
+</html>
