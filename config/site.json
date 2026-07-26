@@ -1,0 +1,148 @@
+{
+  "company": {
+    "name": "NaijaAssets",
+    "tagline": "Helping Nigerian students learn better.",
+    "description": "AI-first education platform making quality learning affordable and accessible for students in Nigeria.",
+    "url": "https://naijaassets.com",
+    "app_url": "https://app.naijaassets.com",
+    "year_founded": 2025,
+    "location": "Nigeria"
+  },
+  "brand": {
+    "logo_light_bg": "/Logo.png",
+    "logo_dark_bg": "/Logo-nobg.png",
+    "bg_color": "#FBF8E9",
+    "primary_color": "#839C7C",
+    "text_color": "#000000"
+  },
+  "auth": {
+    "login_url": "https://app.naijaassets.com/login",
+    "signup_url": "https://app.naijaassets.com/signup",
+    "dashboard_url": "https://app.naijaassets.com/dashboard"
+  },
+  "contact": {
+    "support_email": "legal@legal.naijaassets.com",
+    "legal_email": "legal@legal.naijaassets.com",
+    "contact_email": "legal@legal.naijaassets.com",
+    "forms_email": "forms@naijaassets.com",
+    "phone": null,
+    "address": null
+  },
+  "social": {
+    "instagram": "/ig",
+    "facebook": "/fb",
+    "x": "/x",
+    "youtube": "/yt",
+    "tiktok": "/tt",
+    "linkedin": "/li"
+  },
+  "forms": {
+    "primary_endpoint": "https://formsubmit.co/forms@naijaassets.com",
+    "backup_endpoint": "https://formspree.io/f/xeenyjkd",
+    "application_endpoint": "https://formsubmit.co/forms@naijaassets.com",
+    "application_backup": "https://formspree.io/f/xeenyjkd"
+  },
+  "growth": {
+    "monthly_creator_budget": 14000000,
+    "budget_display": "₦14M+",
+    "budget_full_display": "₦14 Million+",
+    "budget_description": "Available monthly for performance-based creator rewards, affiliate payouts, and community campaigns.",
+    "budget_disclaimer": "All rewards and payouts are discretionary and based on measurable results. No guaranteed earnings."
+  },
+  "currencies": {
+    "default": "NGN",
+    "available": ["NGN", "USD"],
+    "exchange_rate_ngn_to_usd": 1500
+  },
+  "subscriptions": {
+    "plans": [
+      {
+        "id": "subject",
+        "name": "Subject Subscription",
+        "description": "Access to one academic subject with live classes, recordings, and AI support.",
+        "features": [
+          "Access to one subject",
+          "Live online classes",
+          "Recorded lessons",
+          "AI tutoring support",
+          "Student dashboard",
+          "Monthly billing"
+        ],
+        "pricing": {
+          "NGN": { "monthly": 15000, "quarterly": null, "annual": 165000 },
+          "USD": { "monthly": 10, "quarterly": null, "annual": 110 }
+        },
+        "annual_savings": "1 month free — ~8% discount",
+        "popular": false
+      },
+      {
+        "id": "rex",
+        "name": "Rex",
+        "description": "Recordings access for actively subscribed subjects.",
+        "features": [
+          "Recordings for subscribed subjects",
+          "Access expires with subscription",
+          "Subject subscription required",
+          "Student dashboard",
+          "Monthly billing"
+        ],
+        "pricing": {
+          "NGN": { "monthly": 17000, "quarterly": null, "annual": 187000 },
+          "USD": { "monthly": 11, "quarterly": null, "annual": 121 }
+        },
+        "annual_savings": "1 month free — ~8% discount",
+        "popular": false
+      },
+      {
+        "id": "rex-pro",
+        "name": "Rex Pro",
+        "description": "All recordings for your current grade. No subject restrictions.",
+        "features": [
+          "All recordings for your grade",
+          "No subject subscription needed",
+          "Full AI Features access",
+          "AI Tutor, Whiteboard & Voice",
+          "Student dashboard",
+          "Monthly billing"
+        ],
+        "pricing": {
+          "NGN": { "monthly": 35000, "quarterly": null, "annual": 385000 },
+          "USD": { "monthly": 22, "quarterly": null, "annual": 242 }
+        },
+        "annual_savings": "1 month free — ~8% discount",
+        "popular": true
+      },
+      {
+        "id": "vault-pass",
+        "name": "Vault Pass",
+        "description": "Unlimited access to every recording on the platform. No restrictions.",
+        "features": [
+          "Unlimited access to every recording",
+          "No grade or subject limits",
+          "All AI Features included",
+          "Highest subscription tier",
+          "Premium support",
+          "Monthly billing"
+        ],
+        "pricing": {
+          "NGN": { "monthly": 45000, "quarterly": null, "annual": 486000 },
+          "USD": { "monthly": 29, "quarterly": null, "annual": 313 }
+        },
+        "annual_savings": "10% discount",
+        "popular": false
+      }
+    ]
+  },
+  "features": {
+    "ai_coming_soon": true,
+    "scholarships_active": true,
+    "rewards_active": true,
+    "affiliate_active": true,
+    "teacher_program_active": true
+  },
+  "seo": {
+    "default_title": "NaijaAssets — Helping Nigerian Students Learn Better",
+    "default_description": "Live classes, recorded lessons, and AI-powered tools for Nigerian students. Affordable monthly subscriptions.",
+    "default_og_image": "/og-image.png"
+  }
+}

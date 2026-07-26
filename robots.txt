@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://naijaassets.com/sitemap.xml
+
+# Disallow login/signup - handled by app subdomain
+Disallow: /login/
+Disallow: /signup/

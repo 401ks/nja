@@ -912,7 +912,7 @@
             setTimeout(() => buildIndex(), 2000);
         });
         
-        console.log('[NaijaUniversalSearch] ✅ Ready — Press Ctrl+K to search everything');
+        console.log('[NaijaUniversalSearch] ✅ Ready - Press Ctrl+K to search everything');
     }
 
     // Start when DOM is ready

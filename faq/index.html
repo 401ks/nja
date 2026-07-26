@@ -1,494 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - NaijaAssets</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        :root {
-            /* Brand Colors */
-            --surface-bright: #f8f9ff;
-            --surface-container-high: #dce9ff;
-            --surface-dim: #ccdbf3;
-            --secondary-fixed: #b1f0ce;
-            --on-surface-variant: #43474d;
-            --on-primary: #ffffff;
-            --on-secondary: #ffffff;
-            --primary-fixed: #d2e4ff;
-            --outline: #74777e;
-            --surface-container-highest: #d5e3fc;
-            --surface-container: #e6eeff;
-            --secondary-fixed-dim: #95d4b3;
-            --on-background: #0d1c2e;
-            --surface-container-low: #eff4ff;
-            --error: #ba1a1a;
-            --on-surface: #0d1c2e;
-            --primary-fixed-dim: #b0c8eb;
-            --outline-variant: #c4c6ce;
-            --on-primary-container: #768dad;
-            --surface: #f8f9ff;
-            --primary-container: #0a2540;
-            --secondary-container: #aeeecb;
-            --secondary: #2c694e;
-            --primary: #000f22;
-            
-            /* Spacing & Layout */
-            --margin-desktop: 40px;
-            --margin-mobile: 16px;
-            --gutter: 24px;
-            --stack-lg: 64px;
-            --stack-md: 32px;
-            --stack-sm: 16px;
-            --container-max: 1280px;
-            --container-narrow: 800px;
-            
-            /* Border Radius */
-            --radius-lg: 8px;
-            --radius-xl: 12px;
-            --radius-full: 16px;
-            
-            /* Typography */
-            --font-display: 'Montserrat', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-body);
-            background-color: var(--surface-bright);
-            color: var(--on-surface);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; color: var(--primary); line-height: 1.25; }
-        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-        ul { list-style: none; }
-
-        /* HEADER - Restored Original */
-        .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background-color: var(--surface-bright); border-bottom: 1px solid var(--outline-variant); box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 1000; }
-        .header-container { max-width: var(--container-max); margin: 0 auto; height: 100%; padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 32px; align-items: center; }
-        .nav-link { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--on-surface-variant); text-transform: uppercase; }
-        .nav-link:hover, .nav-link.active { color: var(--secondary); }
-        .cta-button { background: var(--primary); color: var(--on-primary); padding: 10px 20px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
-        .mobile-menu-toggle { display: none; background: none; border: none; color: var(--on-surface-variant); font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001; }
-
-        /* MOBILE MENU - Restored Original */
-        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--surface-bright); z-index: 1000; padding: 80px 24px 24px; box-shadow: -4px 0 24px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
-        .mobile-menu.active { right: 0; }
-        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--on-surface-variant); cursor: pointer; padding: 8px; }
-        .mobile-nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-        .mobile-nav-link { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--on-surface); padding: 12px 16px; border-radius: var(--radius-xl); transition: all 0.2s ease; display: block; }
-        .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--surface-container); color: var(--secondary); }
-        .mobile-menu-cta { background: var(--primary); color: var(--on-primary); padding: 14px 24px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 15px; font-weight: 600; text-align: center; display: block; margin-top: 16px; }
-        .mobile-socials { display: flex; gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
-        .mobile-socials a { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 18px; transition: all 0.2s ease; }
-        .mobile-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-
-        /* PAGE SPECIFIC LAYOUT */
-        .faq-page { padding-top: 64px; }
-        .faq-hero {
-            padding: var(--stack-lg) var(--margin-desktop); text-align: center;
-            background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-bright) 100%);
-        }
-        .faq-hero h1 { font-size: 42px; margin-bottom: 12px; }
-        .faq-hero p { font-size: 18px; color: var(--on-surface-variant); margin-bottom: 16px; }
-        .faq-hero .whatsapp-link { color: var(--secondary); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
-        .faq-hero .whatsapp-link:hover { text-decoration: underline; }
-
-        /* Accordion Section */
-        .faq-section { padding: var(--stack-lg) var(--margin-desktop); }
-        .faq-inner { max-width: var(--container-narrow); margin: 0 auto; }
-        
-        .faq-group { margin-bottom: var(--stack-md); }
-        .faq-group-title { font-size: 22px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--outline-variant); color: var(--primary); }
-        
-        .faq-item {
-            background: var(--surface);
-            border: 1px solid var(--outline-variant);
-            border-radius: var(--radius-lg);
-            margin-bottom: 10px;
-            overflow: hidden;
-            transition: border-color 0.2s;
-        }
-        .faq-item:hover { border-color: var(--secondary-fixed-dim); }
-        .faq-item.active { border-color: var(--secondary); }
-        
-        .faq-question {
-            width: 100%; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
-            background: none; border: none; cursor: pointer; text-align: left; font-family: var(--font-body);
-            font-size: 15px; font-weight: 600; color: var(--primary);
-        }
-        .faq-toggle { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
-        .faq-item.active .faq-toggle { transform: rotate(180deg); }
-        
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; padding: 0 20px; }
-        .faq-item.active .faq-answer { max-height: 120px; padding: 0 20px 16px 20px; }
-        .faq-answer p { font-size: 15px; color: var(--on-surface-variant); line-height: 1.6; margin: 0; }
-
-        /* Final CTA */
-        .final-cta { padding: var(--stack-lg) var(--margin-desktop); text-align: center; background: var(--surface-container-low); border-top: 1px solid var(--outline-variant); }
-        .final-cta h2 { font-size: 32px; margin-bottom: 12px; }
-        .final-cta p { font-size: 18px; color: var(--on-surface-variant); margin-bottom: var(--stack-md); }
-        .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-        .btn-whatsapp { background: #25D366; color: white; padding: 16px 32px; border-radius: var(--radius-full); font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s; border: none; cursor: pointer; }
-        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
-        .btn-outline { background: transparent; color: var(--on-surface); padding: 16px 32px; border-radius: var(--radius-full); font-weight: 600; border: 2px solid var(--outline-variant); transition: all 0.2s; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
-        .btn-outline:hover { border-color: var(--secondary); color: var(--secondary); }
-
-        /* FOOTER - Restored Original */
-        .footer { background: var(--surface-dim); border-top: 1px solid var(--outline-variant); padding: var(--stack-lg) var(--margin-desktop) var(--stack-md); }
-        .footer-container { max-width: var(--container-max); margin: 0 auto; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--stack-lg); margin-bottom: var(--stack-lg); }
-        .footer-brand .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); display: block; }
-        .footer-brand p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); max-width: 280px; }
-        .footer-socials { display: flex; gap: 12px; }
-        .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 16px; transition: all 0.2s ease; }
-        .footer-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-        .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); text-transform: uppercase; letter-spacing: 0.05em; }
-        .footer-links { display: flex; flex-direction: column; gap: 10px; }
-        .footer-links a { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); transition: all 0.2s ease; }
-        .footer-links a:hover { color: var(--secondary); padding-left: 4px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--stack-md); border-top: 1px solid var(--outline-variant); }
-        .footer-copyright { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); }
-        .footer-socials-bottom { display: flex; gap: 16px; }
-        .footer-socials-bottom a { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 6px; transition: color 0.2s ease; }
-        .footer-socials-bottom a:hover { color: var(--secondary); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-center { display: none; }
-            .mobile-menu-toggle { display: block; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .header-container { padding: 0 var(--margin-mobile); }
-            .faq-hero { padding: var(--stack-md) var(--margin-mobile); }
-            .faq-hero h1 { font-size: 32px; }
-            .faq-section { padding: var(--stack-md) var(--margin-mobile); }
-            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
-            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-            .cta-buttons { flex-direction: column; align-items: stretch; }
-            .btn-whatsapp, .btn-outline { justify-content: center; width: 100%; }
-        }
-        a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - Frequently Asked Questions | NaijaAssets</title>
+  <meta name="description" content="Find answers to common questions about NaijaAssets: subscriptions, billing, classes, AI features, scholarships, rewards, trust, and technical requirements.">
+  <link rel="canonical" href="https://naijaassets.com/faq/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://naijaassets.com/faq/">
+  <meta property="og:title" content="FAQ - NaijaAssets Help Center">
+  <meta property="og:description" content="Everything you need to know about NaijaAssets: plans, classes, AI tools, scholarships, and more.">
+  <meta property="og:image" content="https://naijaassets.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FAQ - NaijaAssets">
+  <meta name="twitter:description" content="Quick answers about NaijaAssets subscriptions, classes, and features.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "NaijaAssets",
+    "url": "https://naijaassets.com",
+    "description": "AI-first education platform offering live classes, recorded lessons, AI tutoring, and scholarships.",
+    "areaServed": ["NG", "AF", "WW"],
+    "foundingDate": "2025",
+    "sameAs": ["https://naijaassets.com/ig","https://naijaassets.com/fb","https://naijaassets.com/x","https://naijaassets.com/yt","https://naijaassets.com/tt","https://naijaassets.com/li"]
+  }
+  </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <a href="/" class="logo">NaijaAssets</a>
-            <nav class="nav-center">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/about" class="nav-link">About</a>
-                <a href="/subjects" class="nav-link">Subjects</a>
-                <a href="/pricing" class="nav-link">Pricing</a>
-                <a href="/faq" class="nav-link active">FAQ</a>
-                <a href="/contact" class="nav-link">Contact</a>
-            </nav>
-            <div style="display:flex;align-items:center;gap:16px;">
-                <a href="/contact" class="cta-button">Get Started</a>
-                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </header>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
-        <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
-        <div class="mobile-nav-list">
-            <a href="/" class="mobile-nav-link">Home</a>
-            <a href="/about" class="mobile-nav-link">About</a>
-            <a href="/subjects" class="mobile-nav-link">Subjects</a>
-            <a href="/pricing" class="mobile-nav-link">Pricing</a>
-            <a href="/faq" class="mobile-nav-link active">FAQ</a>
-            <a href="/contact" class="mobile-nav-link">Contact</a>
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="NaijaAssets home"><img src="/Logo.png" alt="NaijaAssets" class="logo-img"></a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/subjects/">Subjects</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/scholarships/">Scholarships</a>
+        <a href="/rewards/">Rewards</a>
+        <a href="/affiliate/">Affiliate</a>
+        <a href="/teachers/">Teachers</a>
+        <a href="/about/">About</a>
+        <a href="/support/">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="nav-desktop-only">
+          <a href="https://app.naijaassets.com/login" class="nav-login">Log in</a>
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary">Sign Up</a>
+        </span>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="mobile-panel-close" id="mobileClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="mobile-nav-list">
+      <a href="/" class="mobile-nav-link">Home</a>
+      <a href="/subjects/" class="mobile-nav-link">Subjects</a>
+      <a href="/pricing/" class="mobile-nav-link">Pricing</a>
+      <a href="/scholarships/" class="mobile-nav-link">Scholarships</a>
+      <a href="/rewards/" class="mobile-nav-link">Content Rewards</a>
+      <a href="/affiliate/" class="mobile-nav-link">Affiliate Program</a>
+      <a href="/teachers/" class="mobile-nav-link">For Teachers</a>
+      <a href="/about/" class="mobile-nav-link">About</a>
+      <a href="/support/" class="mobile-nav-link">Support</a>
+      <a href="/faq/" class="mobile-nav-link">FAQ</a>
+      <hr style="border:none;border-top:1px solid var(--border);margin:var(--space-sm) 0;">
+      <a href="https://app.naijaassets.com/login" class="mobile-nav-link" style="font-weight:600;">Log in</a>
+      <a href="https://app.naijaassets.com/signup" class="mobile-nav-link" style="font-weight:600;color:var(--brand);">Sign Up</a>
+    </div>
+    <div class="mobile-socials">
+      <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="container container-narrow">
+        <h1>Frequently Asked Questions</h1>
+        <p>Quick answers about NaijaAssets - from subscriptions and classes to AI features and trust.</p>
+        <div class="hero-actions">
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary btn-lg">Get Started</a>
+          <a href="#faq-list" class="btn btn-secondary btn-lg">Browse Questions</a>
         </div>
-        <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-        <div class="mobile-socials">
-            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="faq-list">
+      <div class="container container-narrow">
+
+        <div class="section-header">
+          <h2 class="section-title">Getting to know us.</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What is NaijaAssets?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>NaijaAssets is an AI-first education platform offering live classes, recorded lessons, AI tutoring, and educational resources through monthly subscriptions. We serve students primarily in Nigeria and across Africa.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Who is NaijaAssets for?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>NaijaAssets is designed for primary and secondary school students (JSS and SSS levels), their parents, and independent teachers who want to reach more learners.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How is NaijaAssets different from other platforms?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>We combine live teaching with AI-powered tools (AI Tutor, AI Whiteboard, AI Voice) in an affordable monthly subscription model. Our platform also includes content rewards, scholarships, and an affiliate programme for growth.</p></div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top:var(--space-3xl);">
+          <h2 class="section-title">Plans, payments, and policies.</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How do subscriptions work?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Subscriptions are billed monthly and auto-renew. Plans include Subject Subscription (one subject), Rex (recordings for subscribed subjects), Rex Pro (all recordings for your grade), and Vault Pass (unlimited access to every recording).</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Is there a free trial?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>We occasionally offer promotional periods. Check our pricing page for current offers. Your account remains active even after subscription expiration.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Can I cancel my subscription?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Yes. You can cancel anytime from your account settings. You'll retain access until the end of the current billing period.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What happens if a payment fails?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>You have a 5-day grace period to update your billing information. During this time, access continues. After 5 days, access is restricted until payment is resolved.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Do you offer refunds?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Subscriptions are non-refundable. However, we review exceptional circumstances on a case-by-case basis at our discretion.</p></div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top:var(--space-3xl);">
+          <h2 class="section-title">How learning works on our platform.</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Are classes live or recorded?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Both. Classes are conducted live with qualified teachers, and every session is recorded and available on-demand for later review.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What subjects are available?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>We currently offer Mathematics, Basic/Integrated Science, and WAEC/Exam Preparation. More subjects including English, ICT, and Commercial subjects are coming soon.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How long is each class?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Classes run for 45-60 minutes, 2-3 times per week per subject. Small groups of 5-15 students ensure personalised attention.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Can students ask questions during class?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Absolutely. Interaction is strongly encouraged. Students can ask questions via audio, chat, or the interactive whiteboard during live sessions.</p></div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top:var(--space-3xl);">
+          <h2 class="section-title">Intelligent tools for deeper learning.</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What AI tools are available?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Our platform includes AI Tutor (personalised one-on-one tutoring), AI Whiteboard (interactive step-by-step problem solving), and AI Voice & Vision (conversational learning with voice and image recognition).</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Which plans include AI features?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>AI tutoring support is included in Subject Subscription and Rex plans. Full AI Features (Tutor, Whiteboard, Voice) are included in Rex Pro and Vault Pass plans.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Is the AI tutor available 24/7?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Yes. The AI Tutor is available anytime, anywhere, providing instant help with homework, practice problems, and concept explanations.</p></div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top:var(--space-3xl);">
+          <h2 class="section-title">Earn recognition for your effort.</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How do scholarships work?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Scholarships are awarded based on academic performance, competitions, and community initiatives. Active subscribers may qualify for merit-based scholarships.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How do Content Rewards work?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Students create educational content - memes, short videos, UGC - and earn based on measurable impact. See <a href="/legal-pages/rewards-program-terms.html">Rewards Program Terms</a> for full terms.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How does the Affiliate Program work?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Refer students to NaijaAssets and earn commissions. Full tracking, transparency, and fraud protection measures are in place. See our Affiliate page for details.</p></div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top:var(--space-3xl);">
+          <h2 class="section-title">Your child's safety is our priority.</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How is my data protected?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>We use enterprise-grade security, encryption, and strict access controls. Our Privacy Policy and Security Policy detail our data handling practices. We never sell personal information.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Are teachers employees of NaijaAssets?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>No. Teachers are independent contractors who create and deliver educational content. They retain ownership of their original teaching materials while granting NaijaAssets the rights needed to operate the platform.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Is the platform safe for children?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Yes. Classes are monitored, focused strictly on academics, and conducted in a professional environment. We have strict policies on child safety, privacy, and acceptable use. See our Children's Privacy Notice for details.</p></div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top:var(--space-3xl);">
+          <h2 class="section-title">What you need to get started.</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What device do I need?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Any device with internet access works - smartphone, tablet, laptop, or desktop. A stable internet connection is recommended for live classes.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What software is required?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>You only need a modern web browser. Live classes are accessible directly through the platform. No additional software installations are required.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Can I use NaijaAssets with slow internet?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Yes. You can join classes with your camera off to reduce data usage. Recorded lessons can be streamed or downloaded for offline viewing when internet is available.</p></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="container container-narrow">
+        <h2>Still have questions?</h2>
+        <p style="margin-bottom:var(--space-xl);">Our support team is ready to help. Reach out anytime and we'll get back to you quickly.</p>
+        <a href="/support/" class="btn btn-primary btn-lg">Contact Support</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="/Logo-nobg.png" alt="NaijaAssets" class="logo-img"></a>
+          <p>AI-first education platform making quality learning affordable and accessible for students everywhere.</p>
+          <div class="footer-socials">
             <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
         </div>
-    </nav>
-
-    <main class="faq-page">
-        <!-- Hero -->
-        <section class="faq-hero">
-            <h1>Frequently Asked Questions</h1>
-            <p>Quick answers about classes, payments, and how NaijaAssets works.</p>
-            <a href="https://wa.me/2349034110894" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Still unsure? Chat with us on WhatsApp.</a>
-        </section>
-
-        <!-- 1. What is NaijaAssets? -->
-        <section class="faq-section">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">What is NaijaAssets?</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">What is NaijaAssets?</button>
-                    <div class="faq-answer">
-                        <p>NaijaAssets is an online tutoring platform offering live structured classes in Mathematics and Science for secondary school students.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. How Classes Work -->
-        <section class="faq-section" style="background-color: var(--surface-container-low);">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">How Classes Work</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Are classes live?</button>
-                    <div class="faq-answer"><p>Yes. All classes are conducted live via Google Meet. Students attend scheduled real-time sessions.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">How do classes work?</button>
-                    <div class="faq-answer"><p>Students join scheduled sessions where tutors teach, explain topics, and answer questions in real time.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Can students ask questions?</button>
-                    <div class="faq-answer"><p>Yes. Interaction is strongly encouraged. Students can ask questions anytime during the lesson.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Are classes recorded?</button>
-                    <div class="faq-answer"><p>Some sessions may be recorded for learning support, quality assurance, or student review.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Subjects & Students -->
-        <section class="faq-section">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">Subjects & Students</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">What subjects do you offer?</button>
-                    <div class="faq-answer"><p>We currently offer structured tutoring in Mathematics and Science for JSS and SSS students.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Who can join?</button>
-                    <div class="faq-answer"><p>Any secondary school student in JSS 1–3 or SSS 1–3 can enroll in our classes.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Can students take multiple subjects?</button>
-                    <div class="faq-answer"><p>Yes. Students can enroll in both Mathematics and Science, or combine them with other available options.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Requirements -->
-        <section class="faq-section" style="background-color: var(--surface-container-low);">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">Requirements</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">What device is needed?</button>
-                    <div class="faq-answer"><p>Any smartphone, tablet, or computer with a stable internet connection is sufficient.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Do I need special apps?</button>
-                    <div class="faq-answer"><p>Just Google Meet for joining live classes and WhatsApp for communication, schedules, and updates.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">What if internet is slow?</button>
-                    <div class="faq-answer"><p>Students can join with their camera off to reduce data usage and improve connection stability.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Enrollment & Payments -->
-        <section class="faq-section">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">Enrollment & Payments</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">How do I enroll?</button>
-                    <div class="faq-answer"><p>Contact us via WhatsApp or submit the inquiry form. An admin will guide you through the process.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">How does payment work?</button>
-                    <div class="faq-answer"><p>Clear payment instructions are shared during enrollment. Access to classes is granted once payment is confirmed.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Is there a fixed price?</button>
-                    <div class="faq-answer"><p>Pricing is based on the student's grade level, selected subjects, and class type. Exact costs are shared before enrollment.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. Support -->
-        <section class="faq-section" style="background-color: var(--surface-container-low);">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">Support</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">How do I get help?</button>
-                    <div class="faq-answer"><p>All support is handled directly via WhatsApp. Message our admin line anytime for assistance.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Who do I contact for schedule changes?</button>
-                    <div class="faq-answer"><p>Admin support via WhatsApp handles all schedule updates, changes, and class notifications.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. Trust & Safety -->
-        <section class="faq-section">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">Trust & Safety</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Is this safe for students?</button>
-                    <div class="faq-answer"><p>Yes. Classes are structured, monitored, and focused strictly on academics. Parental involvement is encouraged.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Do you share student data?</button>
-                    <div class="faq-answer"><p>No. Student information is only used for class management, scheduling, and parent communication.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. Missed Classes & Refunds -->
-        <section class="faq-section" style="background-color: var(--surface-container-low);">
-            <div class="faq-inner">
-                <h2 class="faq-group-title">Missed Classes & Refunds</h2>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">What if a student misses class?</button>
-                    <div class="faq-answer"><p>Missed classes due to personal reasons are generally not refunded, but we provide support when possible.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Do you offer refunds?</button>
-                    <div class="faq-answer"><p>Refunds are handled on a case-by-case basis depending on the specific circumstances.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 9. Final CTA -->
-        <section class="final-cta">
-            <h2>Still Have Questions?</h2>
-            <p>Talk to an admin to get help choosing the right subject and class.</p>
-            <div class="cta-buttons">
-                <a href="https://wa.me/2349034110894" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-                <a href="/pricing" class="btn-outline"><i class="fas fa-arrow-right"></i> Enroll Now</a>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer - Restored Original -->
-    <footer class="footer" id="contact">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <span class="logo">NaijaAssets</span>
-                    <p>Structured online tutoring for Nigerian secondary school students.</p>
-                    <div class="footer-socials">
-                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h4>Navigation</h4>
-                    <nav class="footer-links">
-                        <a href="/">Home</a>
-                        <a href="/about">About</a>
-                        <a href="/subjects">Subjects</a>
-                        <a href="/pricing">Pricing</a>
-                        <a href="/faq">FAQ</a>
-                        <a href="/contact">Contact</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Subjects</h4>
-                    <nav class="footer-links">
-                        <a href="/subjects/mathematics">Mathematics</a>
-                        <a href="/subjects/science">Science</a>
-                        <a href="/subjects/waec">WAEC Prep</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Legal</h4>
-                    <nav class="footer-links">
-                        <a href="/privacy">Privacy Policy</a>
-                        <a href="/terms">Terms of Service</a>
-                        <a href="/support">Support</a>
-                    </nav>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
-                <div class="footer-socials-bottom">
-                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
-                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> Twitter</a>
-                </div>
-            </div>
+        <div>
+          <h4>Platform</h4>
+          <a href="/subjects/">Subjects</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/scholarships/">Scholarships</a>
+          <a href="/rewards/">Rewards</a>
+          <a href="/teachers/">For Teachers</a>
         </div>
-    </footer>
+        <div>
+          <h4>Company</h4>
+          <a href="/about/">About</a>
+          <a href="/affiliate/">Affiliate Program</a>
+          <a href="/support/">Support</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/support/">Contact</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="/legal-pages/terms-of-service.html">Terms of Service</a>
+          <a href="/legal-pages/privacy-policy.html">Privacy Policy</a>
+          <a href="/legal-pages/">All Policies</a>
+          <a href="/legal-pages/acceptable-use-policy.html">Acceptable Use</a>
+          <a href="/legal-pages/ai-usage-policy.html">AI Usage Policy</a>
+        </div>
+        <div>
+          <h4>More</h4>
+          <a href="/legal-pages/cookie-policy.html">Cookie Policy</a>
+          <a href="/legal-pages/security-policy.html">Security</a>
+          <a href="/legal-pages/accessibility-statement.html">Accessibility</a>
+          <a href="/legal-pages/childrens-privacy-notice.html">Children's Privacy</a>
+          <a href="/legal-pages/parental-consent-policy.html">Parental Consent</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> NaijaAssets. All rights reserved.</span>
+        <span>Helping Nigerian students learn better.</span>
+      </div>
+    </div>
+  </footer>
 
-    <script>
-        // Mobile Menu Logic
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        const drawer = document.getElementById('mobileMenu');
-        const overlay = document.getElementById('mobileMenuOverlay');
-        const closeBtn = document.querySelector('.mobile-menu-close');
-        
-        function openMenu() { drawer.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-        function closeMenu() { drawer.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-        
-        toggle.addEventListener('click', openMenu);
-        closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
-        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
-
-        // Accordion Logic
-        document.querySelectorAll('.faq-question').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.parentElement;
-                const isActive = item.classList.contains('active');
-                const icon = btn.querySelector('.faq-toggle i');
-                
-                // Close all other open items (optional: remove to allow multiple open)
-                document.querySelectorAll('.faq-item.active').forEach(openItem => {
-                    if (openItem !== item) {
-                        openItem.classList.remove('active');
-                        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-                        openItem.querySelector('.faq-toggle i').className = 'fas fa-chevron-down';
-                    }
-                });
-                
-                // Toggle current
-                if (!isActive) {
-                    item.classList.add('active');
-                    btn.setAttribute('aria-expanded', 'true');
-                    btn.querySelector('.faq-toggle i').className = 'fas fa-chevron-up';
-                } else {
-                    item.classList.remove('active');
-                    btn.setAttribute('aria-expanded', 'false');
-                    btn.querySelector('.faq-toggle i').className = 'fas fa-chevron-down';
-                }
-            });
-        });
-        
-        // Initialize icons
-        document.querySelectorAll('.faq-toggle').forEach(toggle => {
-            toggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
-        });
-    </script>
+  <script src="/assets/js/site-config.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>

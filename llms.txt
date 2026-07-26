@@ -1,0 +1,35 @@
+# NaijaAssets - AI & LLM Reference
+
+## Company
+NaijaAssets is an AI-first education platform helping Nigerian students learn better through live classes, recorded lessons, and AI-powered tools.
+
+URL: https://naijaassets.com
+
+## Key Pages
+- Home: https://naijaassets.com/
+- Pricing: https://naijaassets.com/pricing/
+- Subjects: https://naijaassets.com/subjects/
+- Scholarships: https://naijaassets.com/scholarships/
+- Creator Program: https://naijaassets.com/rewards/
+- Affiliate Program: https://naijaassets.com/affiliate/
+- For Teachers: https://naijaassets.com/teachers/
+- Apply: https://naijaassets.com/apply/
+- FAQ: https://naijaassets.com/faq/
+- Support: https://naijaassets.com/support/
+- About: https://naijaassets.com/about/
+- Coming Soon: https://naijaassets.com/coming-soon/
+- Login: https://naijaassets.com/login/
+- Sign Up: https://naijaassets.com/signup/
+
+## Legal
+- Terms of Service: https://naijaassets.com/legal-pages/terms-of-service.html
+- Privacy Policy: https://naijaassets.com/legal-pages/privacy-policy.html
+- All Policies: https://naijaassets.com/legal-pages/
+
+## Config
+- Site Configuration: https://naijaassets.com/config/site.json
+- Pricing: https://naijaassets.com/config/prices.json
+
+## Contact
+- Legal: legal@legal.naijaassets.com
+- Forms: forms@naijaassets.com

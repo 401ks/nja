@@ -1,0 +1,93 @@
+{
+  "updated": "2026-07-25",
+  "currency": {
+    "default": "NGN",
+    "available": ["NGN", "USD"],
+    "symbols": { "NGN": "₦", "USD": "$" }
+  },
+  "plans": [
+    {
+      "id": "subject",
+      "name": "Subject Subscription",
+      "description": "Access to one academic subject with live classes, recordings, and AI support.",
+      "features": [
+        "Access to one subject",
+        "Live online classes",
+        "Recorded lessons",
+        "AI tutoring support",
+        "Student dashboard",
+        "Monthly billing"
+      ],
+      "pricing": {
+        "NGN": { "monthly": 15000, "quarterly": null, "annual": 165000 },
+        "USD": { "monthly": 10, "quarterly": null, "annual": 110 }
+      },
+      "annual_savings": "1 month free",
+      "annual_discount": 8,
+      "popular": false,
+      "cta": "Start Learning"
+    },
+    {
+      "id": "rex",
+      "name": "Rex",
+      "description": "Recordings access for actively subscribed subjects.",
+      "features": [
+        "Recordings for subscribed subjects",
+        "Access expires with subscription",
+        "Subject subscription required",
+        "Student dashboard",
+        "Monthly billing"
+      ],
+      "pricing": {
+        "NGN": { "monthly": 17000, "quarterly": null, "annual": 187000 },
+        "USD": { "monthly": 11, "quarterly": null, "annual": 121 }
+      },
+      "annual_savings": "1 month free",
+      "annual_discount": 8,
+      "popular": false,
+      "cta": "Start Learning"
+    },
+    {
+      "id": "rex-pro",
+      "name": "Rex Pro",
+      "description": "All recordings for your current grade. No subject restrictions.",
+      "features": [
+        "All recordings for your grade",
+        "No subject subscription needed",
+        "Full AI Features access",
+        "AI Tutor, Whiteboard & Voice",
+        "Student dashboard",
+        "Monthly billing"
+      ],
+      "pricing": {
+        "NGN": { "monthly": 35000, "quarterly": null, "annual": 385000 },
+        "USD": { "monthly": 22, "quarterly": null, "annual": 242 }
+      },
+      "annual_savings": "1 month free",
+      "annual_discount": 8,
+      "popular": true,
+      "cta": "Start Learning"
+    },
+    {
+      "id": "vault-pass",
+      "name": "Vault Pass",
+      "description": "Unlimited access to every recording on the platform. No restrictions.",
+      "features": [
+        "Unlimited access to every recording",
+        "No grade or subject limits",
+        "All AI Features included",
+        "Highest subscription tier",
+        "Premium support",
+        "Monthly billing"
+      ],
+      "pricing": {
+        "NGN": { "monthly": 45000, "quarterly": null, "annual": 486000 },
+        "USD": { "monthly": 29, "quarterly": null, "annual": 313 }
+      },
+      "annual_savings": "10% discount",
+      "annual_discount": 10,
+      "popular": false,
+      "cta": "Start Learning"
+    }
+  ]
+}

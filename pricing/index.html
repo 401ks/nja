@@ -1,514 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing - NaijaAssets</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        :root {
-            /* Brand Colors */
-            --surface-bright: #f8f9ff;
-            --surface-container-high: #dce9ff;
-            --surface-dim: #ccdbf3;
-            --secondary-fixed: #b1f0ce;
-            --on-surface-variant: #43474d;
-            --on-primary: #ffffff;
-            --on-secondary: #ffffff;
-            --primary-fixed: #d2e4ff;
-            --outline: #74777e;
-            --surface-container-highest: #d5e3fc;
-            --surface-container: #e6eeff;
-            --secondary-fixed-dim: #95d4b3;
-            --on-background: #0d1c2e;
-            --surface-container-low: #eff4ff;
-            --error: #ba1a1a;
-            --on-surface: #0d1c2e;
-            --primary-fixed-dim: #b0c8eb;
-            --outline-variant: #c4c6ce;
-            --on-primary-container: #768dad;
-            --surface: #f8f9ff;
-            --primary-container: #0a2540;
-            --secondary-container: #aeeecb;
-            --secondary: #2c694e;
-            --primary: #000f22;
-            
-            /* Spacing & Layout */
-            --margin-desktop: 40px;
-            --margin-mobile: 16px;
-            --gutter: 24px;
-            --stack-lg: 64px;
-            --stack-md: 32px;
-            --stack-sm: 16px;
-            --container-max: 1280px;
-            --container-narrow: 800px;
-            
-            /* Border Radius */
-            --radius-lg: 8px;
-            --radius-xl: 12px;
-            --radius-full: 16px;
-            
-            /* Typography */
-            --font-display: 'Montserrat', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-body);
-            background-color: var(--surface-bright);
-            color: var(--on-surface);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; color: var(--primary); line-height: 1.25; }
-        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-        ul { list-style: none; }
-
-        /* HEADER - Restored Original Styles */
-        .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background-color: var(--surface-bright); border-bottom: 1px solid var(--outline-variant); box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 1000; }
-        .header-container { max-width: var(--container-max); margin: 0 auto; height: 100%; padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 32px; align-items: center; }
-        .nav-link { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--on-surface-variant); text-transform: uppercase; }
-        .nav-link:hover, .nav-link.active { color: var(--secondary); }
-        .cta-button { background: var(--primary); color: var(--on-primary); padding: 10px 20px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
-        .mobile-menu-toggle { display: none; background: none; border: none; color: var(--on-surface-variant); font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001; }
-
-        /* MOBILE MENU - Restored Original Styles */
-        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--surface-bright); z-index: 1000; padding: 80px 24px 24px; box-shadow: -4px 0 24px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
-        .mobile-menu.active { right: 0; }
-        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--on-surface-variant); cursor: pointer; padding: 8px; }
-        .mobile-nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-        .mobile-nav-link { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--on-surface); padding: 12px 16px; border-radius: var(--radius-xl); transition: all 0.2s ease; display: block; }
-        .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--surface-container); color: var(--secondary); }
-        .mobile-menu-cta { background: var(--primary); color: var(--on-primary); padding: 14px 24px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 15px; font-weight: 600; text-align: center; display: block; margin-top: 16px; }
-        .mobile-socials { display: flex; gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
-        .mobile-socials a { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 18px; transition: all 0.2s ease; }
-        .mobile-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-
-        /* PAGE SPECIFIC */
-        .pricing-page { padding-top: 64px; }
-        .section { padding: var(--stack-lg) var(--margin-desktop); }
-        .section.alt-bg { background-color: var(--surface-container-low); }
-        .inner { max-width: var(--container-max); margin: 0 auto; }
-        .narrow { max-width: var(--container-narrow); margin: 0 auto; text-align: center; }
-        
-        .section-header { text-align: center; margin-bottom: var(--stack-md); }
-        .section-header h2 { font-size: 32px; margin-bottom: 12px; }
-        .section-header p { font-size: 18px; color: var(--on-surface-variant); max-width: 650px; margin: 0 auto; }
-        .small-note { font-size: 13px; color: var(--outline); margin-top: 10px; font-weight: 500; }
-
-        .content-block p { font-size: 16px; color: var(--on-surface-variant); margin-bottom: var(--stack-sm); }
-        .content-block ul { padding-left: 18px; margin: var(--stack-sm) 0; }
-        .content-block ul li { font-size: 15px; color: var(--on-surface-variant); margin-bottom: 8px; position: relative; padding-left: 10px; }
-        .content-block ul li::before { content: "•"; color: var(--secondary); font-weight: 700; position: absolute; left: -14px; }
-
-        /* Pricing Cards */
-        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); align-items: start; }
-        .pricing-card {
-            background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl);
-            padding: var(--stack-md); transition: all 0.3s ease; position: relative; display: flex; flex-direction: column;
-        }
-        .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(44, 105, 78, 0.08); }
-        .pricing-card.featured { border-color: var(--secondary); background: linear-gradient(145deg, var(--surface) 0%, var(--surface-container-low) 100%); }
-        
-        .badge {
-            display: inline-block; padding: 4px 10px; border-radius: var(--radius-full); font-size: 11px;
-            font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: var(--stack-sm); width: fit-content;
-        }
-        .badge.default { background: var(--primary-fixed); color: var(--primary); }
-        .badge.popular { background: var(--secondary-container); color: var(--on-secondary-container); }
-        .badge.flexible { background: var(--secondary-fixed-dim); color: var(--secondary); }
-        
-        .pricing-title { font-size: 20px; margin-bottom: 8px; }
-        .pricing-desc { font-size: 14px; color: var(--on-surface-variant); margin-bottom: var(--stack-md); line-height: 1.6; min-height: 60px; }
-        
-        .pricing-features { list-style: none; padding: 0; margin-bottom: var(--stack-md); flex-grow: 1; }
-        .pricing-features li {
-            font-size: 14px; color: var(--on-surface-variant); padding: 6px 0; display: flex; align-items: flex-start; gap: 10px;
-        }
-        .pricing-features li i { color: var(--secondary); margin-top: 3px; font-size: 12px; flex-shrink: 0; }
-        
-        .pricing-cta {
-            width: 100%; padding: 12px 20px; border-radius: var(--radius-full); font-family: var(--font-body);
-            font-size: 14px; font-weight: 600; text-align: center; cursor: pointer; transition: all 0.2s;
-            background: transparent; color: var(--on-surface); border: 2px solid var(--outline-variant);
-        }
-        .pricing-cta:hover { border-color: var(--secondary); color: var(--secondary); background: var(--surface-container-low); }
-        .pricing-card.featured .pricing-cta { background: var(--secondary); color: var(--on-secondary); border-color: var(--secondary); }
-        .pricing-card.featured .pricing-cta:hover { background: var(--on-secondary-fixed-variant); }
-
-        /* Checklist */
-        .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: var(--stack-md); }
-        .check-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--outline-variant); }
-        .check-item i { color: var(--secondary); font-size: 16px; }
-        .check-item span { font-size: 15px; color: var(--on-surface); font-weight: 500; }
-
-        /* Mini FAQ */
-        .mini-faq { max-width: var(--container-narrow); margin: 0 auto; display: grid; gap: 16px; }
-        .faq-block { background: var(--surface); padding: var(--stack-md); border-radius: var(--radius-xl); border: 1px solid var(--outline-variant); }
-        .faq-block h3 { font-size: 16px; margin-bottom: 8px; }
-        .faq-block p { font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin: 0; }
-
-        /* Accessibility Quote */
-        .access-message {
-            max-width: 800px; margin: 0 auto; background: var(--surface-container-low);
-            padding: var(--stack-md) var(--stack-lg); border-radius: var(--radius-xl);
-            border-left: 4px solid var(--secondary); text-align: center;
-        }
-        .access-message p { font-size: 18px; color: var(--on-surface-variant); line-height: 1.6; margin: 0; font-style: italic; }
-
-        /* Final CTA */
-        .final-cta { padding: var(--stack-lg) var(--margin-desktop); text-align: center; background: linear-gradient(to bottom, var(--surface), var(--surface-container-low)); }
-        .final-cta h2 { font-size: 32px; margin-bottom: 12px; }
-        .final-cta p { font-size: 18px; color: var(--on-surface-variant); margin-bottom: var(--stack-md); }
-        .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-        .btn-whatsapp { background: #25D366; color: white; padding: 16px 32px; border-radius: var(--radius-full); font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s; border: none; cursor: pointer; }
-        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
-        .btn-outline { background: transparent; color: var(--on-surface); padding: 16px 32px; border-radius: var(--radius-full); font-weight: 600; border: 2px solid var(--outline-variant); transition: all 0.2s; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
-        .btn-outline:hover { border-color: var(--secondary); color: var(--secondary); }
-
-        /* FOOTER - Restored Original */
-        .footer { background: var(--surface-dim); border-top: 1px solid var(--outline-variant); padding: var(--stack-lg) var(--margin-desktop) var(--stack-md); }
-        .footer-container { max-width: var(--container-max); margin: 0 auto; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--stack-lg); margin-bottom: var(--stack-lg); }
-        .footer-brand .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); display: block; }
-        .footer-brand p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); max-width: 280px; }
-        .footer-socials { display: flex; gap: 12px; }
-        .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 16px; transition: all 0.2s ease; }
-        .footer-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-        .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); text-transform: uppercase; letter-spacing: 0.05em; }
-        .footer-links { display: flex; flex-direction: column; gap: 10px; }
-        .footer-links a { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); transition: all 0.2s ease; }
-        .footer-links a:hover { color: var(--secondary); padding-left: 4px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--stack-md); border-top: 1px solid var(--outline-variant); }
-        .footer-copyright { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); }
-        .footer-socials-bottom { display: flex; gap: 16px; }
-        .footer-socials-bottom a { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 6px; transition: color 0.2s ease; }
-        .footer-socials-bottom a:hover { color: var(--secondary); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-center { display: none; }
-            .mobile-menu-toggle { display: block; }
-            .pricing-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .header-container { padding: 0 var(--margin-mobile); }
-            .section { padding: var(--stack-md) var(--margin-mobile); }
-            .section-header h2 { font-size: 28px; }
-            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
-            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-            .cta-buttons { flex-direction: column; align-items: stretch; }
-            .btn-whatsapp, .btn-outline { justify-content: center; width: 100%; }
-            .access-message { padding: var(--stack-md); }
-        }
-        a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing - NaijaAssets Subscriptions</title>
+  <meta name="description" content="Simple monthly subscriptions for NaijaAssets. Choose Subject Subscription, Rex, Rex Pro, or Vault Pass. Cancel anytime. Affordable plans for Nigerian students.">
+  <link rel="canonical" href="https://naijaassets.com/pricing/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://naijaassets.com/pricing/">
+  <meta property="og:title" content="Pricing - NaijaAssets Subscriptions">
+  <meta property="og:description" content="Affordable monthly plans: Subject Subscription, Rex, Rex Pro (Popular), and Vault Pass. Cancel anytime.">
+  <meta property="og:image" content="https://naijaassets.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pricing - NaijaAssets">
+  <meta name="twitter:description" content="Simple monthly subscriptions for every learner.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "NaijaAssets",
+    "url": "https://naijaassets.com",
+    "description": "Affordable monthly subscriptions for live classes, recorded lessons, and learning tools.",
+    "areaServed": ["NG", "AF", "WW"],
+    "foundingDate": "2025",
+    "sameAs": ["https://naijaassets.com/ig","https://naijaassets.com/fb","https://naijaassets.com/x","https://naijaassets.com/yt","https://naijaassets.com/tt","https://naijaassets.com/li"]
+  }
+  </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <a href="/" class="logo">NaijaAssets</a>
-            <nav class="nav-center">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/about" class="nav-link">About</a>
-                <a href="/subjects" class="nav-link">Subjects</a>
-                <a href="/pricing" class="nav-link active">Pricing</a>
-                <a href="/faq" class="nav-link">FAQ</a>
-                <a href="/contact" class="nav-link">Contact</a>
-            </nav>
-            <div style="display:flex;align-items:center;gap:16px;">
-                <a href="/contact" class="cta-button">Get Started</a>
-                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </header>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
-        <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
-        <div class="mobile-nav-list">
-            <a href="/" class="mobile-nav-link">Home</a>
-            <a href="/about" class="mobile-nav-link">About</a>
-            <a href="/subjects" class="mobile-nav-link">Subjects</a>
-            <a href="/pricing" class="mobile-nav-link active">Pricing</a>
-            <a href="/faq" class="mobile-nav-link">FAQ</a>
-            <a href="/contact" class="mobile-nav-link">Contact</a>
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="NaijaAssets home"><img src="/Logo.png" alt="NaijaAssets" class="logo-img"></a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/subjects/">Subjects</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/scholarships/">Scholarships</a>
+        <a href="/rewards/">Rewards</a>
+        <a href="/affiliate/">Affiliate</a>
+        <a href="/teachers/">Teachers</a>
+        <a href="/about/">About</a>
+        <a href="/support/">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="nav-desktop-only">
+          <a href="https://app.naijaassets.com/login" class="nav-login">Log in</a>
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary">Sign Up</a>
+        </span>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="mobile-panel-close" id="mobileClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="mobile-nav-list">
+      <a href="/" class="mobile-nav-link">Home</a>
+      <a href="/subjects/" class="mobile-nav-link">Subjects</a>
+      <a href="/pricing/" class="mobile-nav-link">Pricing</a>
+      <a href="/scholarships/" class="mobile-nav-link">Scholarships</a>
+      <a href="/rewards/" class="mobile-nav-link">Content Rewards</a>
+      <a href="/affiliate/" class="mobile-nav-link">Affiliate Program</a>
+      <a href="/teachers/" class="mobile-nav-link">For Teachers</a>
+      <a href="/about/" class="mobile-nav-link">About</a>
+      <a href="/support/" class="mobile-nav-link">Support</a>
+      <a href="/faq/" class="mobile-nav-link">FAQ</a>
+      <hr style="border:none;border-top:1px solid var(--border);margin:var(--space-sm) 0;">
+      <a href="https://app.naijaassets.com/login" class="mobile-nav-link" style="font-weight:600;">Log in</a>
+      <a href="https://app.naijaassets.com/signup" class="mobile-nav-link" style="font-weight:600;color:var(--brand);">Sign Up</a>
+    </div>
+    <div class="mobile-socials">
+      <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="container container-narrow">
+        <h1>Monthly subscriptions. Cancel anytime.</h1>
+        <p>Choose the plan that fits your learning needs. All subscriptions are billed monthly and auto-renew. Your account stays active even after a subscription expires. Built for Nigerian students and families.</p>
+        <div class="hero-actions">
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary btn-lg">Get Started</a>
+          <a href="#pricing-container" class="btn btn-secondary btn-lg">View Plans</a>
         </div>
-        <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-        <div class="mobile-socials">
-            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="plans">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Choose your subscription.</h2>
+          <p class="section-subtitle">From single-subject access to unlimited everything - find what works for you.</p>
+        </div>
+
+        <div style="text-align:center;margin-bottom:var(--space-xl);">
+          <div class="pricing-toggle" style="display:inline-flex;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-full);overflow:hidden;">
+            <button id="toggleMonthly" class="btn" style="border-radius:var(--radius-full);background:var(--brand);color:#fff;padding:10px 24px;">Monthly</button>
+            <button id="toggleAnnual" class="btn" style="border-radius:var(--radius-full);background:transparent;color:var(--text-secondary);padding:10px 24px;">Annual <span style="font-size:0.75rem;color:var(--brand);font-weight:600;">Save</span></button>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:var(--space-xl);">
+          <div class="currency-toggle" style="display:inline-flex;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-full);overflow:hidden;">
+            <button id="toggleNGN" class="btn" style="border-radius:var(--radius-full);background:var(--brand);color:#fff;padding:8px 20px;">&#8358; NGN</button>
+            <button id="toggleUSD" class="btn" style="border-radius:var(--radius-full);background:transparent;color:var(--text-secondary);padding:8px 20px;">$ USD</button>
+          </div>
+        </div>
+
+        <div id="pricing-container" class="pricing-grid">
+        </div>
+
+        <div class="text-center mt-2xl">
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary btn-lg" style="display:inline-flex;">Create Your Account</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Everything you get with every plan.</h2>
+          <p class="section-subtitle">All subscriptions include these core benefits.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <h3>Live Interactive Classes</h3>
+            <p>Real-time lessons with qualified teachers where students ask questions and get instant feedback.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <h3>Recorded Lesson Access</h3>
+            <p>Every class is recorded and available for replay. Never miss a lesson or need to review a concept.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-book-open"></i></div>
+            <h3>Study Materials</h3>
+            <p>Access lesson notes, practice questions, and curated learning resources to support your studies.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Secure & Private</h3>
+            <p>Your data and payment information are protected with enterprise-grade security and encryption.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-chart-simple"></i></div>
+            <h3>Parent Dashboard</h3>
+            <p>Parents can track progress, view schedules, and manage subscriptions from a single dashboard.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h3>Scholarship Eligibility</h3>
+            <p>Active subscribers may qualify for merit-based scholarships and performance rewards.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container container-narrow">
+        <div class="section-header">
+          <h2 class="section-title">Billing policies that put you first.</h2>
+          <p class="section-subtitle">Transparent, fair, and designed with your peace of mind in mind.</p>
+        </div>
+        <div class="grid-2" style="gap:var(--space-xl);">
+          <div class="card" style="text-align:center;padding:var(--space-2xl);">
+            <div style="font-size:2.5rem;margin-bottom:var(--space-md);color:var(--brand);"><i class="fa-solid fa-calendar-check"></i></div>
+            <h3>5-Day Grace Period</h3>
+            <p style="margin-bottom:0;">If your payment fails, you have 5 days to update your billing information before access is restricted. Your account and progress are never lost.</p>
+          </div>
+          <div class="card" style="text-align:center;padding:var(--space-2xl);">
+            <div style="font-size:2.5rem;margin-bottom:var(--space-md);color:var(--brand);"><i class="fa-solid fa-receipt"></i></div>
+            <h3>Refund & Payment Policies</h3>
+            <p style="margin-bottom:0;">Subscriptions are non-refundable. Review our full <a href="/legal-pages/refund-policy.html" style="color:var(--brand);text-decoration:underline;">Refund Policy</a> and <a href="/legal-pages/payment-policy.html" style="color:var(--brand);text-decoration:underline;">Payment Policy</a> for complete details.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Common billing questions.</h2>
+        </div>
+        <div class="faq-list" style="max-width:var(--max-w-narrow);margin:0 auto;">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              When will I be billed?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a"><p>Billing occurs on the same day each month based on your original subscription date. You'll receive a receipt via email.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Can I upgrade or downgrade my plan?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a"><p>Yes. You can upgrade at any time - changes take effect immediately. Downgrades apply at the start of the next billing cycle.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What payment methods are accepted?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a"><p>We accept major debit and credit cards, bank transfers, and mobile money options. Nigerian payment methods are supported.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How does the 5-day grace period work?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a"><p>If a payment fails, your access continues for 5 days while we retry billing. Update your payment method in account settings. After 5 days, access is restricted until payment succeeds.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How do I cancel my subscription?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-a"><p>Cancel anytime from your account settings. You'll retain access until the end of the current billing period.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="container container-narrow">
+        <h2>Ready to start learning?</h2>
+        <p style="margin-bottom:var(--space-xl);">Create your account and pick the plan that's right for you. No long-term commitment.</p>
+        <a href="https://app.naijaassets.com/signup" class="btn btn-primary btn-lg">Create Your Account</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="/Logo-nobg.png" alt="NaijaAssets" class="logo-img"></a>
+          <p>Education platform making quality learning affordable and accessible for students everywhere.</p>
+          <div class="footer-socials">
             <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
         </div>
-    </nav>
-
-    <main class="pricing-page">
-        <!-- Hero -->
-        <section class="section">
-            <div class="narrow">
-                <h1>Simple & Accessible Pricing</h1>
-                <p>Structured online tutoring designed to remain accessible for Nigerian families while providing live academic support.</p>
-                <p class="small-note">Pricing may vary depending on grade level, subjects, and class structure.</p>
-            </div>
-        </section>
-
-        <!-- 1. Pricing Introduction -->
-        <section class="section alt-bg">
-            <div class="content-block narrow">
-                <p>Our pricing is structured to be transparent and adaptable. Rather than rigid packages, final rates are determined based on:</p>
-                <ul>
-                    <li>Subjects selected and academic level</li>
-                    <li>Class structure (group vs. private)</li>
-                    <li>Weekly session frequency</li>
-                    <li>Additional support or resource requirements</li>
-                </ul>
-                <p>The goal is to keep structured online learning accessible without compromising the quality of tutor interaction or academic organization.</p>
-            </div>
-        </section>
-
-        <!-- 2. Main Pricing Plans -->
-        <section class="section">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>Learning Plans</h2>
-                    <p>Choose the structure that best fits your child's academic needs.</p>
-                </div>
-                <div class="pricing-grid">
-                    <!-- Plan 1 -->
-                    <div class="pricing-card">
-                        <span class="badge default">Most Accessible</span>
-                        <h3 class="pricing-title">Small Group Classes</h3>
-                        <p class="pricing-desc">Structured live online classes in small-group learning environments. Ideal for consistent, collaborative academic support.</p>
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> Live online sessions</li>
-                            <li><i class="fas fa-check"></i> Small-group interaction</li>
-                            <li><i class="fas fa-check"></i> Scheduled weekly classes</li>
-                            <li><i class="fas fa-check"></i> WhatsApp support</li>
-                            <li><i class="fas fa-check"></i> Subject-focused learning</li>
-                        </ul>
-                        <p style="font-size: 13px; color: var(--outline); margin-bottom: 16px; font-style: italic;">Best for: Students who learn well in collaborative environments.</p>
-                        <button class="pricing-cta" onclick="window.location.href='https://wa.me/2349034110894'">Enroll via WhatsApp</button>
-                    </div>
-
-                    <!-- Plan 2 (Featured) -->
-                    <div class="pricing-card featured">
-                        <span class="badge popular">Most Popular</span>
-                        <h3 class="pricing-title">Extended Learning</h3>
-                        <p class="pricing-desc">Additional support, expanded learning access, and more structured academic guidance for students needing consistent reinforcement.</p>
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> Everything in Small Group Classes</li>
-                            <li><i class="fas fa-check"></i> Additional sessions/resources</li>
-                            <li><i class="fas fa-check"></i> Extended access to materials</li>
-                            <li><i class="fas fa-check"></i> More structured support</li>
-                            <li><i class="fas fa-check"></i> Priority scheduling</li>
-                        </ul>
-                        <button class="pricing-cta" onclick="document.querySelector('.section:nth-of-type(9)').scrollIntoView({behavior: 'smooth'})">View Enrollment Options</button>
-                    </div>
-
-                    <!-- Plan 3 -->
-                    <div class="pricing-card">
-                        <span class="badge flexible">Flexible</span>
-                        <h3 class="pricing-title">Private Tutoring</h3>
-                        <p class="pricing-desc">Personalized 1-on-1 academic support with flexible scheduling tailored to the student's pace and specific academic needs.</p>
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> Direct tutor interaction</li>
-                            <li><i class="fas fa-check"></i> Flexible timing</li>
-                            <li><i class="fas fa-check"></i> Personalized pacing</li>
-                            <li><i class="fas fa-check"></i> Focused academic support</li>
-                            <li><i class="fas fa-check"></i> Custom resource planning</li>
-                        </ul>
-                        <button class="pricing-cta" onclick="window.location.href='/contact'">Contact an Admin</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Subject & Grade Flexibility -->
-        <section class="section alt-bg">
-            <div class="content-block narrow">
-                <h2 style="margin-bottom: var(--stack-sm);">Subject & Grade Flexibility</h2>
-                <p>Academic needs vary. To keep learning structured and affordable, pricing adjusts based on:</p>
-                <ul>
-                    <li><strong>Academic Level:</strong> JSS and SSS curriculum requirements differ in complexity and session focus.</li>
-                    <li><strong>Subject Count:</strong> Enrolling in multiple subjects may qualify for bundled scheduling.</li>
-                    <li><strong>Session Frequency:</strong> Weekly session counts are tailored to student workload and exam timelines.</li>
-                    <li><strong>Learning Format:</strong> Private tutoring naturally involves different scheduling and resource allocation than group sessions.</li>
-                </ul>
-                <p>During enrollment, admins will review your child's needs and provide a clear, upfront breakdown before any commitment is made.</p>
-            </div>
-        </section>
-
-        <!-- 4. What's Included -->
-        <section class="section">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>What's Included</h2>
-                    <p>Every plan is built around consistent, live academic support.</p>
-                </div>
-                <div class="checklist-grid">
-                    <div class="check-item"><i class="fas fa-video"></i> <span>Live Google Meet classes</span></div>
-                    <div class="check-item"><i class="fas fa-chalkboard-user"></i> <span>Direct tutor interaction</span></div>
-                    <div class="check-item"><i class="fas fa-calendar-check"></i> <span>Structured weekly schedules</span></div>
-                    <div class="check-item"><i class="fab fa-whatsapp"></i> <span>WhatsApp communication</span></div>
-                    <div class="check-item"><i class="fas fa-laptop-house"></i> <span>Remote learning access</span></div>
-                    <div class="check-item"><i class="fas fa-book-open"></i> <span>Subject-focused tutoring</span></div>
-                    <div class="check-item"><i class="fas fa-clipboard-list"></i> <span>Organized learning support</span></div>
-                    <div class="check-item"><i class="fas fa-headset"></i> <span>Parent & admin assistance</span></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. How Payments Work -->
-        <section class="section alt-bg">
-            <div class="content-block narrow">
-                <h2 style="margin-bottom: var(--stack-sm);">How Payments Work</h2>
-                <p>Enrollment is straightforward. Once subjects and schedules are confirmed, payment instructions are shared directly by our support team.</p>
-                <p>Currently, payments are processed securely through approved local channels including:</p>
-                <ul>
-                    <li>Direct bank transfers</li>
-                    <li>Approved mobile payment methods</li>
-                    <li>Other verified local transfer options</li>
-                </ul>
-                <p>As our platform expands, we will integrate additional automated payment systems. You will always receive clear confirmation and receipts for all transactions.</p>
-            </div>
-        </section>
-
-        <!-- 6. Pricing FAQ -->
-        <section class="section">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>Questions About Pricing</h2>
-                    <p>Quick answers to common concerns.</p>
-                </div>
-                <div class="mini-faq">
-                    <div class="faq-block">
-                        <h3>Can my child join multiple subjects?</h3>
-                        <p>Yes. Subject combinations are discussed during enrollment, and schedules are arranged to avoid overlap.</p>
-                    </div>
-                    <div class="faq-block">
-                        <h3>Do students need expensive devices?</h3>
-                        <p>No. Most classes can be attended using a standard smartphone with stable internet access. Laptops or tablets are helpful but not required.</p>
-                    </div>
-                    <div class="faq-block">
-                        <h3>Can pricing change later?</h3>
-                        <p>Pricing structures may evolve as programs expand or operational needs change. Enrolled students are typically given advance notice before any adjustments take effect.</p>
-                    </div>
-                    <div class="faq-block">
-                        <h3>Are there promotions or trial offers?</h3>
-                        <p>Occasional enrollment promotions or introductory trial periods may be announced through WhatsApp or our website.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. Accessibility Message -->
-        <section class="section alt-bg">
-            <div class="inner">
-                <div class="access-message">
-                    <p>"The goal of NaijaAssets is to make structured online learning more accessible without sacrificing live tutor interaction and organized academic support."</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. Final CTA -->
-        <section class="final-cta">
-            <h2>Need Help Choosing the Right Option?</h2>
-            <p>Speak with an admin to discuss subjects, schedules, and enrollment recommendations.</p>
-            <div class="cta-buttons">
-                <a href="https://wa.me/2349034110894" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-                <a href="/contact" class="btn-outline"><i class="fas fa-envelope"></i> Contact an Admin</a>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer - Restored Original -->
-    <footer class="footer" id="contact">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <span class="logo">NaijaAssets</span>
-                    <p>Structured online tutoring for Nigerian secondary school students.</p>
-                    <div class="footer-socials">
-                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h4>Navigation</h4>
-                    <nav class="footer-links">
-                        <a href="/">Home</a>
-                        <a href="/about">About</a>
-                        <a href="/subjects">Subjects</a>
-                        <a href="/pricing">Pricing</a>
-                        <a href="/faq">FAQ</a>
-                        <a href="/contact">Contact</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Subjects</h4>
-                    <nav class="footer-links">
-                        <a href="/subjects/mathematics">Mathematics</a>
-                        <a href="/subjects/science">Science</a>
-                        <a href="/subjects/waec">WAEC Prep</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Legal</h4>
-                    <nav class="footer-links">
-                        <a href="/privacy">Privacy Policy</a>
-                        <a href="/terms">Terms of Service</a>
-                        <a href="/support">Support</a>
-                    </nav>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
-                <div class="footer-socials-bottom">
-                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
-                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> Twitter</a>
-                </div>
-            </div>
+        <div>
+          <h4>Platform</h4>
+          <a href="/subjects/">Subjects</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/scholarships/">Scholarships</a>
+          <a href="/rewards/">Rewards</a>
+          <a href="/teachers/">For Teachers</a>
         </div>
-    </footer>
+        <div>
+          <h4>Company</h4>
+          <a href="/about/">About</a>
+          <a href="/affiliate/">Affiliate Program</a>
+          <a href="/support/">Support</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/support/">Contact</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="/legal-pages/terms-of-service.html">Terms of Service</a>
+          <a href="/legal-pages/privacy-policy.html">Privacy Policy</a>
+          <a href="/legal-pages/">All Policies</a>
+          <a href="/legal-pages/acceptable-use-policy.html">Acceptable Use</a>
+          <a href="/legal-pages/ai-usage-policy.html">AI Usage Policy</a>
+        </div>
+        <div>
+          <h4>More</h4>
+          <a href="/legal-pages/cookie-policy.html">Cookie Policy</a>
+          <a href="/legal-pages/security-policy.html">Security</a>
+          <a href="/legal-pages/accessibility-statement.html">Accessibility</a>
+          <a href="/legal-pages/childrens-privacy-notice.html">Children's Privacy</a>
+          <a href="/legal-pages/parental-consent-policy.html">Parental Consent</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> NaijaAssets. All rights reserved.</span>
+        <span>Helping Nigerian students learn better.</span>
+      </div>
+    </div>
+  </footer>
 
-    <script>
-        // Mobile Menu Logic
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        const drawer = document.getElementById('mobileMenu');
-        const overlay = document.getElementById('mobileMenuOverlay');
-        const closeBtn = document.querySelector('.mobile-menu-close');
-        
-        function openMenu() { drawer.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-        function closeMenu() { drawer.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-        
-        toggle.addEventListener('click', openMenu);
-        closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
-        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
-    </script>
+  <script src="/assets/js/site-config.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script>
+    (function() {
+      var container = document.getElementById('pricing-container');
+      var toggleMonthly = document.getElementById('toggleMonthly');
+      var toggleAnnual = document.getElementById('toggleAnnual');
+      var toggleNGN = document.getElementById('toggleNGN');
+      var toggleUSD = document.getElementById('toggleUSD');
+
+      var plans = [];
+      var symbols = {};
+      var currentCurrency = 'NGN';
+      var isAnnual = false;
+
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('currency') === 'USD') currentCurrency = 'USD';
+
+      function formatPrice(amount, currency) {
+        var sym = symbols[currency] || (currency === 'NGN' ? '&#8358;' : '$');
+        var val = amount.toLocaleString();
+        return sym + val;
+      }
+
+      function updateCurrencyUI() {
+        if (currentCurrency === 'NGN') {
+          toggleNGN.style.background = 'var(--brand)';
+          toggleNGN.style.color = '#fff';
+          toggleUSD.style.background = 'transparent';
+          toggleUSD.style.color = 'var(--text-secondary)';
+        } else {
+          toggleUSD.style.background = 'var(--brand)';
+          toggleUSD.style.color = '#fff';
+          toggleNGN.style.background = 'transparent';
+          toggleNGN.style.color = 'var(--text-secondary)';
+        }
+      }
+
+      function renderPlans() {
+        if (!plans.length) return;
+        var html = '';
+        plans.forEach(function(plan) {
+          var priceData = plan.pricing[currentCurrency];
+          if (!priceData) return;
+          var amount = isAnnual ? priceData.annual : priceData.monthly;
+          var period = isAnnual ? '/year' : '/month';
+          var featuredClass = plan.popular ? ' featured' : '';
+          var badgeHtml = plan.popular ? '<div class="pricing-badge">Popular</div>' : '';
+          var btnClass = plan.popular ? 'btn btn-primary btn-block' : 'btn btn-secondary btn-block';
+          var noteHtml = isAnnual && plan.annual_savings ? '<div class="price-annual-note"><i class="fa-solid fa-circle-check"></i> ' + plan.annual_savings + '</div>' : '';
+
+          var featuresHtml = '';
+          plan.features.forEach(function(f) {
+            featuresHtml += '<li>' + f + '</li>';
+          });
+
+          html += '<div class="pricing-card' + featuredClass + '">'
+            + badgeHtml
+            + '<div class="pricing-name">' + plan.name + '</div>'
+            + '<div class="pricing-price"><span class="price-amount">' + formatPrice(amount, currentCurrency) + '</span> <span class="price-period">' + period + '</span></div>'
+            + noteHtml
+            + '<ul class="pricing-features">' + featuresHtml + '</ul>'
+            + '<a href="https://app.naijaassets.com/signup" class="' + btnClass + '">' + plan.cta + '</a>'
+            + '</div>';
+        });
+        container.innerHTML = html;
+      }
+
+      function updateToggleUI() {
+        if (isAnnual) {
+          toggleMonthly.style.background = 'transparent';
+          toggleMonthly.style.color = 'var(--text-secondary)';
+          toggleAnnual.style.background = 'var(--brand)';
+          toggleAnnual.style.color = '#fff';
+        } else {
+          toggleAnnual.style.background = 'transparent';
+          toggleAnnual.style.color = 'var(--text-secondary)';
+          toggleMonthly.style.background = 'var(--brand)';
+          toggleMonthly.style.color = '#fff';
+        }
+      }
+
+      toggleMonthly.addEventListener('click', function() {
+        if (isAnnual) {
+          isAnnual = false;
+          updateToggleUI();
+          renderPlans();
+        }
+      });
+
+      toggleAnnual.addEventListener('click', function() {
+        if (!isAnnual) {
+          isAnnual = true;
+          updateToggleUI();
+          renderPlans();
+        }
+      });
+
+      toggleNGN.addEventListener('click', function() {
+        if (currentCurrency !== 'NGN') {
+          currentCurrency = 'NGN';
+          updateCurrencyUI();
+          renderPlans();
+        }
+      });
+
+      toggleUSD.addEventListener('click', function() {
+        if (currentCurrency !== 'USD') {
+          currentCurrency = 'USD';
+          updateCurrencyUI();
+          renderPlans();
+        }
+      });
+
+      fetch('/config/prices.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          plans = data.plans;
+          symbols = data.currency.symbols;
+          updateCurrencyUI();
+          renderPlans();
+        })
+        .catch(function() {
+          container.innerHTML = '<p style="text-align:center;color:var(--error);">Unable to load pricing. Please try again later.</p>';
+        });
+    })();
+  </script>
 </body>
 </html>

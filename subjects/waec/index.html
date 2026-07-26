@@ -127,7 +127,7 @@
         .content-block p { font-size: 15px; color: var(--on-surface-variant); margin-bottom: 14px; }
         .content-block ul { padding-left: 18px; margin: var(--stack-sm) 0; }
         .content-block ul li { font-size: 15px; color: var(--on-surface-variant); margin-bottom: 8px; padding-left: 4px; position: relative; }
-        .content-block ul li::before { content: "•"; color: var(--secondary); font-weight: 700; position: absolute; left: -4px; }
+        .content-block ul li::before { content: "••"; color: var(--secondary); font-weight: 700; position: absolute; left: -4px; }
 
         .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: var(--stack-md); }
         .check-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--outline-variant); }
@@ -152,7 +152,7 @@
         .list-card h3 { font-size: 16px; margin-bottom: 12px; color: var(--primary); }
         .list-card ul { padding-left: 16px; margin: 0; }
         .list-card li { font-size: 14px; color: var(--on-surface-variant); margin-bottom: 8px; padding-left: 4px; position: relative; }
-        .list-card li::before { content: "•"; color: var(--secondary); font-weight: 700; position: absolute; left: -4px; }
+        .list-card li::before { content: "••"; color: var(--secondary); font-weight: 700; position: absolute; left: -4px; }
 
         /* Expected Outcome */
         .outcome-box { max-width: var(--container-narrow); margin: var(--stack-md) auto 0; padding: 24px; background: var(--surface-container-low); border-left: 4px solid var(--secondary); border-radius: var(--radius-lg); text-align: center; }
@@ -194,6 +194,7 @@
         @media (max-width: 1024px) {
             .nav-center { display: none; }
             .mobile-menu-toggle { display: block; }
+            .nav-desktop-only { display: none; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
@@ -214,17 +215,17 @@
     <!-- Header -->
     <header class="header">
         <div class="header-container">
-            <a href="/" class="logo">NaijaAssets</a>
+            <a href="/" class="logo"><img src="/Logo.png" alt="NaijaAssets" class="logo-img"></a>
             <nav class="nav-center">
                 <a href="/" class="nav-link">Home</a>
                 <a href="/about" class="nav-link">About</a>
                 <a href="/subjects" class="nav-link">Subjects</a>
                 <a href="/pricing" class="nav-link">Pricing</a>
                 <a href="/faq" class="nav-link">FAQ</a>
-                <a href="/contact" class="nav-link">Contact</a>
+                <a href="/support" class="nav-link">Contact</a>
             </nav>
             <div style="display:flex;align-items:center;gap:16px;">
-                <a href="/contact" class="cta-button">Get Started</a>
+                <span class="nav-desktop-only"><a href="/support" class="cta-button">Get Started</a></span>
                 <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
             </div>
         </div>
@@ -240,8 +241,10 @@
             <a href="/subjects" class="mobile-nav-link">Subjects</a>
             <a href="/pricing" class="mobile-nav-link">Pricing</a>
             <a href="/faq" class="mobile-nav-link">FAQ</a>
-            <a href="/contact" class="mobile-nav-link">Contact</a>
+            <a href="/support" class="mobile-nav-link">Contact</a>
         </div>
+        <a href="https://app.naijaassets.com/login" class="mobile-nav-link" style="font-weight:600;">Log in</a>
+        <a href="https://app.naijaassets.com/signup" class="mobile-nav-link" style="font-weight:600;color:var(--brand);">Sign Up</a>
         <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
         <div class="mobile-socials">
             <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -254,7 +257,6 @@
     <main class="subject-page">
         <!-- 1. Hero -->
         <section class="subject-hero">
-            <div class="exam-badge"><i class="fas fa-graduation-cap"></i> Exam Focused</div>
             <h1>WAEC Exam Preparation Classes</h1>
             <p class="subtitle">Structured live revision classes designed to help students prepare effectively for WAEC through guided practice and exam-focused learning.</p>
             <div class="hero-buttons">
@@ -271,7 +273,7 @@
         <!-- 2. Why WAEC Preparation Matters -->
         <section class="section">
             <div class="narrow content-block">
-                <h2 style="font-size: 24px; margin-bottom: 16px;">Why WAEC Preparation Matters</h2>
+                <h2 style="font-size: 24px; margin-bottom: 16px; text-align: center;">Why WAEC Preparation Matters</h2>
                 <p>WAEC is one of the most important exams in a student's academic journey. Many students struggle not because they don't study, but because they lack structured revision, don't practice enough past questions, or don't understand exam patterns.</p>
                 <p>NaijaAssets focuses on structured preparation and guided revision so students walk into the exam room with clarity, not confusion.</p>
             </div>
@@ -349,7 +351,7 @@
                     </div>
                     <div class="structure-card">
                         <h3>Duration</h3>
-                        <p>45–60 minute intensive sessions</p>
+                        <p>45•-60 minute intensive sessions</p>
                     </div>
                 </div>
             </div>
@@ -448,7 +450,7 @@
             <p>Join structured revision classes and practice with guided support from tutors.</p>
             <div class="hero-buttons">
                 <a href="https://wa.me/2349034110894" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Join via WhatsApp</a>
-                <a href="/contact" class="btn-outline"><i class="fas fa-envelope"></i> Talk to an Admin</a>
+                <a href="/support" class="btn-outline"><i class="fas fa-envelope"></i> Talk to an Admin</a>
             </div>
         </section>
     </main>
@@ -458,7 +460,7 @@
         <div class="footer-container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <span class="logo">NaijaAssets</span>
+                    <span class="logo"><img src="/Logo-nobg.png" alt="NaijaAssets" class="logo-img"></span>
                     <p>Structured online tutoring for Nigerian secondary school students.</p>
                     <div class="footer-socials">
                         <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -475,7 +477,7 @@
                         <a href="/subjects">Subjects</a>
                         <a href="/pricing">Pricing</a>
                         <a href="/faq">FAQ</a>
-                        <a href="/contact">Contact</a>
+                        <a href="/support">Contact</a>
                     </nav>
                 </div>
                 <div class="footer-column">
@@ -489,8 +491,8 @@
                 <div class="footer-column">
                     <h4>Legal</h4>
                     <nav class="footer-links">
-                        <a href="/privacy">Privacy Policy</a>
-                        <a href="/terms">Terms of Service</a>
+                        <a href="/legal-pages/privacy-policy.html">Privacy Policy</a>
+                        <a href="/legal-pages/terms-of-service.html">Terms of Service</a>
                         <a href="/support">Support</a>
                     </nav>
                 </div>
@@ -523,5 +525,7 @@
         document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
         document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
     </script>
+  <script src="/assets/js/site-config.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>

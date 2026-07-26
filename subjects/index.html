@@ -1,504 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subjects - NaijaAssets</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        :root {
-            /* Brand Colors */
-            --surface-bright: #f8f9ff;
-            --surface-container-high: #dce9ff;
-            --surface-dim: #ccdbf3;
-            --secondary-fixed: #b1f0ce;
-            --on-surface-variant: #43474d;
-            --on-primary: #ffffff;
-            --on-secondary: #ffffff;
-            --primary-fixed: #d2e4ff;
-            --outline: #74777e;
-            --surface-container-highest: #d5e3fc;
-            --surface-container: #e6eeff;
-            --secondary-fixed-dim: #95d4b3;
-            --on-background: #0d1c2e;
-            --surface-container-low: #eff4ff;
-            --error: #ba1a1a;
-            --on-surface: #0d1c2e;
-            --primary-fixed-dim: #b0c8eb;
-            --outline-variant: #c4c6ce;
-            --on-primary-container: #768dad;
-            --surface: #f8f9ff;
-            --primary-container: #0a2540;
-            --secondary-container: #aeeecb;
-            --secondary: #2c694e;
-            --primary: #000f22;
-            
-            /* Spacing & Layout */
-            --margin-desktop: 40px;
-            --margin-mobile: 16px;
-            --gutter: 24px;
-            --stack-lg: 64px;
-            --stack-md: 32px;
-            --stack-sm: 16px;
-            --container-max: 1280px;
-            --container-narrow: 900px;
-            
-            /* Border Radius */
-            --radius-lg: 8px;
-            --radius-xl: 12px;
-            --radius-full: 16px;
-            
-            /* Typography */
-            --font-display: 'Montserrat', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-body);
-            background-color: var(--surface-bright);
-            color: var(--on-surface);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; color: var(--primary); line-height: 1.25; }
-        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-        ul { list-style: none; }
-
-        /* HEADER - Restored Original */
-        .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background-color: var(--surface-bright); border-bottom: 1px solid var(--outline-variant); box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 1000; }
-        .header-container { max-width: var(--container-max); margin: 0 auto; height: 100%; padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 32px; align-items: center; }
-        .nav-link { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--on-surface-variant); text-transform: uppercase; }
-        .nav-link:hover, .nav-link.active { color: var(--secondary); }
-        .cta-button { background: var(--primary); color: var(--on-primary); padding: 10px 20px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
-        .mobile-menu-toggle { display: none; background: none; border: none; color: var(--on-surface-variant); font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001; }
-
-        /* MOBILE MENU - Restored Original */
-        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--surface-bright); z-index: 1000; padding: 80px 24px 24px; box-shadow: -4px 0 24px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
-        .mobile-menu.active { right: 0; }
-        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--on-surface-variant); cursor: pointer; padding: 8px; }
-        .mobile-nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-        .mobile-nav-link { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--on-surface); padding: 12px 16px; border-radius: var(--radius-xl); transition: all 0.2s ease; display: block; }
-        .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--surface-container); color: var(--secondary); }
-        .mobile-menu-cta { background: var(--primary); color: var(--on-primary); padding: 14px 24px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 15px; font-weight: 600; text-align: center; display: block; margin-top: 16px; }
-        .mobile-socials { display: flex; gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
-        .mobile-socials a { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 18px; transition: all 0.2s ease; }
-        .mobile-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-
-        /* PAGE SPECIFIC LAYOUT */
-        .subjects-page { padding-top: 64px; }
-        .section { padding: var(--stack-lg) var(--margin-desktop); }
-        .section.alt-bg { background-color: var(--surface-container-low); }
-        .inner { max-width: var(--container-max); margin: 0 auto; }
-        .narrow { max-width: var(--container-narrow); margin: 0 auto; text-align: center; }
-        
-        .section-header { text-align: center; margin-bottom: var(--stack-md); }
-        .section-header h2 { font-size: 32px; margin-bottom: 12px; }
-        .section-header p { font-size: 18px; color: var(--on-surface-variant); max-width: 650px; margin: 0 auto; }
-        .note { font-size: 13px; color: var(--outline); margin-top: 10px; font-weight: 500; }
-        
-        .content-block p { font-size: 16px; color: var(--on-surface-variant); margin-bottom: var(--stack-sm); }
-
-        /* Subject Cards Grid */
-        .subjects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--gutter); }
-        .subject-card {
-            background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl);
-            padding: var(--stack-md); transition: all 0.3s ease; display: flex; flex-direction: column;
-        }
-        .subject-card:hover { transform: translateY(-4px); border-color: var(--secondary); box-shadow: 0 12px 32px rgba(44, 105, 78, 0.08); }
-        .subject-icon { width: 48px; height: 48px; background: var(--secondary-container); color: var(--on-secondary); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: var(--stack-sm); }
-        .subject-title { font-size: 20px; margin-bottom: 8px; }
-        .subject-desc { font-size: 14px; color: var(--on-surface-variant); margin-bottom: 12px; line-height: 1.6; }
-        .subject-badge { display: inline-block; padding: 4px 10px; background: var(--primary-fixed); color: var(--primary); border-radius: var(--radius-full); font-size: 11px; font-weight: 600; margin-bottom: 16px; width: fit-content; }
-        .subject-list { margin-bottom: 20px; flex-grow: 1; }
-        .subject-list li { font-size: 14px; color: var(--on-surface-variant); padding: 4px 0 4px 18px; position: relative; }
-        .subject-list li::before { content: "•"; color: var(--secondary); position: absolute; left: 0; font-weight: 700; }
-        .btn-card { width: 100%; padding: 12px 20px; border-radius: var(--radius-full); font-weight: 600; text-align: center; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--on-surface); border: 2px solid var(--outline-variant); }
-        .btn-card:hover { border-color: var(--secondary); color: var(--secondary); background: var(--surface-container-low); }
-
-        /* Process / Structure Lists */
-        .process-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gutter); margin-top: var(--stack-md); }
-        .process-item { display: flex; gap: 14px; align-items: flex-start; padding: 16px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--outline-variant); }
-        .process-num { flex-shrink: 0; width: 32px; height: 32px; background: var(--primary-fixed); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
-        .process-text { font-size: 14px; color: var(--on-surface-variant); margin: 0; }
-        .process-text strong { display: block; color: var(--primary); margin-bottom: 4px; }
-
-        /* Guidance Cards */
-        .guidance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gutter); margin-top: var(--stack-md); }
-        .guidance-card { padding: var(--stack-md); background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl); }
-        .guidance-card h3 { font-size: 18px; margin-bottom: 8px; }
-        .guidance-card p { font-size: 14px; color: var(--on-surface-variant); margin: 0; line-height: 1.6; }
-
-        /* Trust Block */
-        .trust-block { max-width: 800px; margin: var(--stack-md) auto 0; padding: var(--stack-md) var(--stack-lg); background: var(--surface); border-left: 4px solid var(--secondary); border-radius: var(--radius-lg); }
-        .trust-block p { font-size: 16px; color: var(--on-surface-variant); margin: 0; font-style: italic; }
-
-        /* Final CTA */
-        .final-cta { padding: var(--stack-lg) var(--margin-desktop); text-align: center; background: linear-gradient(to bottom, var(--surface-container-low), var(--surface-bright)); border-top: 1px solid var(--outline-variant); }
-        .final-cta h2 { font-size: 32px; margin-bottom: 12px; }
-        .final-cta p { font-size: 18px; color: var(--on-surface-variant); margin-bottom: var(--stack-md); }
-        .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-        .btn-whatsapp { background: #25D366; color: white; padding: 16px 32px; border-radius: var(--radius-full); font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s; border: none; cursor: pointer; }
-        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
-        .btn-outline { background: transparent; color: var(--on-surface); padding: 16px 32px; border-radius: var(--radius-full); font-weight: 600; border: 2px solid var(--outline-variant); transition: all 0.2s; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
-        .btn-outline:hover { border-color: var(--secondary); color: var(--secondary); }
-        .cta-note { font-size: 13px; color: var(--outline); margin-top: 16px; }
-
-        /* FOOTER - Restored Original */
-        .footer { background: var(--surface-dim); border-top: 1px solid var(--outline-variant); padding: var(--stack-lg) var(--margin-desktop) var(--stack-md); }
-        .footer-container { max-width: var(--container-max); margin: 0 auto; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--stack-lg); margin-bottom: var(--stack-lg); }
-        .footer-brand .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); display: block; }
-        .footer-brand p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); max-width: 280px; }
-        .footer-socials { display: flex; gap: 12px; }
-        .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 16px; transition: all 0.2s ease; }
-        .footer-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-        .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); text-transform: uppercase; letter-spacing: 0.05em; }
-        .footer-links { display: flex; flex-direction: column; gap: 10px; }
-        .footer-links a { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); transition: all 0.2s ease; }
-        .footer-links a:hover { color: var(--secondary); padding-left: 4px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--stack-md); border-top: 1px solid var(--outline-variant); }
-        .footer-copyright { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); }
-        .footer-socials-bottom { display: flex; gap: 16px; }
-        .footer-socials-bottom a { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 6px; transition: color 0.2s ease; }
-        .footer-socials-bottom a:hover { color: var(--secondary); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-center { display: none; }
-            .mobile-menu-toggle { display: block; }
-            .subjects-grid { grid-template-columns: 1fr; max-width: 550px; margin: 0 auto; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .header-container { padding: 0 var(--margin-mobile); }
-            .section { padding: var(--stack-md) var(--margin-mobile); }
-            .section-header h2 { font-size: 28px; }
-            .process-list, .guidance-grid { grid-template-columns: 1fr; }
-            .trust-block { padding: var(--stack-md); margin-left: var(--margin-mobile); margin-right: var(--margin-mobile); }
-            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
-            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-            .cta-buttons { flex-direction: column; align-items: stretch; }
-            .btn-whatsapp, .btn-outline { justify-content: center; width: 100%; }
-        }
-        a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subjects - NaijaAssets Course Offerings</title>
+  <meta name="description" content="Explore subjects offered by NaijaAssets: Mathematics, Basic/Integrated Science, WAEC/Exam Prep. AI-powered learning for JSS to SSS levels.">
+  <link rel="canonical" href="https://naijaassets.com/subjects/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://naijaassets.com/subjects/">
+  <meta property="og:title" content="Subjects - NaijaAssets Course Offerings">
+  <meta property="og:description" content="Mathematics, Science, and WAEC exam prep with live classes and AI tools for JSS to SSS students.">
+  <meta property="og:image" content="https://naijaassets.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Subjects - NaijaAssets">
+  <meta name="twitter:description" content="Structured subjects with AI-powered learning tools.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "NaijaAssets",
+    "url": "https://naijaassets.com",
+    "description": "AI-first education platform offering live classes, recorded lessons, AI tutoring, and scholarships.",
+    "areaServed": ["NG", "AF", "WW"],
+    "foundingDate": "2025",
+    "sameAs": ["https://naijaassets.com/ig","https://naijaassets.com/fb","https://naijaassets.com/x","https://naijaassets.com/yt","https://naijaassets.com/tt","https://naijaassets.com/li"]
+  }
+  </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <a href="/" class="logo">NaijaAssets</a>
-            <nav class="nav-center">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/about" class="nav-link">About</a>
-                <a href="/subjects" class="nav-link active">Subjects</a>
-                <a href="/pricing" class="nav-link">Pricing</a>
-                <a href="/faq" class="nav-link">FAQ</a>
-                <a href="/contact" class="nav-link">Contact</a>
-            </nav>
-            <div style="display:flex;align-items:center;gap:16px;">
-                <a href="/contact" class="cta-button">Get Started</a>
-                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </header>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
-        <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
-        <div class="mobile-nav-list">
-            <a href="/" class="mobile-nav-link">Home</a>
-            <a href="/about" class="mobile-nav-link">About</a>
-            <a href="/subjects" class="mobile-nav-link active">Subjects</a>
-            <a href="/pricing" class="mobile-nav-link">Pricing</a>
-            <a href="/faq" class="mobile-nav-link">FAQ</a>
-            <a href="/contact" class="mobile-nav-link">Contact</a>
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="NaijaAssets home"><img src="/Logo.png" alt="NaijaAssets" class="logo-img"></a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/subjects/">Subjects</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/scholarships/">Scholarships</a>
+        <a href="/rewards/">Rewards</a>
+        <a href="/affiliate/">Affiliate</a>
+        <a href="/teachers/">Teachers</a>
+        <a href="/about/">About</a>
+        <a href="/support/">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="nav-desktop-only">
+          <a href="https://app.naijaassets.com/login" class="nav-login">Log in</a>
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary">Sign Up</a>
+        </span>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="mobile-panel-close" id="mobileClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="mobile-nav-list">
+      <a href="/" class="mobile-nav-link">Home</a>
+      <a href="/subjects/" class="mobile-nav-link">Subjects</a>
+      <a href="/pricing/" class="mobile-nav-link">Pricing</a>
+      <a href="/scholarships/" class="mobile-nav-link">Scholarships</a>
+      <a href="/rewards/" class="mobile-nav-link">Content Rewards</a>
+      <a href="/affiliate/" class="mobile-nav-link">Affiliate Program</a>
+      <a href="/teachers/" class="mobile-nav-link">For Teachers</a>
+      <a href="/about/" class="mobile-nav-link">About</a>
+      <a href="/support/" class="mobile-nav-link">Support</a>
+      <a href="/faq/" class="mobile-nav-link">FAQ</a>
+      <hr style="border:none;border-top:1px solid var(--border);margin:var(--space-sm) 0;">
+      <a href="https://app.naijaassets.com/login" class="mobile-nav-link" style="font-weight:600;">Log in</a>
+      <a href="https://app.naijaassets.com/signup" class="mobile-nav-link" style="font-weight:600;color:var(--brand);">Sign Up</a>
+    </div>
+    <div class="mobile-socials">
+      <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="container container-narrow">
+        <h1>Subjects designed for real learning.</h1>
+        <p>Structured curriculum across Mathematics, Science, and Exam Preparation for JSS to SSS levels, powered by live teaching and AI tools.</p>
+        <div class="hero-actions">
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary btn-lg">Start Learning</a>
+          <a href="#subjects-grid" class="btn btn-secondary btn-lg">Browse Subjects</a>
         </div>
-        <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-        <div class="mobile-socials">
-            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="subjects-grid">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Choose your subject.</h2>
+          <p class="section-subtitle">Each subject includes live classes, recorded lessons, and AI-powered support.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Mathematics</h3>
+            <p>Algebra, geometry, trigonometry, calculus, and statistics for JSS to SSS levels. Build strong problem-solving foundations with step-by-step guidance.</p>
+            <ul class="feature-list" style="margin-top:var(--space-md);">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Live classes twice weekly
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                AI Tutor for extra practice
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Exam-style question banks
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3>Basic & Integrated Science</h3>
+            <p>Physics, Chemistry, Biology, and Basic Science with practical, hands-on approaches. Understand the world through scientific thinking.</p>
+            <ul class="feature-list" style="margin-top:var(--space-md);">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Practical lab demonstrations
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Concept quizzes & revision
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                AI Whiteboard explanations
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <h3>WAEC & Exam Preparation</h3>
+            <p>Targeted revision for WAEC, NECO, and JAMB with past questions, time management strategies, and confidence-building techniques.</p>
+            <ul class="feature-list" style="margin-top:var(--space-md);">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Past question deep-dives
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Exam strategy sessions
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Performance analytics
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">How subject learning works.</h2>
+          <p class="section-subtitle">A structured approach that builds understanding, confidence, and results.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h3>Choose Your Subject</h3>
+            <p>Select Mathematics, Science, or Exam Prep based on your grade level and learning goals.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h3>Attend Live Classes</h3>
+            <p>Join scheduled interactive sessions with qualified teachers who explain concepts clearly and answer questions.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h3>Review with AI Tools</h3>
+            <p>Use AI Tutor, AI Whiteboard, and recorded lessons to reinforce what you learned in class.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <h3>Track Progress</h3>
+            <p>Monitor your improvement through quizzes, assignments, and performance dashboards.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Which subject should my child take?</h2>
+          <p class="section-subtitle">Simple guidance to help you choose based on your child's academic needs.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Mathematics</h3>
+            <p>Ideal for students who need stronger problem-solving skills, foundational clarity in numbers and algebra, and structured preparation for exams.</p>
+          </div>
+          <div class="card">
+            <h3>Basic / Integrated Science</h3>
+            <p>Recommended for students who want to build scientific thinking, understand core concepts across Physics, Chemistry, and Biology, and improve lab skills.</p>
+          </div>
+          <div class="card">
+            <h3>Both Subjects</h3>
+            <p>Enrolling in both Mathematics and Science is highly recommended for comprehensive academic growth, especially for students in SSS preparing for WAEC and JAMB.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container container-narrow">
+        <div class="section-header">
+          <h2 class="section-title">Every class, built for engagement.</h2>
+          <p class="section-subtitle">Consistent structure across every subject ensures quality and familiarity.</p>
+        </div>
+        <div class="grid-2" style="gap:var(--space-lg);">
+          <div class="card">
+            <h3>Duration</h3>
+            <p>Each class runs for 45-60 minutes, with time for teaching, questions, and practice problems.</p>
+          </div>
+          <div class="card">
+            <h3>Frequency</h3>
+            <p>Classes are held 2-3 times per week per subject, with scheduled revision sessions before exams.</p>
+          </div>
+          <div class="card">
+            <h3>Group Size</h3>
+            <p>Small groups of 5-15 students ensure personalised attention and active participation.</p>
+          </div>
+          <div class="card">
+            <h3>Recordings</h3>
+            <p>All classes are recorded and available on-demand within the platform for later review.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container container-narrow">
+        <div class="section-header">
+          <h2 class="section-title">More subjects coming soon.</h2>
+          <p class="section-subtitle">We are committed to expanding our subject offerings based on student demand.</p>
+        </div>
+        <p style="text-align:center;color:var(--text-secondary);">Future subjects in development include English Language, ICT/Computer Science, Commercial Subjects (Accounting, Commerce, Economics), and specialised senior-level exam preparation programmes. Notifications will be shared via email and platform announcements.</p>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="container container-narrow">
+        <h2>Ready to choose a subject?</h2>
+        <p style="margin-bottom:var(--space-xl);">Create your account and start learning with live classes, AI tools, and recorded lessons.</p>
+        <a href="https://app.naijaassets.com/signup" class="btn btn-primary btn-lg">Create Your Account</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="/Logo-nobg.png" alt="NaijaAssets" class="logo-img"></a>
+          <p>AI-first education platform making quality learning affordable and accessible for students everywhere.</p>
+          <div class="footer-socials">
             <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
         </div>
-    </nav>
-
-    <main class="subjects-page">
-        <!-- Hero -->
-        <section class="section">
-            <div class="narrow">
-                <h1>Subjects We Teach</h1>
-                <p>Focused academic support for core secondary school subjects through structured live online classes.</p>
-                <p class="note">Designed for JSS and SSS students preparing for stronger academic performance.</p>
-            </div>
-        </section>
-
-        <!-- 1. Introduction -->
-        <section class="section alt-bg">
-            <div class="content-block narrow">
-                <p>NaijaAssets currently focuses on the core academic subjects that matter most in secondary education. Rather than offering a scattered catalog of courses, each subject is taught in structured live sessions with dedicated tutor interaction, guided practice, and consistent scheduling.</p>
-                <p>As our platform and tutor network grow, we will carefully introduce additional subjects based on student demand and curriculum requirements. Quality and consistency always come first.</p>
-            </div>
-        </section>
-
-        <!-- 2. Subject Cards Grid -->
-        <section class="section">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>Current Subject Offerings</h2>
-                    <p>Structured learning paths designed for clarity, consistency, and academic improvement.</p>
-                </div>
-                <div class="subjects-grid">
-                    <!-- Mathematics -->
-                    <div class="subject-card">
-                        <div class="subject-icon"><i class="fas fa-calculator"></i></div>
-                        <span class="subject-badge">JSS 1–3 | SSS 1–3</span>
-                        <h3 class="subject-title">Mathematics</h3>
-                        <p class="subject-desc">Structured mathematics lessons focused on understanding core concepts, problem solving, and exam preparation.</p>
-                        <ul class="subject-list">
-                            <li>Algebra fundamentals</li>
-                            <li>Geometry basics</li>
-                            <li>Arithmetic & fractions</li>
-                            <li>Word problem solving</li>
-                            <li>Exam-style practice</li>
-                        </ul>
-                        <button class="btn-card" onclick="window.location.href='https://wa.me/2349034110894'">Enroll via WhatsApp</button>
-                    </div>
-
-                    <!-- Basic / Integrated Science -->
-                    <div class="subject-card">
-                        <div class="subject-icon"><i class="fas fa-flask"></i></div>
-                        <span class="subject-badge">JSS 1–3 | SSS Intro Science</span>
-                        <h3 class="subject-title">Basic / Integrated Science</h3>
-                        <p class="subject-desc">Science tutoring designed to improve understanding of core scientific concepts and build academic consistency.</p>
-                        <ul class="subject-list">
-                            <li>Basic scientific principles</li>
-                            <li>Physics foundations</li>
-                            <li>Chemistry basics</li>
-                            <li>Biology introduction</li>
-                            <li>Practical exam preparation</li>
-                        </ul>
-                        <button class="btn-card" onclick="document.querySelector('.section-header').scrollIntoView({behavior:'smooth'})">Learn More</button>
-                    </div>
-
-                    <!-- WAEC / Exam Prep -->
-                    <div class="subject-card">
-                        <div class="subject-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <span class="subject-badge" style="background:var(--secondary-container);color:var(--on-secondary-container);">Exam Focused</span>
-                        <h3 class="subject-title">WAEC / Exam Prep</h3>
-                        <p class="subject-desc">Structured revision sessions designed to help students prepare for major secondary school examinations.</p>
-                        <ul class="subject-list">
-                            <li>Past question practice</li>
-                            <li>Exam strategies</li>
-                            <li>Time management techniques</li>
-                            <li>Revision planning</li>
-                            <li>Confidence building</li>
-                        </ul>
-                        <button class="btn-card" onclick="window.location.href='/pricing'">Join Preparation Classes</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. How Subject Learning Works -->
-        <section class="section alt-bg">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>How Subject Learning Works</h2>
-                    <p>All subjects follow the same structured, reliable learning approach.</p>
-                </div>
-                <div class="process-list">
-                    <div class="process-item">
-                        <div class="process-num">1</div>
-                        <p class="process-text"><strong>Live Online Lessons</strong>Conducted via Google Meet with scheduled weekly slots.</p>
-                    </div>
-                    <div class="process-item">
-                        <div class="process-num">2</div>
-                        <p class="process-text"><strong>Tutor-Led Explanations</strong>Clear, step-by-step breakdowns of complex topics.</p>
-                    </div>
-                    <div class="process-item">
-                        <div class="process-num">3</div>
-                        <p class="process-text"><strong>Participation & Q&A</strong>Active student engagement during every session.</p>
-                    </div>
-                    <div class="process-item">
-                        <div class="process-num">4</div>
-                        <p class="process-text"><strong>Regular Practice</strong>Assignments and exam-style questions for reinforcement.</p>
-                    </div>
-                    <div class="process-item">
-                        <div class="process-num">5</div>
-                        <p class="process-text"><strong>WhatsApp Support</strong>Direct admin communication for updates and scheduling.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Which Subject Should My Child Take? -->
-        <section class="section">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>Which Subject Should My Child Take?</h2>
-                    <p>Quick guidance to help you choose based on academic needs.</p>
-                </div>
-                <div class="guidance-grid">
-                    <div class="guidance-card">
-                        <h3>Mathematics</h3>
-                        <p>Ideal for students who need stronger problem-solving skills, foundational clarity, and measurable improvement in exam performance.</p>
-                    </div>
-                    <div class="guidance-card">
-                        <h3>Basic / Integrated Science</h3>
-                        <p>Recommended for students who want better understanding of scientific concepts, improved school grades, and practical exam readiness.</p>
-                    </div>
-                    <div class="guidance-card">
-                        <h3>Combined Learning</h3>
-                        <p>Enrolling in both subjects is highly recommended for students seeking overall academic support, consistent progress tracking, and structured study habits.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Class Structure Across Subjects -->
-        <section class="section alt-bg">
-            <div class="narrow">
-                <h2>Consistent Structure Across All Subjects</h2>
-                <p style="margin-top: var(--stack-sm); color: var(--on-surface-variant);">Regardless of the subject chosen, every student benefits from:</p>
-                <div class="subjects-grid" style="margin-top: var(--stack-md); max-width: 900px;">
-                    <div style="background:var(--surface);padding:20px;border-radius:var(--radius-xl);border:1px solid var(--outline-variant);text-align:center;">
-                        <i class="fas fa-users" style="font-size:24px;color:var(--secondary);margin-bottom:12px;"></i>
-                        <h4 style="margin-bottom:6px;">Small Group Learning</h4>
-                        <p style="font-size:14px;color:var(--on-surface-variant);margin:0;">Optimized for interaction and focused attention.</p>
-                    </div>
-                    <div style="background:var(--surface);padding:20px;border-radius:var(--radius-xl);border:1px solid var(--outline-variant);text-align:center;">
-                        <i class="fas fa-video" style="font-size:24px;color:var(--secondary);margin-bottom:12px;"></i>
-                        <h4 style="margin-bottom:6px;">Live Interactive Classes</h4>
-                        <p style="font-size:14px;color:var(--on-surface-variant);margin:0;">Real-time teaching, not pre-recorded videos.</p>
-                    </div>
-                    <div style="background:var(--surface);padding:20px;border-radius:var(--radius-xl);border:1px solid var(--outline-variant);text-align:center;">
-                        <i class="fas fa-calendar-alt" style="font-size:24px;color:var(--secondary);margin-bottom:12px;"></i>
-                        <h4 style="margin-bottom:6px;">Weekly Structured Schedule</h4>
-                        <p style="font-size:14px;color:var(--on-surface-variant);margin:0;">Consistent timing to build reliable study habits.</p>
-                    </div>
-                    <div style="background:var(--surface);padding:20px;border-radius:var(--radius-xl);border:1px solid var(--outline-variant);text-align:center;">
-                        <i class="fas fa-laptop-house" style="font-size:24px;color:var(--secondary);margin-bottom:12px;"></i>
-                        <h4 style="margin-bottom:6px;">Flexible Remote Access</h4>
-                        <p style="font-size:14px;color:var(--on-surface-variant);margin:0;">Join seamlessly from a phone, tablet, or computer.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. Future Subject Expansion -->
-        <section class="section">
-            <div class="content-block narrow">
-                <h2>Future Subject Expansion</h2>
-                <p style="margin-top: 10px;">We are committed to growing responsibly. Additional subjects will be introduced based on verified student demand and our ability to maintain structured, high-quality tutoring.</p>
-                <p>Future expansion may include English Language, ICT, Commercial subjects, and specialized senior-level exam preparation programs. Enrollment notifications for new subjects will be shared via WhatsApp and our website updates.</p>
-            </div>
-        </section>
-
-        <!-- 7. Trust / Quality Message -->
-        <section class="section alt-bg">
-            <div class="trust-block">
-                <p>"NaijaAssets focuses on structured learning, consistency, and accessible academic support rather than overcrowded or unorganized tutoring models. Quality always precedes scale."</p>
-            </div>
-        </section>
-
-        <!-- 8. Final CTA -->
-        <section class="final-cta">
-            <h2>Ready to Choose a Subject?</h2>
-            <p>Speak with an admin to help place your child in the right class based on grade level and learning needs.</p>
-            <div class="cta-buttons">
-                <a href="https://wa.me/2349034110894" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Enroll via WhatsApp</a>
-                <a href="/contact" class="btn-outline"><i class="fas fa-envelope"></i> Contact Admin</a>
-            </div>
-            <p class="cta-note">Subject placement is recommended based on student grade and academic needs.</p>
-        </section>
-    </main>
-
-    <!-- Footer - Restored Original -->
-    <footer class="footer" id="contact">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <span class="logo">NaijaAssets</span>
-                    <p>Structured online tutoring for Nigerian secondary school students.</p>
-                    <div class="footer-socials">
-                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h4>Navigation</h4>
-                    <nav class="footer-links">
-                        <a href="/">Home</a>
-                        <a href="/about">About</a>
-                        <a href="/subjects">Subjects</a>
-                        <a href="/pricing">Pricing</a>
-                        <a href="/faq">FAQ</a>
-                        <a href="/contact">Contact</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Subjects</h4>
-                    <nav class="footer-links">
-                        <a href="/subjects/mathematics">Mathematics</a>
-                        <a href="/subjects/science">Science</a>
-                        <a href="/subjects/waec">WAEC Prep</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Legal</h4>
-                    <nav class="footer-links">
-                        <a href="/privacy">Privacy Policy</a>
-                        <a href="/terms">Terms of Service</a>
-                        <a href="/support">Support</a>
-                    </nav>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
-                <div class="footer-socials-bottom">
-                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
-                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> Twitter</a>
-                </div>
-            </div>
+        <div>
+          <h4>Platform</h4>
+          <a href="/subjects/">Subjects</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/scholarships/">Scholarships</a>
+          <a href="/rewards/">Rewards</a>
+          <a href="/teachers/">For Teachers</a>
         </div>
-    </footer>
+        <div>
+          <h4>Company</h4>
+          <a href="/about/">About</a>
+          <a href="/affiliate/">Affiliate Program</a>
+          <a href="/support/">Support</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/support/">Contact</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="/legal-pages/terms-of-service.html">Terms of Service</a>
+          <a href="/legal-pages/privacy-policy.html">Privacy Policy</a>
+          <a href="/legal-pages/">All Policies</a>
+          <a href="/legal-pages/acceptable-use-policy.html">Acceptable Use</a>
+          <a href="/legal-pages/ai-usage-policy.html">AI Usage Policy</a>
+        </div>
+        <div>
+          <h4>More</h4>
+          <a href="/legal-pages/cookie-policy.html">Cookie Policy</a>
+          <a href="/legal-pages/security-policy.html">Security</a>
+          <a href="/legal-pages/accessibility-statement.html">Accessibility</a>
+          <a href="/legal-pages/childrens-privacy-notice.html">Children's Privacy</a>
+          <a href="/legal-pages/parental-consent-policy.html">Parental Consent</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> NaijaAssets. All rights reserved.</span>
+        <span>Helping Nigerian students learn better.</span>
+      </div>
+    </div>
+  </footer>
 
-    <script>
-        // Mobile Menu Logic
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        const drawer = document.getElementById('mobileMenu');
-        const overlay = document.getElementById('mobileMenuOverlay');
-        const closeBtn = document.querySelector('.mobile-menu-close');
-        
-        function openMenu() { drawer.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-        function closeMenu() { drawer.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-        
-        toggle.addEventListener('click', openMenu);
-        closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
-        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
-    </script>
+  <script src="/assets/js/site-config.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>

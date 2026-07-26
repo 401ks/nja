@@ -1,511 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support - NaijaAssets</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        :root {
-            /* Brand Colors */
-            --surface-bright: #f8f9ff;
-            --surface-container-high: #dce9ff;
-            --surface-dim: #ccdbf3;
-            --secondary-fixed: #b1f0ce;
-            --on-surface-variant: #43474d;
-            --on-primary: #ffffff;
-            --on-secondary: #ffffff;
-            --primary-fixed: #d2e4ff;
-            --outline: #74777e;
-            --surface-container-highest: #d5e3fc;
-            --surface-container: #e6eeff;
-            --secondary-fixed-dim: #95d4b3;
-            --on-background: #0d1c2e;
-            --surface-container-low: #eff4ff;
-            --error: #ba1a1a;
-            --on-surface: #0d1c2e;
-            --primary-fixed-dim: #b0c8eb;
-            --outline-variant: #c4c6ce;
-            --on-primary-container: #768dad;
-            --surface: #f8f9ff;
-            --primary-container: #0a2540;
-            --secondary-container: #aeeecb;
-            --secondary: #2c694e;
-            --primary: #000f22;
-            
-            /* Spacing & Layout */
-            --margin-desktop: 40px;
-            --margin-mobile: 16px;
-            --gutter: 24px;
-            --stack-lg: 64px;
-            --stack-md: 32px;
-            --stack-sm: 16px;
-            --container-max: 1280px;
-            --container-narrow: 900px;
-            
-            /* Border Radius */
-            --radius-lg: 8px;
-            --radius-xl: 12px;
-            --radius-full: 16px;
-            
-            /* Typography */
-            --font-display: 'Montserrat', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-body);
-            background-color: var(--surface-bright);
-            color: var(--on-surface);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; color: var(--primary); line-height: 1.25; }
-        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-        ul { list-style: none; }
-
-        /* HEADER - Restored Original */
-        .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background-color: var(--surface-bright); border-bottom: 1px solid var(--outline-variant); box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 1000; }
-        .header-container { max-width: var(--container-max); margin: 0 auto; height: 100%; padding: 0 var(--margin-desktop); display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
-        .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 32px; align-items: center; }
-        .nav-link { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--on-surface-variant); text-transform: uppercase; }
-        .nav-link:hover, .nav-link.active { color: var(--secondary); }
-        .cta-button { background: var(--primary); color: var(--on-primary); padding: 10px 20px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0.05em; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-        .cta-button:hover { opacity: 0.9; transform: scale(0.98); }
-        .mobile-menu-toggle { display: none; background: none; border: none; color: var(--on-surface-variant); font-size: 24px; cursor: pointer; padding: 8px; z-index: 1001; }
-
-        /* MOBILE MENU - Restored Original */
-        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--surface-bright); z-index: 1000; padding: 80px 24px 24px; box-shadow: -4px 0 24px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
-        .mobile-menu.active { right: 0; }
-        .mobile-menu-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: var(--on-surface-variant); cursor: pointer; padding: 8px; }
-        .mobile-nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-        .mobile-nav-link { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--on-surface); padding: 12px 16px; border-radius: var(--radius-xl); transition: all 0.2s ease; display: block; }
-        .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--surface-container); color: var(--secondary); }
-        .mobile-menu-cta { background: var(--primary); color: var(--on-primary); padding: 14px 24px; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 15px; font-weight: 600; text-align: center; display: block; margin-top: 16px; }
-        .mobile-socials { display: flex; gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--outline-variant); }
-        .mobile-socials a { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 18px; transition: all 0.2s ease; }
-        .mobile-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-
-        /* PAGE SPECIFIC LAYOUT */
-        .support-page { padding-top: 64px; }
-        .support-hero {
-            padding: var(--stack-lg) var(--margin-desktop); text-align: center;
-            background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-bright) 100%);
-        }
-        .support-hero h1 { font-size: 42px; margin-bottom: 12px; }
-        .support-hero p { font-size: 18px; color: var(--on-surface-variant); max-width: 600px; margin: 0 auto; }
-        .response-note { font-size: 13px; color: var(--secondary); margin-top: 16px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
-
-        /* Support Section */
-        .support-section { padding: var(--stack-lg) var(--margin-desktop); }
-        .support-inner { max-width: var(--container-max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--stack-lg); align-items: start; }
-        
-        /* Support Info Column */
-        .support-info { background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl); padding: var(--stack-md); }
-        .support-info h2 { font-size: 24px; margin-bottom: 20px; }
-        .support-card { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
-        .support-icon { width: 40px; height: 40px; border-radius: var(--radius-lg); background: var(--secondary-container); color: var(--on-secondary); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-        .support-details h3 { font-size: 16px; margin-bottom: 4px; }
-        .support-details a { color: var(--secondary); font-weight: 500; text-decoration: underline; text-decoration-color: transparent; transition: 0.2s; }
-        .support-details a:hover { text-decoration-color: var(--secondary); }
-        .support-details p { font-size: 14px; color: var(--on-surface-variant); }
-        .support-hours { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--outline-variant); }
-        .support-hours h3 { font-size: 16px; margin-bottom: 8px; }
-        .support-hours p { font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; }
-
-        /* Form Column */
-        .support-form-wrapper { background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl); padding: var(--stack-md); box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
-        .form-group { margin-bottom: 16px; }
-        .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--on-surface); margin-bottom: 6px; letter-spacing: 0.02em; }
-        .form-input, .form-textarea, .form-select {
-            width: 100%; padding: 12px 16px; border: 1px solid var(--outline-variant); border-radius: var(--radius-lg);
-            font-family: var(--font-body); font-size: 14px; color: var(--on-surface); background: var(--surface-bright);
-            transition: all 0.2s ease; resize: vertical;
-        }
-        .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(44, 105, 78, 0.1); }
-        .btn-submit {
-            width: 100%; background: var(--secondary); color: var(--on-secondary); padding: 14px; border-radius: var(--radius-full);
-            font-family: var(--font-display); font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;
-        }
-        .btn-submit:hover { background: var(--primary-fixed-dim); color: var(--primary); transform: translateY(-2px); }
-        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-        /* Modal */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.7); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: var(--margin-mobile); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal { background: var(--surface); border-radius: var(--radius-xl); padding: var(--stack-md); max-width: 420px; width: 100%; text-align: center; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .modal-overlay.active .modal { transform: scale(1); }
-        .modal-icon { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--stack-sm); font-size: 28px; }
-        .modal-success .modal-icon { background: var(--secondary-container); color: var(--secondary); }
-        .modal-error .modal-icon { background: var(--error-container); color: var(--error); }
-        .modal-title { font-size: 20px; margin-bottom: 8px; }
-        .modal-text { font-size: 14px; color: var(--on-surface-variant); margin-bottom: var(--stack-md); line-height: 1.6; }
-        .btn-modal-close { background: var(--primary); color: var(--on-primary); padding: 12px 32px; border-radius: var(--radius-full); font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
-        .btn-modal-close:hover { background: var(--primary-container); }
-
-        /* Footer - Restored Original */
-        .footer { background: var(--surface-dim); border-top: 1px solid var(--outline-variant); padding: var(--stack-lg) var(--margin-desktop) var(--stack-md); }
-        .footer-container { max-width: var(--container-max); margin: 0 auto; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--stack-lg); margin-bottom: var(--stack-lg); }
-        .footer-brand .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); display: block; }
-        .footer-brand p { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: var(--stack-md); max-width: 280px; }
-        .footer-socials { display: flex; gap: 12px; }
-        .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container); display: flex; align-items: center; justify-content: center; color: var(--secondary); font-size: 16px; transition: all 0.2s ease; }
-        .footer-socials a:hover { background: var(--secondary-container); color: var(--on-secondary); transform: translateY(-2px); }
-        .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: var(--stack-sm); text-transform: uppercase; letter-spacing: 0.05em; }
-        .footer-links { display: flex; flex-direction: column; gap: 10px; }
-        .footer-links a { font-family: var(--font-body); font-size: 14px; color: var(--on-surface-variant); transition: all 0.2s ease; }
-        .footer-links a:hover { color: var(--secondary); padding-left: 4px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--stack-md); border-top: 1px solid var(--outline-variant); }
-        .footer-copyright { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); }
-        .footer-socials-bottom { display: flex; gap: 16px; }
-        .footer-socials-bottom a { font-family: var(--font-body); font-size: 13px; color: var(--on-surface-variant); display: flex; align-items: center; gap: 6px; transition: color 0.2s ease; }
-        .footer-socials-bottom a:hover { color: var(--secondary); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-center { display: none; }
-            .mobile-menu-toggle { display: block; }
-            .support-inner { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .header-container { padding: 0 var(--margin-mobile); }
-            .support-hero { padding: var(--stack-md) var(--margin-mobile); }
-            .support-hero h1 { font-size: 32px; }
-            .support-section { padding: var(--stack-md) var(--margin-mobile); }
-            .footer-grid { grid-template-columns: 1fr; gap: var(--stack-md); }
-            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-            .footer-brand p { max-width: 100%; }
-        }
-        a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Center - NaijaAssets</title>
+  <meta name="description" content="Get help from NaijaAssets Support Center. Contact us via WhatsApp, email, or submit a support request. We respond within a few hours.">
+  <link rel="canonical" href="https://naijaassets.com/support/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://naijaassets.com/support/">
+  <meta property="og:title" content="Support Center - NaijaAssets">
+  <meta property="og:description" content="Contact NaijaAssets support via WhatsApp, email, or our support form. Fast response for billing, technical, and account issues.">
+  <meta property="og:image" content="https://naijaassets.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Support Center - NaijaAssets">
+  <meta name="twitter:description" content="Need help? NaijaAssets Support Center is here to assist with billing, technical issues, and account inquiries.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "NaijaAssets Support Center",
+    "url": "https://naijaassets.com/support/",
+    "description": "Customer support center for NaijaAssets education platform.",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "telephone": "+234-903-411-0894",
+        "email": "legal@legal.naijaassets.com",
+        "availableLanguage": ["English"],
+        "hoursAvailable": "Mo-Sa 09:00-18:00"
+      }
+    ]
+  }
+  </script>
+  <style>
+    .support-page { padding-top: var(--nav-h); }
+    .support-hero { padding: var(--space-4xl) 0 var(--space-2xl); text-align: center; }
+    .support-hero h1 { margin-bottom: var(--space-md); }
+    .support-hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+    .response-note { display: inline-flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-md); font-size: 0.85rem; font-weight: 600; color: var(--brand); }
+    .support-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-2xl); align-items: start; }
+    .support-info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-2xl); }
+    .support-info-card h2 { margin-bottom: var(--space-lg); }
+    .contact-method { display: flex; gap: var(--space-md); margin-bottom: var(--space-lg); align-items: flex-start; }
+    .contact-icon { width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-md); background: var(--brand-light); color: var(--brand-dark); }
+    .contact-details h3 { font-size: 1rem; margin-bottom: 2px; }
+    .contact-details a { color: var(--brand); font-weight: 500; }
+    .contact-details a:hover { text-decoration: underline; }
+    .contact-details p { font-size: 0.85rem; color: var(--text-muted); }
+    .hours-box { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--border); }
+    .hours-box h3 { font-size: 0.95rem; margin-bottom: var(--space-sm); }
+    .hours-box p { font-size: 0.85rem; color: var(--text-secondary); }
+    .support-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-2xl); }
+    .support-form-card h2 { margin-bottom: var(--space-lg); }
+    .form-group { margin-bottom: var(--space-md); }
+    .form-label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+    .form-input, .form-textarea, .form-select { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 0.9rem; background: var(--bg); color: var(--text); transition: border-color 0.2s; }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--brand); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .faq-mini { margin-top: var(--space-3xl); }
+    .faq-mini .faq-list { max-width: 100%; }
+    .response-times { margin-top: var(--space-2xl); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); }
+    .response-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-lg); text-align: center; }
+    .response-card h3 { font-size: 0.95rem; margin-bottom: var(--space-xs); }
+    .response-card p { font-size: 0.85rem; color: var(--text-muted); }
+    @media (max-width: 768px) {
+      .support-grid { grid-template-columns: 1fr; }
+      .support-hero { padding: var(--space-2xl) 0 var(--space-lg); }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <a href="/" class="logo">NaijaAssets</a>
-            <nav class="nav-center">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/about" class="nav-link">About</a>
-                <a href="/subjects" class="nav-link">Subjects</a>
-                <a href="/pricing" class="nav-link">Pricing</a>
-                <a href="/faq" class="nav-link">FAQ</a>
-                <a href="/contact" class="nav-link">Contact</a>
-            </nav>
-            <div style="display:flex;align-items:center;gap:16px;">
-                <a href="/contact" class="cta-button">Get Started</a>
-                <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </header>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
-        <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
-        <div class="mobile-nav-list">
-            <a href="/" class="mobile-nav-link">Home</a>
-            <a href="/about" class="mobile-nav-link">About</a>
-            <a href="/subjects" class="mobile-nav-link">Subjects</a>
-            <a href="/pricing" class="mobile-nav-link">Pricing</a>
-            <a href="/faq" class="mobile-nav-link">FAQ</a>
-            <a href="/contact" class="mobile-nav-link">Contact</a>
-            <a href="/support" class="mobile-nav-link active">Support</a>
-        </div>
-        <a href="https://wa.me/2349034110894" class="mobile-menu-cta"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-        <div class="mobile-socials">
-            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
-        </div>
-    </nav>
-
-    <main class="support-page">
-        <!-- Hero -->
-        <section class="support-hero">
-            <h1>Support Center</h1>
-            <p>Need help with enrollment, class links, or scheduling? We're here to assist.</p>
-            <p class="response-note"><i class="fas fa-clock"></i> Typical response time: Within a few hours</p>
-        </section>
-
-        <!-- Support Grid -->
-        <section class="support-section">
-            <div class="support-inner">
-                <!-- Left Column: Info -->
-                <div class="support-info">
-                    <h2>How to Get Help</h2>
-                    
-                    <div class="support-card">
-                        <div class="support-icon"><i class="fab fa-whatsapp"></i></div>
-                        <div class="support-details">
-                            <h3>WhatsApp Support</h3>
-                            <p><a href="https://wa.me/2349034110894" target="_blank" rel="noopener">+234 903 411 0894</a></p>
-                            <p>Fastest response for schedules, missed links, or quick questions.</p>
-                        </div>
-                    </div>
-
-                    <div class="support-card">
-                        <div class="support-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="support-details">
-                            <h3>Email Support</h3>
-                            <p><a href="mailto:forms@naijaassets.com">forms@naijaassets.com</a></p>
-                            <p>Best for detailed technical issues, account inquiries, or formal requests.</p>
-                        </div>
-                    </div>
-
-                    <div class="support-card">
-                        <div class="support-icon"><i class="fas fa-question-circle"></i></div>
-                        <div class="support-details">
-                            <h3>FAQ Section</h3>
-                            <p><a href="/faq">Browse common questions</a></p>
-                            <p>Find instant answers about classes, payments, and requirements.</p>
-                        </div>
-                    </div>
-
-                    <div class="support-hours">
-                        <h3>Support Availability</h3>
-                        <p>Monday - Saturday: 9:00 AM - 6:00 PM (WAT)<br>Sunday: Closed (Messages handled on Monday)</p>
-                    </div>
-                </div>
-
-                <!-- Right Column: Form -->
-                <div class="support-form-wrapper">
-                    <h2 style="margin-bottom: 20px; font-size: 24px;">Send a Support Request</h2>
-                    <form class="cta-form" id="supportForm">
-                        <div class="form-group">
-                            <label class="form-label" for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" class="form-input" required placeholder="Enter your name">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="Optional, for follow-up">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="phone">Phone / WhatsApp Number *</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" required placeholder="e.g., 08012345678">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="category">Issue Category</label>
-                            <select id="category" name="category" class="form-select">
-                                <option value="General Support">General Support</option>
-                                <option value="Technical Issue">Technical / Class Link Issue</option>
-                                <option value="Enrollment Help">Enrollment Assistance</option>
-                                <option value="Payment Query">Payment Confirmation</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="message">Message *</label>
-                            <textarea id="message" name="message" class="form-textarea" rows="5" required placeholder="Describe your issue or question..."></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit" id="submitBtn">
-                            <i class="fas fa-paper-plane"></i> Submit Request
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer - Restored Original -->
-    <footer class="footer" id="contact">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <span class="logo">NaijaAssets</span>
-                    <p>Structured online tutoring for Nigerian secondary school students.</p>
-                    <div class="footer-socials">
-                        <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h4>Navigation</h4>
-                    <nav class="footer-links">
-                        <a href="/">Home</a>
-                        <a href="/about">About</a>
-                        <a href="/subjects">Subjects</a>
-                        <a href="/pricing">Pricing</a>
-                        <a href="/faq">FAQ</a>
-                        <a href="/contact">Contact</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Subjects</h4>
-                    <nav class="footer-links">
-                        <a href="/subjects/mathematics">Mathematics</a>
-                        <a href="/subjects/science">Science</a>
-                        <a href="/subjects/waec">WAEC Prep</a>
-                    </nav>
-                </div>
-                <div class="footer-column">
-                    <h4>Legal</h4>
-                    <nav class="footer-links">
-                        <a href="/privacy">Privacy Policy</a>
-                        <a href="/terms">Terms of Service</a>
-                        <a href="/support">Support</a>
-                    </nav>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2026 NaijaAssets. All rights reserved.</p>
-                <div class="footer-socials-bottom">
-                    <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                    <a href="/tk" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
-                    <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i> Twitter</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Success/Error Modal Popup -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <div class="modal-icon" id="modalIcon">
-                <i class="fas fa-check" id="modalIconSymbol"></i>
-            </div>
-            <h3 class="modal-title" id="modalTitle">Request Sent!</h3>
-            <p class="modal-text" id="modalText">Thank you for reaching out. Our support team will review your message and respond shortly.</p>
-            <button class="btn-modal-close" id="modalClose">Got it</button>
-        </div>
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="NaijaAssets home"><img src="/Logo.png" alt="NaijaAssets" class="logo-img"></a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/subjects/">Subjects</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/scholarships/">Scholarships</a>
+        <a href="/rewards/">Rewards</a>
+        <a href="/affiliate/">Affiliate</a>
+        <a href="/teachers/">Teachers</a>
+        <a href="/about/">About</a>
+        <a href="/support/">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="nav-desktop-only">
+          <a href="https://app.naijaassets.com/login" class="nav-login">Log in</a>
+          <a href="https://app.naijaassets.com/signup" class="btn btn-primary">Sign Up</a>
+        </span>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <script>
-        // Mobile Menu Logic
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        const drawer = document.getElementById('mobileMenu');
-        const overlay = document.getElementById('mobileMenuOverlay');
-        const closeBtn = document.querySelector('.mobile-menu-close');
-        
-        function openMenu() { drawer.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-        function closeMenu() { drawer.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-        
-        toggle.addEventListener('click', openMenu);
-        closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
-        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="mobile-panel-close" id="mobileClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="mobile-nav-list">
+      <a href="/" class="mobile-nav-link">Home</a>
+      <a href="/subjects/" class="mobile-nav-link">Subjects</a>
+      <a href="/pricing/" class="mobile-nav-link">Pricing</a>
+      <a href="/scholarships/" class="mobile-nav-link">Scholarships</a>
+      <a href="/rewards/" class="mobile-nav-link">Content Rewards</a>
+      <a href="/affiliate/" class="mobile-nav-link">Affiliate Program</a>
+      <a href="/teachers/" class="mobile-nav-link">For Teachers</a>
+      <a href="/about/" class="mobile-nav-link">About</a>
+      <a href="/support/" class="mobile-nav-link">Support</a>
+      <a href="/faq/" class="mobile-nav-link">FAQ</a>
+      <hr style="border:none;border-top:1px solid var(--border);margin:var(--space-sm) 0;">
+      <a href="https://app.naijaassets.com/login" class="mobile-nav-link" style="font-weight:600;">Log in</a>
+      <a href="https://app.naijaassets.com/signup" class="mobile-nav-link" style="font-weight:600;color:var(--brand);">Sign Up</a>
+    </div>
+    <div class="mobile-socials">
+      <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
 
-        // Modal Functions
-        const modalOverlay = document.getElementById('modalOverlay');
-        const modal = document.getElementById('modal');
-        const modalIconSymbol = document.getElementById('modalIconSymbol');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalText = document.getElementById('modalText');
-        const modalClose = document.getElementById('modalClose');
+  <main id="main" class="support-page">
+    <section class="support-hero">
+      <div class="container container-narrow">
+        <h1>Support Center</h1>
+        <p>Need help with your account, billing, or learning experience? We're here to assist.</p>
+        <span class="response-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Typical response time: within a few hours
+        </span>
+      </div>
+    </section>
 
-        function showModal(isSuccess, title, message) {
-            modalOverlay.classList.add('active');
-            if (isSuccess) {
-                modal.className = 'modal modal-success';
-                modalIconSymbol.className = 'fas fa-check';
-            } else {
-                modal.className = 'modal modal-error';
-                modalIconSymbol.className = 'fas fa-exclamation-triangle';
-            }
-            modalTitle.textContent = title;
-            modalText.textContent = message;
-        }
+    <section class="section section-alt">
+      <div class="container">
+        <div class="support-grid">
+          <div class="support-info-card">
+            <h2>How to Reach Us</h2>
 
-        function hideModal() {
-            modalOverlay.classList.remove('active');
-        }
+            <div class="contact-method">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="contact-details">
+                <h3>WhatsApp</h3>
+                <a href="https://wa.me/2349034110894" target="_blank" rel="noopener">+234 903 411 0894</a>
+                <p>Fastest response - send a message anytime.</p>
+              </div>
+            </div>
 
-        modalClose.addEventListener('click', hideModal);
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) hideModal();
-        });
+            <div class="contact-method">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="contact-details">
+                <h3>Email</h3>
+                <a href="mailto:legal@legal.naijaassets.com">legal@legal.naijaassets.com</a>
+                <p>For detailed inquiries, account issues, or formal requests.</p>
+              </div>
+            </div>
 
-        // Support Form Handling (Dual Backend via AJAX)
-        const supportForm = document.getElementById('supportForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const formsubmitEndpoint = 'https://formsubmit.co/ajax/forms@naijaassets.com';
-        const formspreeEndpoint = 'https://formspree.io/f/xeenyjkd';
+            <div class="contact-method">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <div class="contact-details">
+                <h3>FAQ</h3>
+                <a href="/faq/">Browse our FAQ</a>
+                <p>Find instant answers to common questions.</p>
+              </div>
+            </div>
 
-        supportForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Show "sending" state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            
-            // Collect form data
-            const data = {
-                'Name': document.getElementById('name').value,
-                'Email': document.getElementById('email').value || 'Not provided',
-                'Phone': document.getElementById('phone').value,
-                'Category': document.getElementById('category').value,
-                'Message': document.getElementById('message').value,
-                '_subject': 'New Support Request - NaijaAssets',
-                '_captcha': 'false'
-            };
+            <div class="hours-box">
+              <h3>Support Hours</h3>
+              <p>Monday - Saturday: 9:00 AM - 6:00 PM (WAT)<br>Sunday: Closed (messages handled on Monday)</p>
+            </div>
+          </div>
 
-            let successCount = 0;
-            let errorCount = 0;
+          <div class="support-form-card">
+            <h2>Send a Support Request</h2>
+            <form id="supportForm" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="formName">Full Name</label>
+                <input type="text" id="formName" name="name" class="form-input" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="formEmail">Email Address</label>
+                <input type="email" id="formEmail" name="email" class="form-input" placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="formPhone">Phone Number</label>
+                <input type="tel" id="formPhone" name="phone" class="form-input" required placeholder="e.g. 08012345678">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="formCategory">Category</label>
+                <select id="formCategory" name="category" class="form-select">
+                  <option value="">Select a category</option>
+                  <option value="Billing">Billing</option>
+                  <option value="Technical">Technical</option>
+                  <option value="Account">Account</option>
+                  <option value="Scholarship">Scholarship</option>
+                  <option value="Rewards">Rewards</option>
+                  <option value="Affiliate">Affiliate</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="formMessage">Message</label>
+                <textarea id="formMessage" name="message" class="form-textarea" rows="5" required placeholder="Describe your issue or question..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Submit Request</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            try {
-                // Submit to FormSubmit.co via AJAX
-                const fsResponse = await fetch(formsubmitEndpoint, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-                });
-                if (fsResponse.ok) successCount++; else errorCount++;
-            } catch (err) {
-                console.error('FormSubmit error:', err);
-                errorCount++;
-            }
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">How quickly will I get a response? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>We typically respond within a few hours during business hours (Mon-Sat, 9 AM-6 PM WAT). WhatsApp messages get the fastest response.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">How do I reset my password? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Use the "Forgot Password" link on the login page. If you continue having issues, contact us via WhatsApp or the support form above.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">Can I change my subscription plan? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Yes. You can upgrade or downgrade your plan at any time from your account dashboard. Changes take effect on the next billing cycle.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">What if I miss a live class? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>All live classes are recorded and available on-demand in your account. You can watch them anytime, even if you missed the live session.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">How do I contact billing support? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>For billing inquiries, email us at <a href="mailto:legal@legal.naijaassets.com" style="color:var(--brand);">legal@legal.naijaassets.com</a> or submit the support form above with "Billing" as the category.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            try {
-                // Submit to Formspree via AJAX
-                const fsprResponse = await fetch(formspreeEndpoint, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-                });
-                if (fsprResponse.ok) successCount++; else errorCount++;
-            } catch (err) {
-                console.error('Formspree error:', err);
-                errorCount++;
-            }
+    <section class="section section-alt">
+      <div class="container container-narrow">
+        <div class="section-header">
+          <h2 class="section-title">What to Expect</h2>
+        </div>
+        <div class="response-times">
+          <div class="response-card">
+            <h3>WhatsApp</h3>
+            <p>Within 1-2 hours during business hours</p>
+          </div>
+          <div class="response-card">
+            <h3>Email</h3>
+            <p>Within 4-6 hours during business hours</p>
+          </div>
+          <div class="response-card">
+            <h3>Support Form</h3>
+            <p>Within a few hours, often sooner</p>
+          </div>
+          <div class="response-card">
+            <h3>Weekends</h3>
+            <p>Messages handled on Monday morning</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            // Show appropriate modal based on results
-            if (successCount > 0) {
-                showModal(true, 'Request Sent!', 'Thank you for reaching out. Our support team will review your message and respond shortly via WhatsApp or email.');
-                supportForm.reset();
-            } else {
-                showModal(false, 'Submission Failed', 'There was an error sending your request. Please try again or contact us directly via WhatsApp.');
-            }
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="/Logo-nobg.png" alt="NaijaAssets" class="logo-img"></a>
+          <p>AI-first education platform making quality learning affordable and accessible for students everywhere.</p>
+          <div class="footer-socials">
+            <a href="/ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="/fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="/x" aria-label="X/Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="/yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="/tt" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="/li" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <a href="/subjects/">Subjects</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/scholarships/">Scholarships</a>
+          <a href="/rewards/">Rewards</a>
+          <a href="/teachers/">For Teachers</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="/about/">About</a>
+          <a href="/affiliate/">Affiliate Program</a>
+          <a href="/support/">Support</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/support/">Contact</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="/legal-pages/terms-of-service.html">Terms of Service</a>
+          <a href="/legal-pages/privacy-policy.html">Privacy Policy</a>
+          <a href="/legal-pages/">All Policies</a>
+          <a href="/legal-pages/acceptable-use-policy.html">Acceptable Use</a>
+          <a href="/legal-pages/ai-usage-policy.html">AI Usage Policy</a>
+        </div>
+        <div>
+          <h4>More</h4>
+          <a href="/legal-pages/cookie-policy.html">Cookie Policy</a>
+          <a href="/legal-pages/security-policy.html">Security</a>
+          <a href="/legal-pages/accessibility-statement.html">Accessibility</a>
+          <a href="/legal-pages/childrens-privacy-notice.html">Children's Privacy</a>
+          <a href="/legal-pages/parental-consent-policy.html">Parental Consent</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> NaijaAssets. All rights reserved.</span>
+        <span>Helping Nigerian students learn better.</span>
+      </div>
+    </div>
+  </footer>
 
-            // Reset button state
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request';
-        });
-    </script>
+  <script src="/assets/js/site-config.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>
